@@ -6,10 +6,6 @@ The purpose of this Design Pattern is to define a set of minimal requirements ev
 ## Motivation
 Regardless of (place in the) architecture or purpose every ETL process should be created to follow a distinct set of base rules. Essential concepts such as having ETL processes check if they have already run before inserting duplicates or corrupting data makes testing, maintenance and troubleshooting a more straightforward task. The ultimate motivation is to develop ETL which cannot cause errors due to unplanned or unwanted execution. Essentially, ETL must be able to be run and re-run at any point in time to support a fully flexible scheduling and implementation.
 
-## Also known as
-ETL guidelines
-Basic ETL architecture
-
 ## Applicability
 This Design Pattern applies to every ETL process.
 
@@ -36,15 +32,10 @@ An example is as follows:
 
 ETL processes are recommended to be placed in the directory/folder where they pull data _to_. For instance the ETL logic for ‘Staging to History’ exists in the ‘150_History_Area’ folder and loads data from the ‘100_Staging_Area’.
 
-## Consequences and considerations
+## Considerations and considerations
 In some situations specific properties of the ETL process may seem overkill or perhaps even redundant. This (perceived) additional effort will have its impact on developing duration. 
 
 But in the context of maintaining a generic design (e.g. to support ETL generation and maintenance) this will still be necessary. Concessions may be made per architectural Layer (all ETL processes within a certain architecture step) but this is recommended to be motivated in the customised (i.e. project specific) Solution Architecture documentation.
 
-## Known uses
-All data integration processes designed and developed within the context of the Data Integration framework and architecture.
-
 ## Related patterns
 In the various Design and Implementation Patterns where detailed ETL design for a specific task is documented the requirements in this pattern will be adhered to.
-Discussion items (not yet to be implemented or used until final)
-None.
