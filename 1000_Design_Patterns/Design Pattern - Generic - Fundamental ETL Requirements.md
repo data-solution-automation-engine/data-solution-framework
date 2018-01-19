@@ -24,7 +24,7 @@ The requirements are as follows:
 It is recommended to follow a ‘sortable’ folder structure to visibly order containers / folders where ETL processes are stored in a way that represents the flow of data. 
 
 An example is as follows:
-* 000_<source systems>, one for every source
+* 000_\<source systems\>, one for every source
 * 100_Staging_Area
 * 150_Persistent_Staging_Area
 * 200_Integration_Layer
