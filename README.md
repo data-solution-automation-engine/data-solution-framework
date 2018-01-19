@@ -12,4 +12,4 @@ The pattern structure (Design and Solution Pattern layout) always is as follows:
 * Considerations and consequences, meant to offer some alternative views and experiences as to what it means to take a certain decision.
 * Related Patterns, any references towards futher reading and related content.
 
-the <title> is in Header 1 format, the sections are in Header 2 format.
+The <title> is in Header 1 format, the sections are in Header 2 format.
