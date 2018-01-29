@@ -21,31 +21,17 @@ Creating Dimensions from a Data Vault model essentially means joining the variou
 Figure 1: Example Data Vault model
 Creating dimensions by joining tables with history means that the overlap in timelines (effective and expiry dates) will be ‘cut’ in multiple records with smaller intervals. This is explained using the following sample datasets, only the tables which contain ‘history’ are shown.
 
-SAT Product:
-Key
-Product Name 
-Effective Date
-Expiry Date	
+SAT Product
+
+Key|Product Name|Effective Date|Expiry Date	
+--|---|---|---|---
+73|- (dummy)|01-01-1900|01-01-2009
+73|Cheese|01-01-2009|05-06-2010	
+73|Cheese – Yellow|05-06-2010|04-04-2011
+73|Cheese – Gold|04-04-2011|31-12-9999
 
 The first record is a dummy record created together with the Hub record. This was updated as part of the history / SCD updates.
-73
-- (dummy)
-01-01-1900
-01-01-2009
-73
-Cheese
-01-01-2009
-05-06-2010	
-
 Before being joined to the other sets this Satellite table is joined to the Hub table first. The Hub table maps the Data Warehouse key ‘73’ to the business key ‘CHS’.
-73
-Cheese – Yellow
-05-06-2010
-04-04-2011
-73
-Cheese – Gold
-04-04-2011
-31-12-9999
 
 SAT Product –Channel (Link-Satellite):
 Link Key
@@ -172,6 +158,4 @@ Design Pattern 002 – Generic – Types of history
 Design Pattern 006 – Generic – Using Start, Process and End dates.
 Design Pattern 008 – Data Vault – Loading Hub tables
 Design Pattern 009 – Data Vault – Loading Satellite tables
-Design Pattern 010 – Data Vault – Loading Link tables
-Discussion items (not yet to be implemented or used until final)
-None.
+Design Pattern 010 – Data Vault – Loading Link tables.

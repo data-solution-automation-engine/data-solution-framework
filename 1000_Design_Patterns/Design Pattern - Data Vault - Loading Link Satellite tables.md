@@ -2,19 +2,23 @@
 
 ## Purpose
 This Design Pattern describes how to load data into Link-Satellite tables within a ‘Data Vault’ EDW architecture. In Data Vault, Link-Satellite tables manage the change for relationships over time.
-Motivation
+
+## Motivation
 
 Also known as
 Link-Satellite (Data Vault modelling concept).
 History or INT tables.
-Applicability
+
+## Applicability
 This pattern is only applicable for loading data to Link-Satellite tables from:
 The Staging Area into the Integration Area.
 The Integration Area into the Interpretation Area.
 The only difference to the specified ETL template is any business logic required in the mappings towards the Interpretation Area tables.
-Structure
+
+## Structure
  Standard Link-Satellites use the Driving Key concept to manage the ending of ‘old’ relationships.
-Implementation guidelines
+
+## Implementation Guidelines
 Multiple passes of the same source table or file are usually required. The first pass will insert new keys in the Hub table; the other passes are needed to populate the Satellite and Link tables.
 Select all records for the Link Satellite which have more than one open effective date / current record indicator but are not the most recent (because that record does not need to be closed
 WITH MyCTE (<Link SK>, <Driving Key SK>, OMD_EFFECTIVE_DATE, OMD_EXPIRY_DATE, RowVersion)
@@ -44,10 +48,12 @@ LEFT JOIN MyCTE LEAD ON BASE.<Driving Key SK> = LEAD.<Driving Key SK>
 LEFT JOIN MyCTE LAG ON BASE.<Driving Key SK> = LAG.<Driving Key SK>
   AND BASE.RowVersion = LAG.RowVersion+1
 WHERE BASE.OMD_EXPIRY_DATE = '99991231'
-Consequences
+
+## Considerations and Consequences
 Multiple passes on source data are likely to be required.
 Known uses
-Related patterns
+
+## Related Patterns
 Design Pattern 006 – Using Start, Process and End Dates
 Design Pattern 009 – Loading Satellite tables.
 Design Pattern 010 – Loading Link tables.

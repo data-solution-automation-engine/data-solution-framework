@@ -2,7 +2,8 @@
 
 ## Purpose
 This Design Pattern is defined to support a 2-tiered (Staging and Presentation Layer only) Data Warehouse architecture. In most scenarios this type of solution depends on loading processes that select information from the History Area to update the Presentation Layer. The History Area provides a ‘safety catch’ that records all transactions and changes that pass through the Data Warehouse and amongst other things provides the functionality to rebuild the Presentation Layer Star- and/or Snowflake models.
-Motivation
+
+## Motivation
 There are various advantages using the History Area as the source table for the Presentation Layer updates in a 2-tiered approach:
 This design decouples delta gathering and the subsequent Data Mart ETL processes. This means delta processes can run at a different frequency than the Presentation Layer ETL Processes as the History Area always provides the most recent information (i.e. you can schedule the data staging to run more often and independent of the Data Mart updates.).
 Only one source (the HSTG table) is required for all loading types (initial load, re-initialisation and regular runs). ETL can be designed in such a way that the history of changes can be merged with target Dimension thus only a single template is required. This approach uses load windows to only update the Data Mart with a limited set of (changed) records.
@@ -10,9 +11,11 @@ This approach allows the Data Warehouse team to truncate and reload the Presenta
  Also known as
 Data Staging.
 Dimensional Loading.
-Applicability
+
+## Applicability
 This pattern is applicable for loading the Presentation Layer in a 2-tiered Data Warehouse architecture. While not directly applicable to the loading processes in a 3-tiered architecture the logic can be reused to some extend as the provided SQL applies to any set of historical records.
-Structure
+
+## Structure
 The type of logic that is required to populate a Dimension based on two or more historical sources of information is very similar to the approach of loading a Dimension from the Integration Layer as documented in Design Pattern 019. However, the History Area does not have additional features related to the Integration Layer such as (but not limited to):
 Dummy record handling.
 Placeholders / unknown value taxonomy.
@@ -191,7 +194,8 @@ The full overview of corresponding ETL logic is displayed on the next page.
  
 
 Figure 1: ETL Flow for loading the Dimension
-Implementation guidelines
+
+## Implementation Guidelines
 The logic to calculate the overlaps in the timelines can be implemented both in SQL (source selection SQL) or using ETL components. This depends on the specific software capabilities.
 The End Dating mechanism is best implemented as a separate (post) ETL process to support additional functionality such as parallel inserts and post processing of dummy records. It also makes it a lot easier to handle late arriving information as the separate process will also ‘repair’ records that are inserted between existing rows. This Design Patterns contains the Expiry Date/Time for demonstration purposes. However, for the interval calculations the Expiry Date/Time is required and calculated at runtime (and then discarded).
 Depending on the database platform used the self-join can be replaced by a LEAD Analytical SQL function. Some platforms including SQL Server 2008R2 do not support this.
@@ -201,7 +205,8 @@ It is recommended to split the handling of a typical Dimension that consists of 
 One that handles all Type 2 changes.
 One that handles all Type 1 changes, to be run after the Type 2 ETL process if applicable.
 This simplifies the ETL process. Defining a combined ETL template is overly complex as the Type 1 attributes do not require the historical information to be available while the Type 2 attributes require additional handling of multiple change processing in one run.
-Consequences
+
+## Considerations and Consequences
 Loading from the History Area requires the availability and implementation of this optional component as part of the overall solution.
 Ultimately the decision to load the Presentation Layer from the Staging or History Area depends on the following considerations:
 Loading from Staging Area potentially provides the fastest end-to-end loading process since the various Integration Area and History Area ETL processes can be loaded in parallel. Loading HSTG before INT essentially add a 'link in the chain' and add time to the end-to-end process as it requires serial processing (you need to wait for HSTG to finish). So, loading from STG brings you closer to mini batches or Near Real Time kind of loading.
@@ -215,7 +220,8 @@ An alternative solution to the above situation is to extend the example selectio
 During the designated recovery (rollback) process the OMD_SOURCE_CONTROL table must be rolled back as well.
 Known uses
 None.
-Related patterns
+
+## Related Patterns
 Design Pattern 019 – Data Vault – Creating Dimensions from Hub tables.
 Design Pattern 006 – Generic – Managing temporality by using Start, Process and End dates.
 Discussion items (not yet to be implemented or used until final)

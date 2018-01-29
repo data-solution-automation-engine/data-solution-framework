@@ -2,16 +2,19 @@
 
 ## Purpose
 This Design Pattern describes how to load data from the Staging Area (STG) to the History Staging Area (HSTG) - also known as the Persistent Staging Area (PSA).
-Motivation
+
+## Motivation
 The History Area is a generic concept that serves multiple purposes in the Data Warehouse architecture. The structure is source specific (similar to the Staging Area) but the History Area is designed to track changes over time and contains additional attributes for this purpose. While in most cases the structure of the STG and HSTG areas are similar in terms of attributes (with some specific exceptions in constraints), this is not a requirement. There may be scenarios where some attributes are omitted, and the templates used should be able to support this.
 The STG to HSTG process is in many ways a straightforward and consistent process that can be implemented without additional metadata - naming conventions are sufficient. The HSTG does not even need to be a relational database (RDBMS) - it can be a flat file or other type of storage. HSTG provides a raw archive of source data that was presented to the Data Warehouse environment and can be used for refactoring, auditing or 'replaying history' in upstream Data Warehouse layers.
 Also known as
 Archiving
 Staging to History ETL
 Persistent Staging Area (PSA)
-Applicability
+
+## Applicability
 This pattern is only applicable for loading processes from source systems or files to the History Area (via the Staging Layer) only.
-Structure
+
+## Structure
 The structure of the HSTG tables is similar to the STG tables, with the exception of the following:
 The Primary Key is a composite of:
 The source natural key
@@ -33,19 +36,19 @@ An ordering of changes (per key, over time) in which only the latest change is c
 The above three components together satisfy the HSTG template requirements. The ETL process can be described as loading delta sets into the source historical archive.
  
  
-Implementation guidelines
+## Implementation Guidelines
 Use a single ETL process, module or mapping to load data from a single source system table in the corresponding History Area table.
 The Load Date / Time stamp is the logical ‘effective date’, and is copied from the Staging Area table. The Staging Area handles the correct definition of the time a change has occurred.
 Because of the differences between source interfaces, relying on the CDC Operation (i.e. Insert, Update or Delete) to detect change is not always possible. For this reason all History Area ETL processes need to contain a key lookup to compare values (detect changes).
-Consequences
+
+## Consequences and Considerations
 Loading processes towards the Integration Area can either be sourced from the Staging Area or the History Area depending on the scheduling requirements.
 The History Area can be loaded in parallel with the Integration Area, or between the Staging Area and Integration Area.
 Known uses
 Every source table or file has an accompanying History Area table and ETL process.
-Related patterns
+
+## Related Patterns
 Implementation Pattern for SSIS 006 - Loading History Area tables
 Design Pattern 003 – Mapping requirements.
 Design Pattern 006 – Using Start, Process and End dates.
-Implementation Pattern 037 - Re-initialisation process
-Discussion items (not yet to be implemented or used until final)
-In older templates, the Primary Key was a separate meaningless key (hash value). But this has been replaced by a composite Primary Key as per this pattern.
+Implementation Pattern 037 - Re-initialisation process.

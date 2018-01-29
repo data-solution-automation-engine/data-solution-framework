@@ -2,14 +2,17 @@
 
 ## Purpose
 This design pattern describes the definitions for the commonly used history storage concepts.
-Motivation
+
+## Motivation
 Due to definitions changing over time and different definitions being made by different parties there usually is a lot of discussion about what exactly constitutes the different types of history. This design pattern aims to define these history types in order to provide the common ground for discussion.
 Also known as
 SCD / Slowly Changing Dimensions
 Type 1,2,3,4 etc.
-Applicability
+
+## Applicability
 Every situation where historical data is needed / stored or a discussion arises. Depending on the Data Warehouse architecture, this can be needed in a variety of situations. But typically these concepts are applied in the integration and presentation layer of the Data Warehouse.
-Structure
+
+## Structure
 The following history types are defined, some distinction is made where there are multiple viable explanations. All definitions can be valid coming from a specific background and in order to cater for every situation some history types are tagged with specific letters indicating a slightly different approach.
 Type 0. No change, while uncommon it has to be mentioned that this passive approach sometimes is implemented when storage space is to be saved or only the initial state has to be preserved.
 Type 1 – A. Change only the latest record. This implementation of type 1 is implemented if there is limited interest in keeping a specific kind of history. A good example is spelling errors; only the latest record is updated in that case (if you’re not interested in the wrong spelling for data quality purposes). 
@@ -101,19 +104,20 @@ A+ Cheese
 A+ Cheese	Golden	13-03-2010	31-12-9999
 2	CHS	Old Cheese	A+ Cheese	Golden	20-07-2008	12-03-2010
 1	CHS	Cheese	A+ Cheese	Golden	05-01-2000	19-07-2008
- Implementation guidelines
+
+## Implementation Guidelines
 Obviously, corresponding records are identified by the logical key.
 Type 1-B and the corresponding concept in type 6 usually require separate mappings to update the entire history. Special care from a performance perspective because it has to be avoided that the entire history will be rewritten over and over again when really only the latest situation for that logical key. This mapping will have to aggregate the dataset to merge the latest state per natural key with the target table, and it will have to run after the regular type 2 processes.
 Never use NULL in the end date attribute of the most recent record to indicate an open / recent record date. Some databases have troubles handling NULL values and it is best practice to avoid NULL values wherever possible, especially in dimensions.
 It is advised to add an ‘actual record indicator’ for quick querying and easy understanding.
 Depending on the location in the Data Warehouse either tables or attributes may be defined for a specific history type. For instance, defining a table as SCD type 2 means that a change in every attribute will lead to a new record (and closing an old one). In Data Marts the common approach is often to specify a history type per attribute. So a change in one attribute may lead to an SCD type 2 event, but a change in another one may cause the history to be overwritten.
-Consequences
+
+## Considerations and Consequences
 None.
 Known uses
 Usually in the integration and presentation layer, but applicability is related to the architecture.
-Related patterns
-Design Pattern 011 – Kimball – Multiple SCD2 time periods
-Design Pattern 005 – Generic – Current view on historical data
-Design Pattern 007 – Kimball – Receiving order of information and late and early arrivals
-Discussion items (not yet to be implemented or used until final)
-None.
+
+## Related Patterns
+* Design Pattern 011 – Kimball – Multiple SCD2 time periods.
+* Design Pattern 005 – Generic – Current view on historical data.
+* Design Pattern 007 – Kimball – Receiving order of information and late and early arrivals.

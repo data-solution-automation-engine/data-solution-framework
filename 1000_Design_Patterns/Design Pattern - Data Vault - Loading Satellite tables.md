@@ -2,17 +2,20 @@
 
 ## Purpose
 This Design Pattern describes how to load data into Satellite tables within a ‘Data Vault’ EDW architecture. The concept can be applied to any SCD2 mechanism as well.
-Motivation
+
+## Motivation
 The Design Pattern to load data into Satellite style tables aims to simplify and streamline the way ETL design is done for these tables. The process is essentially straightforward and does not require any business logic other than the definition of the business key. This is already done as part of the data modelling and Hub definition steps.
 Also known as
 Satellite (Data Vault modelling concept).
 History or INT tables.
-Applicability
+
+## Applicability
 This pattern is only applicable for loading data to Satellite tables from:
 The Staging Area into the Integration Area.
 The Integration Area into the Interpretation Area.
 The only difference to the specified ETL template is any business logic required in the mappings towards the Interpretation Area Satellite tables.
-Structure
+
+## Structure
 The ETL process can be described as a slowly changing dimension / history update of all attributes except the business key (which is stored in the Hub table). This is explained in the following diagram. Most attribute values, including some of the OMD values are copied from the Staging Area table. This includes:
 OMD_INSERT_DATETIME (used for the target OMD_EFFECTIVE_DATE and OMD_UPDATE_DATETIME attributes).
 OMD_SOURCE_ROW_ID.
@@ -24,7 +27,8 @@ Figure 1: Satellite ETL process
 The Satellite ETL processes can only be run after the Hub process has finished, but can run in parallel with the Link ETL process. This is displayed in the following diagram:
 Business Insights > Design Pattern 009 - Data Vault - Loading Satellite Tables > BI.png
 Figure 2: Dependencies
-Implementation guidelines
+
+## Implementation Guidelines
 Multiple passes of the same source table or file are usually required. The first pass will insert new keys in the Hub table; the other passes are needed to populate the Satellite and Link tables.
 The process in Figure 1 shows the entire ETL in one single process. For specific tools this way of developing ETL might be relatively inefficient. Therefore, the process can also be broken up into two separate mappings; one for inserts and one for updates. Logically the same actions will be executed, but physically two separate mappings can be used. This can be done in two ways:
 Follow the same logic, with the same selects, but place filters for the update and insert branches. This leads to an extra pass on the source table, at the possible benefit of running the processes in parallel.
@@ -39,13 +43,13 @@ WHERE  (            satellite.OMD_EXPIRY_DATE IS NULL AND
 ORDER BY 1,2 DESC
 If you have a Change Data Capture based source, the attribute comparison is not required because the source system supplies the information whether the record in the Staging Area is new, updated or deleted.
 Use hash values to detect changes, instead of comparing attributes separately. The hash value is created from all attributes except the business key and OMD values.
-Consequences
+
+## Considerations and Consequences
 Multiple passes on source data are likely to be required.
 Known uses
 This type of ETL process is to be used in all Hub or SK tables in the Integration Area. The Cleansing Area Hub tables, if used, have similar characteristics but the ETL process contains business logic.
-Related patterns
+
+## Related Patterns
 Design Pattern 006 – Generic – Using Start, Process and End Dates
 Design Pattern 009 – Data Vault – Loading Satellite tables.
 Design Pattern 010 – Data Vault – Loading Link tables.
-Discussion items (not yet to be implemented or used until final)
-None.
