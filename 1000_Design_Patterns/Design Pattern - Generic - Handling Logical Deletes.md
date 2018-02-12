@@ -21,25 +21,24 @@ This also means that the new record which contains the ‘deleted’ indicator will 
 For example:
 Initially a new record is inserted.
 
-DWH_KEY | Logical Key | Name | Colour| Current |Deleted | Effective Date | Expiry Date
+DWH Key | Logical Key | Name | Colour| Current |Deleted | Effective Date | Expiry Date
 ---|---|---|---|---|---|---|---
 1 | CHS | Cheese | YEL | Y| N | 10-01-2006| 31-12-9999
 
-
 After a while, the record is deleted from the source and captured using a CDC mechanism. The new row which represents the deleted record is inserted and the original row is updated for the current row indicator and expiry date.
-DWH_KEY	Logical Key	Name	Colour	Current	Deleted	Effective Date	Expiry Date
-1
-CHS	Cheese	YEL	N	N	10-01-2006	04-02-2010
-2	CHS	Cheese	YEL	Y	Y	 04-02-2010	
-31-12-999
-9
+
+DWH Key | Logical Key | Name | Colour| Current |Deleted | Effective Date | Expiry Date
+---|---|---|---|---|---|---|---
+1 | CHS | Cheese | YEL | N | N | 10-01-2006 | 04-02-2010
+2 | CHS | Cheese | YEL | Y | Y	| 04-02-2010 | 31-12-9999
 
 The Data Warehouse now contains all the correct information to reopen the record if that situation occurs.
-DWH_KEY	Logical Key	Name	Colour	Current	Deleted	Effective Date	Expiry Date
-1
-CHS	Cheese	YEL	N	N	10-01-2006	04-02-2010
-2	CHS	Cheese	YEL	Y	Y	 04-02-2010	02-06-2011
-3	CHS	Cheese	YEL	Y	N	 02-06-2011	31-12-9999
+
+DWH Key | Logical Key | Name | Colour| Current |Deleted | Effective Date | Expiry Date
+---|---|---|---|---|---|---|---
+1 | CHS | Cheese | YEL | N | N | 10-01-2006 | 04-02-2010
+2 | CHS | Cheese | YEL | Y | Y | 04-02-2010 | 02-06-2011
+3 | CHS | Cheese | YEL | Y | N | 02-06-2011 | 31-12-9999
 
 The Deleted Row Indicator (‘Deleted’ in this example) keeps the design straightforward and provides the information that a record has been deleted from an effective date onwards including the image when it was deleted.
 
