@@ -1,4 +1,4 @@
-# Data_Integration_Framework
+# Data Integration Framework
 Architecture and patterns for Data Integration. Working on collaboratively maintaining architecture patterns.
 
 The pattern structure (Design and Solution Pattern layout) always is as follows:
