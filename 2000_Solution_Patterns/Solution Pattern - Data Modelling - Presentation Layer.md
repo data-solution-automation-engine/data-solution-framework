@@ -1,13 +1,6 @@
 # Solution Pattern - Data Modelling - Presentation Layer
 
 ## Purpose
-<<<<<<< HEAD
-This Implementation Pattern describes the data modelling conventions and architecture for the Presentation Layer.
-Structure
-In principle, there are two mechanisms towards preparing information for consumption in the Presentation Layer (created in the Presentation Layer database):
-<<<<<<< HEAD
-* Direct view on top of the Integration Layer (virtual information mart). In by far the most scenarios the first option (direct view / virtual) option is preferred as the subsequent layers in the (BI) architecture are typically MOLAP or in-memory.
-=======
 This Solution Pattern describes the data modelling conventions and objects used to expose and/or load dimensions in the Presentation Layer.
 
 ## Motivation
@@ -25,13 +18,8 @@ This patterns is heavily geared towards Dimensional Modelling (Dimensional Model
 In principle, there are two technical approaches / mechanisms to prepare information for consumption in the Presentation Layer (created in the Presentation Layer database):
 
 * A direct view on top of the Integration Layer (virtual information mart). In -by far- the most scenarios this option is preferred as the subsequent layers in the (BI) architecture are typically MOLAP or in-memory and therefore address performance concerns from an end-user's perspective.
->>>>>>> 83665a0b59440a7c43985df8305b15a4bf404985
 * Table / persistence / physical storage using a view to join and prepare the data in the format that matches the table (logic) and can be used to incrementally load the table.
 
-=======
-Direct view on top of the Integration Layer (virtual information mart). In by far the most scenarios the first option (direct view / virtual) option is preferred as the subsequent layers in the (BI) architecture are typically MOLAP or in-memory.
-Table / persistence / physical storage using a view to join and prepare the data in the format that matches the table (logic) and can be used to incrementally load the table.
->>>>>>> parent of d591b35... Updating template
 In both cases these Presentation Layer objects will require one or more views to decouple the Business Intelligence (BI) and Data Warehouse (DWH) environments. These decoupling views are also intended to apply the history perspective at attribute level; e.g. how every attribute is displayed in time (e.g. Type1, Type2, Type 6).
 
 The following general guidelines have been defined for Presentation Layer development:
