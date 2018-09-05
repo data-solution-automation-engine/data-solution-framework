@@ -2,10 +2,12 @@
 
 ## Purpose
 This Implementation Pattern describes the data modelling conventions and architecture for the Presentation Layer.
-Structure
+
+##Structure
 In principle, there are two mechanisms towards preparing information for consumption in the Presentation Layer (created in the Presentation Layer database):
-Direct view on top of the Integration Layer (virtual information mart). In by far the most scenarios the first option (direct view / virtual) option is preferred as the subsequent layers in the (BI) architecture are typically MOLAP or in-memory.
-Table / persistence / physical storage using a view to join and prepare the data in the format that matches the table (logic) and can be used to incrementally load the table.
+* Direct view on top of the Integration Layer (virtual information mart). In by far the most scenarios the first option (direct view / virtual) option is preferred as the subsequent layers in the (BI) architecture are typically MOLAP or in-memory.
+* Table / persistence / physical storage using a view to join and prepare the data in the format that matches the table (logic) and can be used to incrementally load the table.
+
 In both cases these Presentation Layer objects will require one or more views to decouple the Business Intelligence (BI) and Data Warehouse (DWH) environments. These decoupling views are also intended to apply the history perspective at attribute level; e.g. how every attribute is displayed in time (e.g. Type1, Type2, Type 6).
 The following are general guidelines:
 The logic views and tables contain all history (Type2) by default. Any interpretation of history, such as ‘current state view’, can be queried using the decoupling views.
