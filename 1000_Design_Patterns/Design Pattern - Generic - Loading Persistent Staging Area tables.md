@@ -32,10 +32,10 @@ To support these requirements, there are three main processes in place within th
 A safety check to prevent reloading of already loaded data. This is to avoid accidental reruns or out-of-order processing causes errors due to key violations, in combination with the requirement to load multiple changes in a single run.
 A verification if the change provided is really a change. This is to allow the scope of attributes to change, for instance if a specific attribute is removed from the HSTG table (and still exists in STG). As part of the standard ETL requirements, the information provided is always compared against the target scope of attributes.
 An ordering of changes (per key, over time) in which only the latest change is compared against the most recent change as available in HSTG. 
- 
+
 The above three components together satisfy the HSTG template requirements. The ETL process can be described as loading delta sets into the source historical archive.
- 
- 
+
+
 ## Implementation Guidelines
 Use a single ETL process, module or mapping to load data from a single source system table in the corresponding History Area table.
 The Load Date / Time stamp is the logical ‘effective date’, and is copied from the Staging Area table. The Staging Area handles the correct definition of the time a change has occurred.
@@ -43,12 +43,16 @@ Because of the differences between source interfaces, relying on the CDC Operati
 
 ## Consequences and Considerations
 Loading processes towards the Integration Area can either be sourced from the Staging Area or the History Area depending on the scheduling requirements.
+
 The History Area can be loaded in parallel with the Integration Area, or between the Staging Area and Integration Area.
-Known uses
-Every source table or file has an accompanying History Area table and ETL process.
+
+The 'prevent reprocessing' functionality can also be implemented using the Event Date / Time attribute instead of the Load Date / Time attribute. 
+
+
+
+
 
 ## Related Patterns
-Implementation Pattern for SSIS 006 - Loading History Area tables
-Design Pattern 003 – Mapping requirements.
-Design Pattern 006 – Using Start, Process and End dates.
-Implementation Pattern 037 - Re-initialisation process.
+- [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates]()
+- Implementation Pattern for SSIS - Loading Persistent Staging Area tables
+- Implementation Pattern - Generic - Re-initialisation process
