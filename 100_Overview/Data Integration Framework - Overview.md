@@ -1,18 +1,16 @@
 # Introduction
 
-## Simple, Agile, Data Warehousing
+The Data Integration Framework provides a software and methodology independent, structured approach to data integration. The framework is designed to facilitate a flexible and affordable development cycle. 
 
-The Data Integration Framework is a complete and proven solution for data management using a fast, consistent, robust and easy to use agile approach.
+By fit for purpose pre-defined documents, templates, design decisions, built-in error handling, auditability and process control the framework provides the consistency and structure for future-proof data integration and Data Warehouse design and development on any platform.
 
-The ETL Framework provides a software and methodology independent, structured approach to data integration. The framework is designed to facilitate a flexible and affordable development cycle. By fit for purpose pre-defined documents, templates, design decisions, built-in error handling, auditability and process control the framework provides the consistency and structure for future-proof data integration and Data Warehouse design and development on any platform.
+It is not a one-size-fits all solution; everything is defined in a modular way and different elements can be applied to suit the needs of each individual project. The Data Integration has a variety of content components which can be used in conjunction with each other or as stand-alone addition to existing management information solutions.
 
-It is not a one-size-fits all solution; everything is defined in a modular way and different elements can be applied to suit the needs of each individual project. The ETL Framework has a variety of content components which can be used in conjunction with each other or as stand-alone addition to existing management information solutions.
+The fundamental principle of the Data Integration is to design for change by decoupling 'warehouse logic' and 'business logic' and ensuring every ETL process can run and recover at any point in time (parallel) without impacting dependencies to other processes. The framework provides a standard to manage all data as an *asset* for the organisation and ensures that any new or changed requirements in reporting and information delivery can be met without re-engineering the underlying foundations. By decoupling the business logic it is possible to add new sources of information in a straightforward and consistent way without impacting existing reporting or analysis initiatives
 
-The fundamental principle of the ETL Framework is to design for change by decoupling 'warehouse logic' and 'business logic' and ensuring every ETL process can run and recover at any point in time (parallel) without impacting dependencies to other processes. The framework provides a standard to manage all data as an *asset* for the organisation and ensures that any new or changed requirements in reporting and information delivery can be met without re-engineering the underlying foundations. By decoupling the business logic it is possible to add new sources of information in a straightforward and consistent way without impacting existing reporting or analysis initiatives
+The Data Integration does not break with established approaches and schools of thought but has defined the optimal combination of well-known and understood techniques to simplify data and information delivery.
 
-The ETL Framework does not break with established approaches and schools of thought but has defined the optimal combination of well-known and understood techniques to simplify data and information delivery.
-
-## Why need an ETL Framework?
+## Why need an Data Integration?
 
 ‘If we want better performance we can buy better hardware, unfortunately we cannot buy a more maintainable or more reliable system’.
 
@@ -22,13 +20,13 @@ These changes can include changes in latency, the bigger variety of sources or t
 
 Using a flexible ETL approach will meet these challenges by providing structure, flexibility and scalability for the design of data integration flows.
 
-Today’s BI architecture is typically designed to store structured data for strategic decision making where a small number of (expert) users analyse (historical) data and reports. Data is typically periodically extracted, cleansed, integrated and transformed in a Data Warehouse from a heterogeneous set of sources. The focus for ETL has been on ‘correct functionality’ and ‘adequate performance’ but this focus misses key elements that are equally important for success. These elements, such as the consistency, degree of atomicity, ability to rerun, scalability and robustness are addressed by using the ETL Framework. 
+Today’s BI architecture is typically designed to store structured data for strategic decision making where a small number of (expert) users analyse (historical) data and reports. Data is typically periodically extracted, cleansed, integrated and transformed in a Data Warehouse from a heterogeneous set of sources. The focus for ETL has been on ‘correct functionality’ and ‘adequate performance’ but this focus misses key elements that are equally important for success. These elements, such as the consistency, degree of atomicity, ability to rerun, scalability and robustness are addressed by using the Data Integration. 
 
 Future data solutions should for example be able to cater for sending back cleansed or interpreted data to the operational systems. They also should be able to cope with unstructured data next to the structured data and must be able to quickly respond to changes in (business) requirements. Lastly, it will need to support a ‘feedback loop’ to incorporate changes made by (authorised) end-users in the front-end environments. 
 
-To be ready for future changes the next generation data integration and ETL designs must support a methodology which provides the foundation for a flexible approach. Without this structured approach to data integration design the solution will ultimately risk becoming the ‘spaghetti of code and rules’ that it was initially meant to replace. That is why we need an ETL Framework. 
+To be ready for future changes the next generation data integration and ETL designs must support a methodology which provides the foundation for a flexible approach. Without this structured approach to data integration design the solution will ultimately risk becoming the ‘spaghetti of code and rules’ that it was initially meant to replace. That is why we need an Data Integration. 
 
-The ETL Framework provides a structured approach to data integration design for an easy, flexible and affordable development cycle. By providing architecture documents and mapping templates, design decisions and built-in error handling and process control the ETL Framework provides the consistency and structure for future-proof ETL on any platform.
+The Data Integration provides a structured approach to data integration design for an easy, flexible and affordable development cycle. By providing architecture documents and mapping templates, design decisions and built-in error handling and process control the Data Integration provides the consistency and structure for future-proof ETL on any platform.
 
 ## Key benefits
 
@@ -40,7 +38,7 @@ The ETL Framework provides a structured approach to data integration design for 
 - Model driven design; define the information model, and expand your solution gradually and consistently from there. ETL is automatically generated using the model specifications
 - ETL quality and consistency; template driven ETL automation based on a conceptual framework provides a repeatable and dynamic development process which reduces the need for extensive documentation and delivers deterministic and high quality ETL logic
 - A documented and sound foundation for the Data Warehouse; the highly structure and complete documentation of all framework components provide a full picture from the high level concepts all the way down to the technical implementation for a large variety of ETL platforms
-- The ETL Framework provides the rules; only the focus on the necessary data (input) and the reporting (output) is required
+- The Data Integration provides the rules; only the focus on the necessary data (input) and the reporting (output) is required
 
 ## Intent and foundational principles
 
@@ -50,7 +48,7 @@ To accurately and quickly adapt to business needs the intended data solution sho
 
 
 
-# ETL Framework overview
+# Data Integration overview
 
 ## Components
 
@@ -79,23 +77,23 @@ The complete deployment of all components supports an industry standard flexible
   
 
 
-## ETL Framework documentation breakdown
+## Data Integration documentation breakdown
 
-The ETL Framework consists of the following documents:
+The Data Integration consists of the following documents:
 
  ![1547519517248](..\9000_Images\5C1547519517248.png)
 
 A full overview is provided below:
 
 - The (reference) **Solution Architecture** documentation is composed of the following documents:
-  - ETL Framework – 1 – Overview. The current document, providing an overview of ETL Framework components.
-  - ETL Framework – 2 – Reference Architecture. The reference architecture describes the elements that comprise the (enterprise) Data Warehouse and Business Intelligence foundations, with the details showing how these elements fit together. It also provides the principles and guidelines to enable the design and development of Business Intelligence applications together with a Data Warehouse foundation that is scaleable, maintainable and flexible to meet business needs. These high level designs and principles greatly influence and direct the technical implementation and components
-  - ETL Framework – 3 – Staging Layer. This document covers the specific requirements and design of the Staging Layer. The document specifies how to set up a Staging Area and History Area
-  - ETL Framework – 4 – Integration Layer. This document covers the specific requirements and design of the Integration Layer; the core Enterprise Data Warehouse
-  - ETL Framework – 5 – Presentation Layer. This document covers the specific requirements and design of the Data Marts in the Presentation Layer which supports the Business Intelligence front-end.
-  - ETL Framework – 6 – Metadata Model. This document covers the complete process of controlling the system, which ties in with every step in the architecture. All ETL processes make use of the metadata and this document provides the overview of the entire concept. The model can be deployed as a separate module
-  - ETL Framework - 7- Error handling and recycling process, which ties in with every step in the architecture. Elements of the error handling and recycling documentation can be used in a variety of situations
-  - ETL Framework – 8 – OMD Framework Detailed Design. This document provides detailed process descriptions for the ETL process control (Operational Meta Data model – OMD).
+  - Data Integration – 1 – Overview. The current document, providing an overview of Data Integration components.
+  - Data Integration – 2 – Reference Architecture. The reference architecture describes the elements that comprise the (enterprise) Data Warehouse and Business Intelligence foundations, with the details showing how these elements fit together. It also provides the principles and guidelines to enable the design and development of Business Intelligence applications together with a Data Warehouse foundation that is scaleable, maintainable and flexible to meet business needs. These high level designs and principles greatly influence and direct the technical implementation and components
+  - Data Integration – 3 – Staging Layer. This document covers the specific requirements and design of the Staging Layer. The document specifies how to set up a Staging Area and History Area
+  - Data Integration – 4 – Integration Layer. This document covers the specific requirements and design of the Integration Layer; the core Enterprise Data Warehouse
+  - Data Integration – 5 – Presentation Layer. This document covers the specific requirements and design of the Data Marts in the Presentation Layer which supports the Business Intelligence front-end.
+  - Data Integration – 6 – Metadata Model. This document covers the complete process of controlling the system, which ties in with every step in the architecture. All ETL processes make use of the metadata and this document provides the overview of the entire concept. The model can be deployed as a separate module
+  - Data Integration - 7- Error handling and recycling process, which ties in with every step in the architecture. Elements of the error handling and recycling documentation can be used in a variety of situations
+  - Data Integration – 8 – OMD Framework Detailed Design. This document provides detailed process descriptions for the ETL process control (Operational Meta Data model – OMD).
 
 - Design Patterns. Detailed backgrounds on design principles: the how-to’s. Design Patterns provide best-practice approaches to typical Data Warehouse challenges. At the same time the Design Patterns provide a template to document future design decisions.
 - Solution Patterns. Highly detailed implementation documentation for specific software platforms. Typically a single Design Patterns is referred to by multiple Solution Patterns, all of which document how to exactly implement the concept using a specific technology
@@ -115,17 +113,17 @@ The Reference Architecture and the corresponding Technical (Solution) Architectu
 
 For instance, the Reference Architecture (Staging Layer component) states that the loading of Flat Files should be broken in different process steps where data type conversions must be performed. It also states that Flat Files should be archived after processing, and why. 
 
-In this example the Design Pattern would refer to the ‘AGA ETL Framework - 2 -  Staging Layer’ document and related Solution Patterns to define the necessary elements like storing the file creation date, unzipping and moving files, creating file lists and other necessary steps.
+In this example the Design Pattern would refer to the ‘AGA Data Integration - 2 -  Staging Layer’ document and related Solution Patterns to define the necessary elements like storing the file creation date, unzipping and moving files, creating file lists and other necessary steps.
 
 # Adoption
 
 ## Positioning
 
-The ETL Framework should be viewed as one part of the larger (enterprise) architecture. The purpose is to specify how the ETL and the data model can be configured for an optimal Enterprise Data Warehouse implementation. This is a detailed (albeit significant) component in the Data Warehouse architecture which in itself includes other components such as system landscape, subject areas and the Business Intelligence and Data domain. 
+The Data Integration should be viewed as one part of the larger (enterprise) architecture. The purpose is to specify how the ETL and the data model can be configured for an optimal Enterprise Data Warehouse implementation. This is a detailed (albeit significant) component in the Data Warehouse architecture which in itself includes other components such as system landscape, subject areas and the Business Intelligence and Data domain. 
 
 ![1547519790297](..\9000_Images\5C1547519790297.png)   
 
-## Using the ETL Framework
+## Using the Data Integration
 
 The reference architecture serves as an outline to relate ETL examples and best-practices to. The main purpose is to create a common ground where every developer can use the same approach and background to contribute to a common integrated data repository. 
 
@@ -133,11 +131,11 @@ Because of its nature as reference architecture not all components necessarily h
 
 The framework Reference Architecture is a standard approach for Enterprise Data Warehouse and Business Intelligence design and implementation. The most important aspect is to understand which ETL and Data Warehousing concepts are used in what Layer of the architecture and the reasoning behind this.
 
-The Reference Architecture also provides the basic structure for the documentation of the ETL Framework. Every component of the design and implementation relates back to this architecture, including tips, tricks and examples of implementation options. The implementation solutions for this architecture are designed to be as generic as possible without losing practical value.
+The Reference Architecture also provides the basic structure for the documentation of the Data Integration. Every component of the design and implementation relates back to this architecture, including tips, tricks and examples of implementation options. The implementation solutions for this architecture are designed to be as generic as possible without losing practical value.
 
 ## Executing a project
 
-In principle every project that contributes to the common integrated data model as executed within the AGA ETL Framework follows the same approach. At a high level this is as follows:
+In principle every project that contributes to the common integrated data model as executed within the AGA Data Integration follows the same approach. At a high level this is as follows:
 
 - Define Solution Architecture and Technical Architecture based on the framework reference architecture. Effectively this defines how sources are interfaced and integrated into the central model. For instance how to collect data delta (CDC) following the framework principles, where data should be integrated in the structured or unstructured world etc.
 - Define Project Scope; this is a breakdown of a requirement in data terms. What data is needed to meet requirements in the broader sense (answer this and similar questions). This scope of data becomes the input for bottom-up planning of data integration
