@@ -1,20 +1,20 @@
 # Introduction
 
-The Data Integration Framework provides a software and methodology independent, structured approach to data integration. The framework is designed to facilitate a flexible and affordable development cycle. 
+A Data Integration Framework provides a software and methodology independent, structured approach to developing data processes. 
 
-By fit for purpose pre-defined documents, templates, design decisions, built-in error handling, auditability and process control the framework provides the consistency and structure for future-proof data integration and Data Warehouse design and development on any platform.
+The framework is designed to facilitate a platform-independent, flexible and manageable development cycle. It contains pre-defined documents, templates, design decisions, auditability and process control (orchestration approaches).
 
-It is not a one-size-fits all solution; everything is defined in a modular way and different elements can be applied to suit the needs of each individual project. The Data Integration has a variety of content components which can be used in conjunction with each other or as stand-alone addition to existing management information solutions.
+The framework should not be seen as a one-size-fits all solution; everything is defined in a modular way as much as possible, and different elements can be applied to suit the needs of each individual solution. The Data Integration framework is set up as a variety of components which can be used in conjunction with each other, or as stand-alone additions to existing management information solutions.
 
-The fundamental principle of the Data Integration is to design for change by decoupling 'warehouse logic' and 'business logic' and ensuring every ETL process can run and recover at any point in time (parallel) without impacting dependencies to other processes. The framework provides a standard to manage all data as an *asset* for the organisation and ensures that any new or changed requirements in reporting and information delivery can be met without re-engineering the underlying foundations. By decoupling the business logic it is possible to add new sources of information in a straightforward and consistent way without impacting existing reporting or analysis initiatives
+The fundamental principle of the framework is to design for change by decoupling 'technical' logic and 'business' logic and ensuring every data integration process can run independently and in parallel - as well as recover at any point in time without impacting dependencies to other processes. 
 
-The Data Integration does not break with established approaches and schools of thought but has defined the optimal combination of well-known and understood techniques to simplify data and information delivery.
+The framework aims to provide standards for decoupling (functional separation) so new or changed requirements in information delivery can be met without re-engineering the foundations of the data solution.
 
-## Why need an Data Integration?
+## Why need a Data Integration Framework?
 
-‘If we want better performance we can buy better hardware, unfortunately we cannot buy a more maintainable or more reliable system’.
+‘If we want better performance we can buy better hardware, unfortunately we cannot buy a more maintainable or reliable system’.
 
-The design and implementation of the ETL data flow is largely a labour-intensive activity and typically consumes large fractions of the effort in Data Warehouse and data integration projects. Over time, when requirements change and enterprises become more data-driven, the BI architecture faces challenges in the complexity, consistency and flexibility in the design (and maintenance) of the data integration flows. 
+The design and implementation of the data integration is still largely a labour-intensive activity and typically consumes large amounts of effort in Data Warehouse and data integration projects. Over time, as requirements change and enterprises become more data-driven, the architecture faces challenges in the complexity, consistency and flexibility in the design (and maintenance) of the data integration flows. 
 
 These changes can include changes in latency, the bigger variety of sources or the introduction of more parallel processing to a previously rigid serial pipeline. All of this occurs when Data Warehousing and BI become more and more mission critical and its information is integrated into the operational decision making process.
 
@@ -40,19 +40,15 @@ The Data Integration provides a structured approach to data integration design f
 - A documented and sound foundation for the Data Warehouse; the highly structure and complete documentation of all framework components provide a full picture from the high level concepts all the way down to the technical implementation for a large variety of ETL platforms
 - The Data Integration provides the rules; only the focus on the necessary data (input) and the reporting (output) is required
 
-## Intent and foundational principles
+## Intent and principles
 
-To accurately and quickly adapt to business needs the intended data solution should decouple ‘warehouse logic’ from ‘business logic’. The basic assumption is that requirements will change over time, and that any solution that specifically is designed for a certain output or requirement will fail over time when adjustments are made. Rather, the framework views requirements from a data perspective and aims to properly integrate and consolidate data before applying a certain view.
+To adapt to business needs the intended data solution should decouple ‘warehouse logic’ from ‘business logic’. The basic assumption is that requirements will change over time, and that any solution that specifically is designed for a certain output or requirement will fail over time when adjustments are made. Rather, the framework views requirements from a data perspective and aims to properly integrate and consolidate data before applying a certain view.
 
 ![1547519184139](..\9000_Images\1547519184139.png)
 
+# Data Integration Framework components
 
-
-# Data Integration overview
-
-## Components
-
-The complete deployment of all components supports an industry standard flexible and agile Data Warehouse application at a minimum of cost and maximum flexibility and ease of use.
+The diagram below outlines the components that are required to support a data solution and enable automation. The intent is to enable a standard and structured way for documenting decisions made related to system design and intended operation.
 
  ![1547519339316](..\9000_Images\5C1547519339316.png)
 
@@ -60,7 +56,7 @@ The complete deployment of all components supports an industry standard flexible
 
 - Reference Solution Architecture; the default Data Warehouse / Information Hub architecture
 
-- Reference Technical Architecture; the most common technical requirements relevant to the solution architecture
+- Reference Technical Architecture; this artefact documents the common technical requirements relevant to the solution architecture. 
 
 - Design Patterns; documentation templates for key design decisions. Design Patterns are centrally stored and managed and are publicly available in Confluence
 

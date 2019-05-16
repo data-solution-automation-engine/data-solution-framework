@@ -1,6 +1,6 @@
 # Introduction
 
-## Purpose of the Reference Architecture
+## Purpose of the Reference Solution Architecture
 
 This document describes the foundation of the Enterprise Data Warehouse (EDW) and Business Intelligence platform, with the details showing each element fits together in the architecture. The document also provides the principles and guidelines to enable the design and development of Business Intelligence applications together with a Data Warehouse foundation that is scalable, maintainable and flexible to meet business needs.  
 
