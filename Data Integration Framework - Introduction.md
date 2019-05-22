@@ -44,13 +44,13 @@ The Data Integration provides a structured approach to data integration design f
 
 To adapt to business needs the intended data solution should decouple ‘warehouse logic’ from ‘business logic’. The basic assumption is that requirements will change over time, and that any solution that specifically is designed for a certain output or requirement will fail over time when adjustments are made. Rather, the framework views requirements from a data perspective and aims to properly integrate and consolidate data before applying a certain view.
 
-![1547519184139](..\9000_Images\1547519184139.png)
+![1547519184139](.\Images\1547519184139.png)
 
 # Data Integration Framework components
 
 The diagram below outlines the components that are required to support a data solution and enable automation. The intent is to enable a standard and structured way for documenting decisions made related to system design and intended operation.
 
- ![1547519339316](..\9000_Images\5C1547519339316.png)
+ ![1547519339316](.\Images\5C1547519339316.png)
 
    
 
@@ -77,7 +77,7 @@ The diagram below outlines the components that are required to support a data so
 
 The Data Integration consists of the following documents:
 
- ![1547519517248](..\9000_Images\5C1547519517248.png)
+ ![1547519517248](.\Images\5C1547519517248.png)
 
 A full overview is provided below:
 
@@ -117,7 +117,7 @@ In this example the Design Pattern would refer to the ‘AGA Data Integration - 
 
 The Data Integration should be viewed as one part of the larger (enterprise) architecture. The purpose is to specify how the ETL and the data model can be configured for an optimal Enterprise Data Warehouse implementation. This is a detailed (albeit significant) component in the Data Warehouse architecture which in itself includes other components such as system landscape, subject areas and the Business Intelligence and Data domain. 
 
-![1547519790297](..\9000_Images\5C1547519790297.png)   
+![1547519790297](.\Images\5C1547519790297.png)   
 
 ## Using the Data Integration
 
@@ -139,4 +139,4 @@ In principle every project that contributes to the common integrated data model 
 
 In this approach it is highly recommended to limit the scope to a short-term iteration; ideally bringing the cycle down to 2-3 weeks.
 
-![1547519869758](..\9000_Images\5C1547519869758.png)
+![1547519869758](.\Images\5C1547519869758.png)

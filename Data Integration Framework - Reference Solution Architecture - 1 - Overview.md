@@ -83,7 +83,7 @@ This chapter describes the detail overview of the reference architecture.
 
 The high level reference architecture is as follows:
 
-![1547521419126](..\9000_Images\HighLevelSolutionOverview.png)
+![1547521419126](.\Images\HighLevelSolutionOverview.png)
 
 In this overview the basic flow of data as specified in the Reference Architecture is:
 
@@ -106,7 +106,7 @@ The following diagram is a bottom-up overview of the detailed steps taken and ch
 
 Each layer contains two (2) separate ‘areas’. These areas cover specific ETL functionality that support the overall purpose of the layer of which they are part of. Each area inherits the data modelling approach of the parent layer. 
 
-![1547521501883](..\9000_Images\LayersAndAreas.png)
+![1547521501883](.\Images\LayersAndAreas.png)
 
 In this diagram Error/Exception handling and Operational Metadata are positioned as applicable for every process in the architecture. The left column of areas in the diagram specifies the mandatory areas (Staging, Integration and Reporting Structure).  
 
@@ -280,7 +280,7 @@ Every Data Warehouse table contains a predefined set of metadata attributes, whi
 
 Error handling and exception is applicable to every layer and area in the architecture. Each individual layer definition document will describe how error handling is used for that particular section of the architecture since the exception handling is very different between layers. The error handling and recycling document itself lists and explains the concepts that can be used and will provide an overview of the complete error and exception handling solution.
 
- ![1547521779997](..\9000_Images\79997.png)
+ ![1547521779997](.\Images\79997.png)
 
 The details for error and exception handling are defined in the ETL Framework - 7 - Exception Handling v1.0’ document.
 
@@ -291,7 +291,7 @@ Similar to exception and error handling concepts the Metadata Model links in wit
 
 The Metadata Model document itself will list and explain the available concepts and will provide an overview of the complete framework. 
 
-![1547521843164](..\9000_Images\64.png)
+![1547521843164](.\Images\64.png)
 
 In general the metadata process model supports the ability to trace back what data has been loaded, when and in what way for every interface. A single attribute in any place in the architecture should be auditable back to the originating source system.  
 
