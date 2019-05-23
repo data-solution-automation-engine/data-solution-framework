@@ -18,8 +18,6 @@ Considerations which affect the Presentation Layer in general and the Reporting 
 * Views on history. Not everyone needs a historical view on the data. For most reasons the current view (Type 1) might be sufficient whether other recipients might need to monitor how information changes over time
 * Quality of data. All data is stored in the integration layer: its raw form in the integration area and the cleaned form in the cleansing area. By selecting information from the cleansing area, based on the error bitmap, varying levels of data can be selected. Alternatively there is the option of creating a data quality helper summary which uses the error bitmap to enable the selection of data with or without certain errors
 
-### High level Presentation layer overview
-
 As documented in the solution architecture overview, data from the Integration Layer is loaded into the Presentation Layer with the option of being temporarily (or semi-permanently) stored in a Helper Area. Because the Presentation Layer is defined to support the reporting software the model can differ substantially from the Integration Layer.
 
 The most important aspect of the Presentation Layer is that it inherits its Data Warehouse keys from the Integration Layer, thus enabling backtracking of information. The detailed (raw or cleaned) data from the Integration Layer is still applicable to the keys in the Presentation Layer.
@@ -32,13 +30,11 @@ As the above diagram shows, both the Helper and Reporting Structure area process
 
 First option:
 
-​            A Data Mart or helper table      is created entirely based on the Integration Area. This may mean that      there is no need for enterprise wide data cleansing (no deduplication for      instance) and that the Data Mart is either too specific to share other      aggregations or performance is not an issue. Eventually the Helper Area      should support a Data Mart therefore the dashed arrow is displayed between      the Helper and the Data Mart.                   
+A Data Mart or helper table      is created entirely based on the Integration Area. This may mean that      there is no need for enterprise wide data cleansing (no deduplication for      instance) and that the Data Mart is either too specific to share other      aggregations or performance is not an issue. Eventually the Helper Area      should support a Data Mart therefore the dashed arrow is displayed between      the Helper and the Data Mart.                   
 
 Second option:
 
-​            A Data Mart or helper table      is created entirely based on the Interpretation Area. This may mean that      the Data Mart requires an indication of any errors in the enterprise wide      business rules or that it requires an integrated data set. Not using the      helper area again suggests an independent Data Mart or that performance is      not an issue. Eventually the Helper Area should support a datamart      therefore the dashed arrow is displayed between helper and Data Mart.                   
-
-
+ A Data Mart or helper table      is created entirely based on the Interpretation Area. This may mean that      the Data Mart requires an indication of any errors in the enterprise wide      business rules or that it requires an integrated data set. Not using the      helper area again suggests an independent Data Mart or that performance is      not an issue. Eventually the Helper Area should support a datamart      therefore the dashed arrow is displayed between helper and Data Mart.                   
 
 ​            A Data Mart is created both      based on the Integration and the Interpretation Area and also uses a      (shared) Helper table. This is a viable option if some treated data is      used but other reference information might be usable directly.            
 
@@ -56,33 +52,9 @@ Second option:
 
 
 
-​            Reporting      Structure            
+​                                
 
-​     
-
-
-
-
-
-
-
-
-
- 
-
- 
-
-​                           
-
-​            Integration       Area            
-
-
-
-
-
-​            Helper Area                          
-
-​            **Combination 4:**            
+ Fourth option:   
 
 
 
@@ -92,39 +64,7 @@ Second option:
 
 ​     
 
-
-
-
-
-​            Interpretation      Area            
-
-
-
-
-
-​            Reporting      Structure            
-
-​     
-
-
-
-
-
-
-
-
-
- 
-
- 
-
-​                           
-
-​            Integration       Area            
-
-
-
-
+## 
 
 ​            Helper Area                          
 
@@ -140,33 +80,7 @@ Second option:
 
 ​     
 
-
-
-
-
-​            Reporting      Structure            
-
-
-
-
-
-​            Interpretation      Area            
-
-​     
-
-
-
-
-
-
-
-
-
- 
-
- 
-
-3.2      Loading and managing aggregate tables
+## Loading and managing aggregate tables
 
 The following load strategies are available for managing summary / aggregated tables. This is true for both the Helper and the Reporting Structure Area:
 
@@ -184,8 +98,7 @@ The following load strategies are available for managing summary / aggregated ta
 
 
 
-
-\4.       The Reporting Structure Area
+##  The Reporting Structure Area
 
 The Reporting Structure Area is the final part of the Reference Architecture. A Data Mart is modelled for a specific purpose, audience and technical requirement. The complete Data Warehouse can contain very different data marts with different models and different ‘versions of the truth’ depending on the business needs. In the process from loading the data from the Integration layer to the Presentation layer most of the business logic is implemented. 
 
