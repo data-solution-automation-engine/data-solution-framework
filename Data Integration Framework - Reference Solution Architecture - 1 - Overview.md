@@ -1,45 +1,118 @@
-# Introduction
+# Reference Solution Architecture - overview
 
-## Purpose of the Reference Solution Architecture
+The reference Solution Architecture is designed to facilitate a platform-independent, flexible and manageable development cycle. 
 
-This document describes the foundation of the Enterprise Data Warehouse (EDW) and Business Intelligence platform, with the details showing each element fits together in the architecture. The document also provides the principles and guidelines to enable the design and development of Business Intelligence applications together with a Data Warehouse foundation that is scalable, maintainable and flexible to meet business needs.  
+The approach should not be seen as a one-size-fits all solution. Content is defined in a modular way as much as possible, and different elements can be applied to suit the needs of individual data solutions. 
+
+The fundamental principle of the framework is to design for change by decoupling 'technical' logic and 'business' logic and ensuring every data integration process can run independently and in parallel - as well as recover at any point in time without impacting dependencies to other processes. 
+
+The framework aims to provide standards for decoupling (functional separation) so new or changed requirements in information delivery can be met without re-engineering the foundations of the data solution.
+
+## Relationship to the Data Integration framework
+
+As an overarching concept, the Data Integration framework is defined as a variety of components which can be used in conjunction with each other, or as stand-alone additions to existing management information solutions. Examples are  pre-defined documents, templates, design- and implementation decisions as well as guidelines on auditability and process control (orchestration approaches).
+
+The Solution Architecture can be seen as the artefact that *combines* the selected options (patterns) and captures the considerations - the rationale for making certain design decisions and how they all work together.
+
+In short: the Data Integration framework provides the options and the Solution Architecture records which of these options have been selected for given purpose, and why. 
+
+## Purpose of the reference Solution Architecture
+
+This document describes the foundation of an Enterprise Data Warehouse (EDW) solution, explaining how various elements can be combined together in a data system architecture. 
+
+In this context, a solution architecture in it's essence is the selection and documentation of various design decisions including the reasoning for taking a certain approach. The documentation of options and considerations - represented as the selected design and solution patterns.
+
+This way, the solution architecture provides the principles and guidelines to enable a scalable, maintainable and flexible data solution - one that can meet the business' needs.  
 
 These high level designs and principles direct the technical implementation and components, which are intended to be capture into a Solution Architecture document for each delivery. The Solution Architecture captures which elements of the architecture are used and the reasoning for this, which is deployment-specific. 
 
 For every project it is required to fine-tune and match the Solution Architecture using these reference designs. Only by carefully selecting which parts should be adopted a fit-for-purpose implementation will be achieved. 
 
-### Objectives from a business perspective
+ To achieve this, the reference Solution Architecture describes on a high level:
 
-To the business, the architecture focuses on:
+- What layers and areas can be considered.
+- What the steps for data integration are, and in what order they should be processed.
+- What the options and considerations are during these steps.
+- How metadata is used and linked to the architecture layers.
+- How error handling and recycling is used and linked to the layers and areas.
 
-- Facilitating business decision-making and performance-monitoring processes through timely delivery of integrated and consistent information across the entire organisation.
-- Enable the business to focus less on data gathering activities and more on information analysis and use.
+## Objectives from a business perspective
+
+To the business, the reference architecture focuses on:
+
+- The ability quickly respond to changing business requirements. The  layered architecture and areas aim to separate concerns by allocating certain components to layers and areas.
+- Reliable use of data for decision making and analysis. This is supported through the application of consistency and durability principles (i.e. ACID) in a parallel processing environment.
+- Reduction of time to value and expected levels of quality. This is enabled by metadata-driven and pattern based development practices (i.e. virtualisation, ETL generation and Data Warehouse Automation)
 
 ### Objectives from a technology perspective
 
-In the context of technology and implementation this reference architecture provides the boundaries (‘playing field and rules’) where ETL patterns, concepts and best-practices can be developed. The framework ensures that:
+The reference Solution Architecture provides the structure in which best practices can be applied. It outlines the boundaries and rules that govern the behaviour of the intended data solution. The key objectives are:
 
+- Enabling refactoring without impacting consumers of information. Business logic Limited or no need to re-engineer; by decoupling data management (warehouse) and business (transformation) logic a solid foundation to manage all data within the enterprise is established. Changes or additions can be applied without the need to 'go back' and change the underlying foundations and technical improvements can be executed without impacting the reporting environments
+- Built-in handling of (information) complexities, integration and dependencies; pre-defined solutions for error handling, parallelism, reconciliation, recovery and handling of business rules provide a data platform that requires no re-engineering.
+- Application components are ‘built once, reused many times’.
+- High level of maintainability and support; built-in resilience in ETL, archiving, combined with a maintenance Graphical User Interface (GUI) and a strict set of conventions remove maintenance complexities often associated with Data Warehousing
+- Model driven design; define the information model, and expand your solution gradually and consistently from there. ETL is automatically generated using the model specifications
+- A documented and sound foundation for the Data Warehouse; the highly structure and complete documentation of all framework components provide a full picture from the high level concepts all the way down to the technical implementation for a large variety of ETL platforms
+- The Data Integration provides the rules; only the focus on the necessary data (input) and the reporting (output) is required
+- ETL quality and consistency; template driven ETL automation based on a conceptual framework provides a repeatable and dynamic development process which reduces the need for extensive documentation and delivers deterministic and high quality ETL logic
 - All the data in the environment is accessible through a common and user-friendly interface.
 - The right information is provided to the right users in the right format, and in a timely manner.
 - The physical location and structures of the data are transparent to the users.
 - The data is integrated (where applicable), consistent and can be reconciled.
 - The information (query results, reports, etc.) provided to the users is consistent and can be reconciled.
-- Application components are ‘built once, reused many times’.
 
- To achieve this, the architecture describes on a high level:
+# Principles
 
-- What the steps for data integration are, and in what order they should be processed.
-- What the options and considerations are during these steps.
-- What the structure of the database should look like.
-- How metadata is used and linked to the architecture layers.
-- How error handling and recycling is used and linked to the architecture layers.
+To adapt to business needs the intended data solution should decouple ‘warehouse logic’ from ‘business logic’. The basic assumption is that requirements will change over time, and that any solution that specifically is designed for a certain output or requirement will fail over time when adjustments are made. Rather, the framework views requirements from a data perspective and aims to properly integrate and consolidate data before applying a certain view.
 
-This document references the individual documents for each layer in the architecture and provides the overview of how these documents are related. These detailed conceptual architecture designs are used to document specific ETL requirements such as:
+![1547519184139](C:/Files/Data_Integration_Framework/Images/1547519184139.png)
 
-- Ability to be rerun.
-- Data traceability (audit trail).
-- Operational metadata and analysis.
-- Standardisation.
+
+
+No reference architecture or model can exist without adopting basic principles. This paragraph lists these principles along with the fundamental ideas.
+
+- **Hybrid model approach**. Traditionally Data Warehouse models have been classified as either fully normalized (early Inmon) and fully denormalised (Kimball). A hybrid approach utilises components of both concepts. A degree of normalisation ensures that every meaningful (business) entity has its own separate table for distributing surrogate keys and one where history is stored in a traditional Type-2 (denormalised) fashion. Depending on the chosen modelling technique relationships can also be modelled separately. Examples of hybrid approaches are Data Vault, Anchor, Head-and-Version and Matter.
+- **Separation of Data Warehouse concepts**. The core functionality within a Data Warehouse is divided in separate ETL steps. This is different to loading a typical Kimball dimension (Dimensional Bus Architecture) where keys, structure and history are combined in the ETL process. Separating these functions provides additional flexibility and maintainability in the future. This includes:
+  - Surrogate key distribution or hashing of business keys
+  - Storing and tracking history (managing time-variant data)
+  - Structure and hierarchy
+  - Cleaning and integration (business rules)
+- **Flexibility**. A common pitfall of Data Warehouse models is the design (modelling) for a current need of information or specific business requirement. This leads to data being modelled specifically for a set purpose as defined in a given project. However, this often also limits the future usage of the Data Warehouse a future requirements may impact the design or there are differences in the interpretation of data across the organisation. Designing for flexibility in this context means designing to be future proof. This is major goal of the reference architecture that includes:
+  - The ability to load data even when relationships between data change. Most hybrid modelling techniques use many-to-many relationships separate of the main entities, even when the data could currently be modelled as one-to-many without a separate relationship table.
+  - Catering for different levels of completeness of data. This impacts the way errors are handled / rejected and the specification of failure.
+  - Providing multiple versions of the truth (multiple Information Marts for the same data) to support different interpretations of data.
+  - Handling changing business rules. To be able to always represent data in another way, this impacts the integration approach and the Information Mart concept.
+  - Separate original and transformed data while still retaining the relationship between the two to support lineage and auditability, as well as refactoring of ETL and data models
+  - Applying business rules / logic as late as possible: in the delivery of the information (Presentation Layer)
+- **Real-time ready**. All concepts are designed for a possible future of handling real-time data sources
+- **Modular approach**. The architecture and all related products can be used independently with relatively little customisation for different technologies. Every concept that can be modularised contains a separate paragraph explaining how this is achieved. Modules that can be used regardless of architecture include (but not limited to):
+  - Metadata and process control, the complete metadata concept can be implemented regardless of the chosen architecture by creating the necessary metadata attributes and tables. This will require table and mapping customisation.
+  - Error handling and recycling. Concepts such as the Error Bitmap and recycling can be added to any architecture (but will require table and mapping customisation).
+  - Persistent Staging Area / Historical Area. An archive of transactions can be added to the Data Warehouse by creating a separate schema with the described process attributes (record validity attributes).
+- **Corporate memory**. The Data Warehouse collects, integrates stores and manages all data, but does not ‘invent’ new data or addresses data quality issues directly. These should be handled by the operational systems, supported by exception reporting by the Data Warehouse. Data quality and interpretation of information is managed via Data Governance. This principle also means that no information is physically deleted from the Data Warehouse and logical deletes are supported at all times.  
+
+# Using the reference solution architecture
+
+The reference architecture serves as an outline to relate ETL examples and best-practices to. The main purpose is to create a common ground where every developer can use the same approach and background to contribute to a common integrated data repository. 
+
+Because of its nature as reference architecture not all components necessarily have to be deployed for an individual project. In some scenarios components are integrated in existing solutions or structures. For this reason the solutions will be as designed to be as modular as possible thus enabling the utilisation of specific components. 
+
+The framework Reference Architecture is a standard approach for Enterprise Data Warehouse and Business Intelligence design and implementation. The most important aspect is to understand which ETL and Data Warehousing concepts are used in what Layer of the architecture and the reasoning behind this.
+
+The Reference Architecture also provides the basic structure for the documentation of the Data Integration. Every component of the design and implementation relates back to this architecture, including tips, tricks and examples of implementation options. The implementation solutions for this architecture are designed to be as generic as possible without losing practical value.
+
+## Executing a project
+
+In principle every project that contributes to the common integrated data model as executed within the Data Integration follows the same approach. At a high level this is as follows:
+
+- Define Solution Architecture and Technical Architecture based on the framework reference architecture. Effectively this defines how sources are interfaced and integrated into the central model. For instance how to collect data delta (CDC) following the framework principles, where data should be integrated in the structured or unstructured world etc.
+- Define Project Scope; this is a breakdown of a requirement in data terms. What data is needed to meet requirements in the broader sense (answer this and similar questions). This scope of data becomes the input for bottom-up planning of data integration
+- Execute Model Driven Design. Once the data is identified both in scope and way of interfacing the metadata can be entered to drive ETL generation and (automated) testing. Model changes can be made accordingly, after which the ETL can be re-generated.
+
+In this approach it is highly recommended to limit the scope to a short-term iteration; ideally bringing the cycle down to 2-3 weeks.
+
+![1547519869758](./Images/5C1547519869758.png)
 
 ## Using the reference architecture for the ETL Framework
 
@@ -51,35 +124,7 @@ The reference architecture also provides the basic structure for the documentati
 
 Being a reference architecture, not all components have to be necessarily deployed for every project. In most scenarios specific components are integrated in existing solutions or structures. For this reason the solutions will be as designed to be as modular as possible to enable the utilisation of specific components independently.
 
-# Principles of the Reference Architecture
-
-No reference architecture or model can exist without adopting basic principles. This paragraph lists these principles along with the fundamental ideas.
-
-- **Hybrid model approach**. Traditionally Data Warehouse models have been classified as either fully normalized (early Inmon) and fully denormalised (Kimball). A hybrid approach utilises components of both concepts. A degree of normalisation ensures that every meaningful (business) entity has its own separate table for distributing surrogate keys and one where history is stored in a traditional Type-2 (denormalised) fashion. Depending on the chosen modelling technique relationships can also be modelled separately. Examples of hybrid approaches are Data Vault, Anchor, Head-and-Version and Matter.
-- **Separation of Data Warehouse concepts**. The core functionality within a Data Warehouse is divided in separate ETL steps. This is different to loading a typical Kimball dimension (Dimensional Bus Architecture) where keys, structure and history are combined in the ETL process. Separating these functions provides additional flexibility and maintainability in the future. This includes:
-  - Surrogate key distribution or hashing of business keys
-  - Storing and tracking history (managing time-variant data)
-  -  Structure and hierarchy
-  - Cleaning and integration (business rules)
-- **Flexibility**. A common pitfall of Data Warehouse models is the design (modelling) for a current need of information or specific business requirement. This leads to data being modelled specifically for a set purpose as defined in a given project. However, this often also limits the future usage of the Data Warehouse a future requirements may impact the design or there are differences in the interpretation of data across the organisation. Designing for flexibility in this context means designing to be future proof. This is major goal of the reference architecture that includes:
-  - The ability to load data even when relationships between data change. Most hybrid modelling techniques use many-to-many relationships separate of the main entities, even when the data could currently be modelled as one-to-many without a separate relationship table.
-  - Catering for different levels of completeness of data. This impacts the way errors are handled / rejected and the specification of failure.
-  - Providing multiple versions of the truth (multiple Information Marts for the same data) to support different interpretations of data.
-  - Handling changing business rules. To be able to always represent data in another way, this impacts the integration approach and the Information Mart concept.
-  -  Separate original and transformed data while still retaining the relationship between the two to support lineage and auditability, as well as refactoring of ETL and data models
-  - Applying business rules / logic as late as possible: in the delivery of the information (Presentation Layer)
-- **Real-time ready**. All concepts are designed for a possible future of handling real-time data sources
-- **Modular approach**. The architecture and all related products can be used independently with relatively little customisation for different technologies. Every concept that can be modularised contains a separate paragraph explaining how this is achieved. Modules that can be used regardless of architecture include (but not limited to):
-  - Metadata and process control, the complete metadata concept can be implemented regardless of the chosen architecture by creating the necessary metadata attributes and tables. This will require table and mapping customisation.
-  - Error handling and recycling. Concepts such as the Error Bitmap and recycling can be added to any architecture (but will require table and mapping customisation).
-  - Persistent Staging Area / Historical Area. An archive of transactions can be added to the Data Warehouse by creating a separate schema with the described process attributes (record validity attributes).
-- **Corporate memory**. The Data Warehouse collects, integrates stores and manages all data, but does not ‘invent’ new data or addresses data quality issues directly. These should be handled by the operational systems, supported by exception reporting by the Data Warehouse. Data quality and interpretation of information is managed via Data Governance. This principle also means that no information is physically deleted from the Data Warehouse and logical deletes are supported at all times.  
-
-# Architecture overview
-
-This chapter describes the detail overview of the reference architecture. 
-
-## High level architecture overview
+# High level architecture overview
 
 The high level reference architecture is as follows:
 
@@ -100,8 +145,6 @@ The Data Warehouse Sources are operational systems that act as the key data supp
 
 The Data Warehouse may also receive and send data to external sources and other specialised systems like actuarial, analytics, budget and forecast, etc. 
 
-## Detailed architecture overview
-
 The following diagram is a bottom-up overview of the detailed steps taken and choices made. In this picture the architectural layers are divided into areas which contain specific steps for the Data Warehouse. This is a refinement of the high level architecture where optional choices can be made. 
 
 Each layer contains two (2) separate ‘areas’. These areas cover specific ETL functionality that support the overall purpose of the layer of which they are part of. Each area inherits the data modelling approach of the parent layer. 
@@ -117,7 +160,7 @@ The Areas that are part of the same Layer highlight that they share the same dat
 Each layer is documented in detail in the subsequent reference architecture documentation.
 
 
-### Staging Layer
+## Staging Layer
 
 The Staging Layer consists of the **Staging Area** and the **History Area**. The main purpose of this layer is to collect source data and optionally store it in a source data archive. The Staging Layer prepares and collects data for further process into the Integration Layer.
 
@@ -129,7 +172,7 @@ An option in the Data Warehouse design is to load the source data into a History
 
 Objects in the Staging Layer are not accessible for end-users or Business Intelligence and analytics software (e.g. Cognos). This is because for most scenarios information has not yet been prepared for consumption. There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Staging Layer which contains essentially raw time variant data. Allow access serves a purpose in prototyping and local self-service BI / visualisation. 
 
-### Integration Layer
+## Integration Layer
 
 The Integration Layer consists of the **Raw Data Vault** area and the **Business Data Vault** area. The main purpose of this Layer is to function as the ‘core Data Warehouse layer’ where all the data is collected in a normalised Data Warehouse model. To achieve optimal flexibility and error handling business rules are implemented as late as possible in the ETL process. 
 
@@ -147,11 +190,11 @@ The Integration Layer (Integration Area and Interpretation Area) will be created
 
 As an example, this approach allows information related to the same customer or prospect to be delivered and integrated independently. It also supports ongoing linking of customer information to tie in various elements of information to the unique prospect or customer over time without losing flexibility; the logic for de-duplication can be changed and/or recalculated across historical information if required.
 
-![1547521558900](..\9000_Images\558900.png)
+![1547521558900](.\Images\558900.png)
 
 Objects in the Integration Layer are not accessible for end-users or Business Intelligence and analytics software (e.g. Cognos). This is because for most scenarios information has not yet been prepared for consumption; only Data Warehouse logic is implemented.  There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Integration Layer which contains essentially raw, but indexed and time variant data in the right context (e.g. related to the correct business keys). This is an ideal structure for statistical analysis.
 
-### Presentation Layer
+## Presentation Layer
 
 The Presentation Layer consists of the **Helper Area** and the **Reporting Structure Area**. This layer provides the data in a structure that is suitable for reporting and applies any specific business logic. By design information can be provided in any format and/or historical view since the presentation itself is decoupled from the core data store. Where the Integration Layer focuses on optimally storing anything that happens to the data (manage the data itself) and its relationships the Presentation Layer combines these relationships to form Facts and Dimensions. Since historical information is maintained in the previous layer these structures can be easily changed or re-deployed. Deriving dimensional models from a properly structured Integration Layer is very straightforward and development is made very easy because templates are provided and both facts and dimensions can be emptied (truncated) and reloaded at any point in time without losing information. 
 
@@ -167,7 +210,7 @@ In the process from loading the data from the Integration Layer to the Presentat
 
 The previous diagrams focused primarily on the place ETL has in the Data Warehouse, but in the broader architecture other factors are in play as well. Not all components are applicable in every scenario but the following diagram shows their place in the overall architecture in case they are required.
 
-![1547521593410](..\9000_Images\93410.png)
+![1547521593410](.\Images\93410.png)
 
 This diagram shows the non-ETL considerations that form part of the Reference Architecture.
 
@@ -185,12 +228,12 @@ This diagram shows the non-ETL considerations that form part of the Reference Ar
 
 The following diagram expands on the broader architecture considerations, especially how the Staging Layer can be used to incorporate unstructured data that is not suitable to be directly loaded into a (relational) database.
 
- ![1547521642869](..\9000_Images\1642869.png)
+ ![1547521642869](.\Images\1642869.png)
 
 The key message is that not all data needs to be routed through a Data Warehouse, in some cases it may not be worth doing so. However, this approach maintains the option to integrate data at a later stage and preserving the audit trail.
 
 
-# Data Modelling
+# Data Modelling approaches
 
 ## Data Warehouse modelling and design
 
@@ -209,33 +252,6 @@ The following principles apply:
 
 - Data is always maintained at the most granular level in the Integration Layer. It can be aggregated in the Information Marts for performance and usability reasons
 
-
-## Modelling Reasoning
-
-In traditional Data Warehouse modelling there are currently three main modelling approaches available and in wide use today:
-
-- 3NF (3rd normal Form) (Inmon)
-- Data Vault (Linstedt)
-
-- Dimensional Modelling (Kimball)
-
-
-The recommended modelling technique for the Integration Layer is Data Vault, with the complete architecture supporting Data Vault 2.0 concepts. Data Vault Modelling is a database modelling method that is designed to provide long-term historical storage of data coming in from multiple operational systems. It is also a method of looking at historical data that, apart from the modelling aspect, deals with issues such as auditing, tracing of data, loading speed and resilience to change. 
-
-Data Vault Modelling focuses on several things. First, it emphasizes the need to trace where all the data in the database came from. This means that every row in a Data Vault must be accompanied by record source and load date attributes, enabling an auditor to trace values back to the source. 
-
-Second, it makes no distinction between good and bad data ("bad" meaning not conforming to business rules). This is summarized in the statement that a Data Vault stores "a single version of the facts" (also expressed by Dan Linstedt as "all the data, all of the time") as opposed to the practice in other data warehouse methods of storing "a single version of the truth" where data that does not conform to the definitions is removed or "cleansed". 
-
-Third, the modelling method is designed to be resilient to change in the business environment where the data being stored is coming from, by explicitly separating structural information from descriptive attributes. Finally, Data Vault is designed to enable parallel loading as much as possible, so that very large implementations can scale out without the need for major redesign. 
-
-This recommendation is based on the existing situation at AGA:
-
--  There is a need to integrate disparate systems
-- The business and its requirements change over time
-- The storage of information needs to happen over time
-- The data quality of the existing source systems is evolving
-- The requirements and expected usage of the information is fluid 
-
 ## Use of Views
 
 ### Decoupling views
@@ -244,7 +260,6 @@ The Data Warehouse design incorporates views ‘on top off’’ the Presentatio
 
 - Views allow a more flexible implementation of data access security (in addition to the security applied in the BI Layer)
 - Views act as ‘decoupling’ mechanism between the physical table structure and the Semantic Layer (business model) 
-- 
 - Views allow for flexible changing of information delivery (historical views)
 
 These views are meant to be 1-to-1, meaning that they represent the physical table structure of the Information Mart. However, during development and upgrades these views can be altered to temporarily reduce the impact of changes in the table structure from the perspective of the BI platform. This way changes in the Information Mart can be made without the necessity to immediately change the Semantic Layer and/or reports. In this approach normal reporting can continue and the switch to the new structure can be done at a convenient moment.  
@@ -257,7 +272,7 @@ A very specific use which includes the only allowed type of functionality to be 
 
 Another use case for view is for virtualising the Presentation Layer. As all granular and historic information is stored in the Integration Layer it is possible, if the hardware allows it, to use views to present information in any specific format. This removes the need for ETL – physically moving data – from the solution design. Applicability of virtualisation depends largely on the way the information is accessed and the infrastructure that is in place. Possible application includes when the BI platform uses the information to create cubes, when information is infrequently accessed or with a smaller user base.
 
-# Referential Integrity and constraints
+## Referential Integrity and constraints
 
 The fundamental approach of the Data Warehouse modelling is to enforce Referential Integrity (RI) on database level. This is a Data Warehouse best practice that allows the database to efficiently manage the consistency of the solution. Exceptions can be made where RI is temporarily disabled when certain ETLs can be run in different order and/or parallel (especially in the case of a 3NF Integration Layer) but RI must be enabled after the processing to ensure integrity. Only for very large datasets (>250TB), or for very light hardware RI is disabled altogether. For this purpose all ETL designs must take RI into account using placeholders and key distribution.  
 
@@ -285,7 +300,7 @@ Error handling and exception is applicable to every layer and area in the archit
 The details for error and exception handling are defined in the ETL Framework - 7 - Exception Handling v1.0’ document.
 
 
-# ETL control process model
+# ETL process control
 
 Similar to exception and error handling concepts the Metadata Model links in with every process, layer or area in the architecture. Each individual layer definition document will describe how the metadata model is used for that particular section of the architecture. 
 
