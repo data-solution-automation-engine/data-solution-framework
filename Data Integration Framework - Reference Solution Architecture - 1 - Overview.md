@@ -307,4 +307,3 @@ This means that the following information must be available (at date/time level)
 - When data was most recently offered to the model (integration layer specific)
 
 For tables that store history the metadata includes the regular start and end date/time information as well as flags whether the record is the most actual one. The metadata model will largely be based on the DIRECT Framework, but it will be updated and tailored to suite the reference architecture.
-
