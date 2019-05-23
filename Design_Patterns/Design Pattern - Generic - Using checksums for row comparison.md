@@ -30,7 +30,7 @@ If the checksums are identical and the OMD_CDC_OPERATION is the same as well; di
 Staging to Integration
 The checksum is always calculated within the Staging to Integration ETL process based on the necessary attributes in the Staging Area table. This also requires the OMD_CDC_OPERATION to be part of the checksum attributes.
 The comparison is executed based on the new checksum and the existing Integration Area checksum. As with the Staging to History process the OMD_CDC_OPERATION is evaluated to identify Logical Deletes, but in this scenario this happens as part of the checksum creation (i.e. source attributes and the CDC operation will be the new checksum).
- 
+
 The following diagram displays how checksum values are used:
 
 Figure 1: Checksums and comparisons
@@ -51,3 +51,27 @@ Design Pattern 014 – Generic – Handling Logical Deletes.
 Design Pattern 015 – Generic – Loading Staging Area tables.
 Design Pattern 017 – Generic – Loading History Area tables.
 Design Pattern 028 – Generic – Full Outer Join interfaces.
+
+## Motivation
+
+
+
+## Applicability
+
+
+
+## Structure
+
+
+
+## Implementation Guidelines
+
+
+
+## Considerations and Consequences
+
+
+
+## Related Patterns
+
+- 

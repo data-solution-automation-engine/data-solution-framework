@@ -21,7 +21,6 @@ The rest of the text attributes will be mapped to VARCHAR (4000).
 Dates, times, date times will be mapped to DATETIME.
 All decimals or numeric values will be mapped to NUMBER.
 
- 
 Figure 1: Staging Area ETL process
 Implementation guidelines
 Use a single ETL process, module or mapping to load data from a single source system table in the corresponding Staging Area table.
@@ -39,3 +38,27 @@ Design Pattern 022 – Generic – Delta Calculations.
 Design Pattern 021 – Generic – Using CDC.
 Discussion items (not yet to be implemented or used until final)
 None.
+
+## Motivation
+
+
+
+## Applicability
+
+
+
+## Structure
+
+
+
+## Implementation Guidelines
+
+
+
+## Considerations and Consequences
+
+
+
+## Related Patterns
+
+- 

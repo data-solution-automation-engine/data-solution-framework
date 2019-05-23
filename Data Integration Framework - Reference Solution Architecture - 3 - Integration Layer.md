@@ -1,4 +1,4 @@
-#  Introduction
+#  Integration Layer overview
 
 The Integration Layer is the second layer in the reference Data Warehouse solution architecture. This Layer is not designed to be accessible by (end) users of the information but serves as the true Data Warehouse Layer, where information is maintained in such a way that it is both resilient and flexible. The Integration Layer sources its information from the Staging Area and stores it in a consistent and atomic way, without applying business logic. This data can then be presented in a consumable form in the Presentation Layer.
 
@@ -7,8 +7,6 @@ This document defines the Integration Layer and describes the involved steps and
 The design and approach for modelling the Integration Layer is a project specific decisions which needs to be captured in the Solution Architecture (including supporting reasoning). Examples are 3NF or Data Vault approaches, but other hybrid techniques can be applied as well as long as they are in sync with the framework guiding principles.
 
 If the Solution Architecture for a project is defined as ‘2-tiered’ – the classic Kimball approach – the Integration Layer is not implemented.
-
-# Integration Layer overview
 
 The Integration Layer, or the process from staging to integration, is comprised of two parts (or areas): the Integration Area and the Interpretation Area. The Integration Layer is a persistent Layer.
 
@@ -52,19 +50,19 @@ The following metadata attributes are mandatory for the Surrogate Key tables:
 | **Column Name**               | **Data Type**                | **Reasoning**                                                |
 | ----------------------------- | ---------------------------- | ------------------------------------------------------------ |
 | <entity>_SK                   | INTEGER or CHAR(32) /   Hash | The Data Warehouse key; an unique identifier and also the primary key   which is issued for each record in the table. It can be a meaningless key   (sequence) or hashed value |
-| OMD_INSERT_MODULE_INSTANCE_ID | INTEGER                      | Default OMD; logging   which process has inserted the record |
-| OMD_FIRST_SEEN_DATETIME       | DATETIME    (high precision) | This is the time that the   record has been presented to the Data Warehouse environment. This is not the   system date/time for insert however, but the original processing time for the   records to be loaded into the Staging Area.    The Insert Date/Time is   the conceptual Event Date/Time; the date time when the source event was   triggered or the change in the source has taken place. It can be the moment a   user updated a record in a source system, or the trigger which caused a   message to be sent. |
-| OMD_RECORD_SOURCE_ID          | INTEGER                      | The relation to the OMD   table which contains the identification of the source system that originally   supplied the information. |
+|  | INTEGER                      | Default; logging   which process has inserted the record |
+|        | DATETIME    (high precision) | This is the time that the   record has been presented to the Data Warehouse environment. This is not the system date/time for insert however, but the original processing time for the   records to be loaded into the Staging Area.    The Insert Date/Time is   the conceptual Event Date/Time; the date time when the source event was   triggered or the change in the source has taken place. It can be the moment a   user updated a record in a source system, or the trigger which caused a   message to be sent. |
+| Record Source Id          | INTEGER                      | The relation to the ETL process control table which contains the identification of the source system that originally supplied the information. |
 | <business key>                | Depending                    | The business key value                                       |
 
 The following attributes are optional for the Surrogate Key tables depending on the approach for Data Modelling:
 
 | **Column Name**               | **Data Type**                | **Reasoning**                                                |
 | ----------------------------- | ---------------------------- | ------------------------------------------------------------ |
-| OMD_EFFECTIVE_DATETIME        | DATETIME    (high precision) | Start of the validity   period for the record. Equal to the OMD_INSERT_DATETIME; this is not the   system date/time, but the information recorded during the Staging Area ETL   process. |
-| OMD_EXPIRY_DATETIME           | DATETIME    (high precision) | The date time when the   record was closed. Records are closes based on changes in the history   (alteration or deletion). The value of this attribute is the value of the   valid start date time of the previous related. The default value is 99991231   23:59:59. |
-| OMD_CURRENT_RECORD_INDICATOR  | VARCHAR(100)                 | The flag (Y/N) whether   this record is active. This makes selection and querying easier, but is   essentially twice redundant. If possible use the Expiry Date/Time for this   purpose. |
-| OMD_UPDATE_MODULE_INSTANCE_ID | INTEGER                      | The module ID of the ETL   process which has updated the record. |
+| Effective date / time        | DATETIME    (high precision) | Start of the validity period for the record. Equal to the Load Date / Time; this is not the  ystem date/time, but the information recorded during the Staging Area ETL process. |
+| Expiry date / time         | DATETIME    (high precision) | The date time when the record was closed. Records are closes based on changes in the history (alteration or deletion). The value of this attribute is the value of the valid start date time of the previous related. The default value is 99991231   23:59:59. |
+| Current record indicator  | VARCHAR(100)                 | The flag (Y/N) whether this record is active. This makes selection and querying easier, but is essentially twice redundant. If possible use the Expiry Date/Time for this purpose. |
+| ETL Process control Id | INTEGER                      | The module ID of the ETLvprocess which has updated the record. |
 
  The use of a ‘valid period of time’ (start and end date time) including the current record indicator is optional. There can be sound reasons for including these metadata attributes in a surrogate key table when source systems can reuse their own keys and specific logic has to be created to determine if a reused key is in fact a new instance of an entity or that an old one has been reopened.
 
@@ -76,24 +74,24 @@ The following metadata attributes are mandatory for the history tables:
 
 | **Column Name**               | **Data Type**                | **Reasoning**                                                |
 | ----------------------------- | ---------------------------- | ------------------------------------------------------------ |
-| <entity>_SK                   | INTEGER or CHAR(32) /   Hash | The Data Warehouse key; an unique identifier and also the primary key   which is issued for each record in the table. It can be a meaningless key   (sequence) or hashed value. This is inherited from the parent table as   Foreign Key |
-| OMD_EFFECTIVE_DATETIME        | DATETIME    (high precision) | Start of the validity period for a record. Populated by the   OMD_INSERT_DATETIME value from the Staging Area this is not the system   date/time but the information recorded during the Staging Area ETL process. |
-| OMD_INSERT_MODULE_INSTANCE_ID | INTEGER                      | Default OMD attribute for   any table for logging which process has inserted the record. |
-| OMD_UPDATE_MODULE_INSTANCE_ID | INTEGER                      | The module ID of the ETL   process which has updated the record. |
-| OMD_RECORD_SOURCE_ID          | INTEGER                      | The relation to the OMD   table which contains the identification of the source system that originally   supplied the information. |
-| OMD_SOURCE_ROW_ID             | INTEGER                      | Copied from the Staging   Area. The combination of OMD_INSERT_MODULE_INSTANCE_ID and OMD_SOURCE_ROW_ID   always relate back to a single History Area record |
-| OMD_DELETED_RECORD_INDICATOR  | VARCHAR(100)                 | This flag (Y/N) indicates   that the record has been deleted from the source system. |
+| <entity>_<key>         | INTEGER or CHAR(32) /   Hash | The Data Warehouse key; an unique identifier and also the primary key   which is issued for each record in the table. It can be a meaningless key (sequence) or hashed value. This is inherited from the parent table as   Foreign Key |
+| Effective Date / Time        | DATETIME    (high precision) | Start of the validity period for a record. Populated by the Load Date / Time value from the Staging Area this is not the system date/time but the information recorded during the Staging Area ETL process. |
+| ETL process control Id | INTEGER                      | Default ETL process control attribute for any table for logging which process has inserted the record. |
+| ETL process control Id | INTEGER                      | The module ID of the ETL process which has updated the record. |
+| Record Source Id          | INTEGER                      | The relation to the ETL process control table which contains the identification of the source system that originally supplied the information. |
+| Source Row Id             | INTEGER                      | Copied from the Staging Area. The combination of ETL process control Id and Source Row Id always relate back to a single History Area record |
+| Deleted Record Indicator  | VARCHAR(100)                 | This flag (Y/N) indicates that the record has been deleted from the source system. |
 
  The following attributes are optional for the history tables in the Integration Layer: 
 
 | **Column Name**              | **Data Type**                | **Reasoning**                                                |
 | ---------------------------- | ---------------------------- | ------------------------------------------------------------ |
-| OMD_EXPIRY_DATETIME          | DATETIME    (high precision) | The date time when the   record was closed. Records are closes based on changes in the history   (alteration or deletion). The value of this attribute is the value of the   valid start date time of the previous related record minus 1 second. The   default value is 99991231 23:59:59. |
-| OMD_CURRENT_RECORD_INDICATOR | VARCHAR(100)                 | The flag (Y/N) whether   this record is active. This makes selection and querying easier. |
+| Expiry Date / Time          | DATETIME    (high precision) | The date time when the   record was closed. Records are closes based on changes in the history   (alteration or deletion). The value of this attribute is the value of the   valid start date time of the previous related record minus 1 second. The   default value is 99991231 23:59:59. |
+| Current Record Indicator | VARCHAR(100)                 | The flag (Y/N) whether   this record is active. This makes selection and querying easier. |
 |                              |                              |                                                              |
-| OMD_HASH_FULL_RECORD         | CHAR(32)                     | A checksum for record   comparison requires storing a checksum value as an attribute. |
+| Hash Full Record         | CHAR(32)                     | A checksum for record   comparison requires storing a checksum value as an attribute. |
 
-In history tables the Primary Key is composed of the <entity_SK> and the OMD_EXPIRY_DATETIME attributes.  
+In history tables the Primary Key is composed of the <entity_SK> and the Expiry Date / Time attributes.  
 
 The optional attributes include all reference data which relates to the entity Data Warehouse key. In the example of an employee record the person ID would lead to the generation of a new surrogate key, while all descriptive attributes are placed in the history table. Depending on considerations regarding volume or width of the table (in terms of records, bytes) different history records can be placed in different history tables, but always with the same structure as described in the above table.
 
@@ -103,12 +101,12 @@ The relationship table structure is largely dependent on the applied modelling t
 
 | **Column Name**                                | **Data Type**                | **Reasoning**                                                |
 | ---------------------------------------------- | ---------------------------- | ------------------------------------------------------------ |
-| <relationship_SK>                              | INTEGER or CHAR(32) /   Hash | The Data Warehouse key; an unique identifier and also the primary key   which is issued for each record in the table. It can be a meaningless key   (sequence) or hashed value |
-| <entity>_SK (one   side of the relationship)   | INTEGER or CHAR(32) /   Hash | A unique identifier; the Data Warehouse key obtained from the   Surrogate Key table. |
-| <entity>_SK (other   side of the relationship) | INTEGER or CHAR(32) /   Hash | A unique identifier; the Data Warehouse key obtained from the   Surrogate Key table. |
-| OMD_INSERT_MODULE_INSTANCE_ID                  | INTEGER                      | Default OMD; logging   which process has inserted the record |
-| OMD_FIRST_SEEN_DATETIME                        | DATETIME    (high precision) | This is the time that the   record has been presented to the Data Warehouse environment. This is not the   system date/time for insert however, but the processing time for the records   to be moved into the Staging Area. |
-| OMD_RECORD_SOURCE_ID                           | INTEGER                      | The relation to the OMD   table which contains the identification of the source system that originally   supplied the information. |
+| <relationship>_<key>                              | INTEGER or CHAR(32) /   Hash | The Data Warehouse key; an unique identifier and also the primary key   which is issued for each record in the table. It can be a meaningless key   (sequence) or hashed value |
+| <entity>_<key> (one   side of the relationship)   | INTEGER or CHAR(32) /   Hash | A unique identifier; the Data Warehouse key obtained from the   Surrogate Key table. |
+| <entity>_<key> (other   side of the relationship) | INTEGER or CHAR(32) /   Hash | A unique identifier; the Data Warehouse key obtained from the   Surrogate Key table. |
+| ETL Process Control id                  | INTEGER                      | Default; logging   which process has inserted the record |
+| Load Date / Time Stamp                        | DATETIME    (high precision) | This is the time that the   record has been presented to the Data Warehouse environment. This is not the   system date/time for insert however, but the processing time for the records   to be moved into the Staging Area. |
+| Source Row Id                         | INTEGER                      | The relation to the ETL process control table which contains the identification of the source system that originally   supplied the information. |
 
  
 

@@ -42,3 +42,27 @@ Related patterns
 Design Pattern 015 – Generic – Loading Staging Area tables.
 Discussion items (not yet to be implemented or used until final)
 None.
+
+## Motivation
+
+
+
+## Applicability
+
+
+
+## Structure
+
+
+
+## Implementation Guidelines
+
+
+
+## Considerations and Consequences
+
+
+
+## Related Patterns
+
+- 

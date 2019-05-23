@@ -16,10 +16,10 @@ The Integration Area into the Interpretation Area.
 The only difference to the specified ETL template is any business logic required in the mappings towards the Interpretation Area Satellite tables.
 
 ## Structure
-The ETL process can be described as a slowly changing dimension / history update of all attributes except the business key (which is stored in the Hub table). This is explained in the following diagram. Most attribute values, including some of the OMD values are copied from the Staging Area table. This includes:
-OMD_INSERT_DATETIME (used for the target OMD_EFFECTIVE_DATE and OMD_UPDATE_DATETIME attributes).
-OMD_SOURCE_ROW_ID.
-The following diagram will detail this process and address how the other OMD attributes are handled.
+The ETL process can be described as a slowly changing dimension / history update of all attributes except the business key (which is stored in the Hub table). This is explained in the following diagram. Most attribute values, including some of the ETL process control values are copied from the Staging Area table. This includes:
+Load Date / Time Stamp (used for the target Effective Date / Time and potentially the Update Date / TimeE attributes).
+Source Row Id.
+The following diagram will detail this process and address how the other ETL process control attributes are handled.
 
  Business Insights > Design Pattern 009 - Data Vault - Loading Satellite Tables > BI Docs.png
 
@@ -42,7 +42,7 @@ WHERE  (            satellite.OMD_EXPIRY_DATE IS NULL AND
                  )
 ORDER BY 1,2 DESC
 If you have a Change Data Capture based source, the attribute comparison is not required because the source system supplies the information whether the record in the Staging Area is new, updated or deleted.
-Use hash values to detect changes, instead of comparing attributes separately. The hash value is created from all attributes except the business key and OMD values.
+Use hash values to detect changes, instead of comparing attributes separately. The hash value is created from all attributes except the business key and ETL process control values.
 
 ## Considerations and Consequences
 Multiple passes on source data are likely to be required.

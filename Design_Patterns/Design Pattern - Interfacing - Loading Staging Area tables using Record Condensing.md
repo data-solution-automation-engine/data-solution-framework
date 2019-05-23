@@ -29,7 +29,7 @@ Cheese – Yellow
 CHS
 Cheese
 29-11-2011 23:00
- 
+
 In this example a user has changed the name of the particular product with the key CHS multiple times in a single day and afterwards the value has been reset to the original value.
 If the ETL interval is daily only these two values are selected from the source (with the OMD_INSERT_DATETIME being the ‘Event Date Time’).
 Key
@@ -41,11 +41,11 @@ Cheese
 CHS
 Cheese
 29-11-2011 23:00
- 
+
 This is a situation where the condensing process can be implemented so that the record will not be inserted into the Data Warehouse as a new record (without there being a change).
 The process to do this is as follows:
 
- 
+
  Figure 1: Record condensing in STG
 Implementation guidelines
 The condensation process should be part of the Staging Area ETL process.
@@ -67,3 +67,27 @@ Design Pattern 015 – Generic – Loading Staging Area tables.Design Pattern 015 - 
 Design Pattern 021 – Generic – Using CDC.
 Discussion items (not yet to be implemented or used until final)
 None.
+
+## Motivation
+
+
+
+## Applicability
+
+
+
+## Structure
+
+
+
+## Implementation Guidelines
+
+
+
+## Considerations and Consequences
+
+
+
+## Related Patterns
+
+- 

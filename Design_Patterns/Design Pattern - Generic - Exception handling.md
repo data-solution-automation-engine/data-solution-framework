@@ -1,6 +1,12 @@
+# Design Pattern - Generic - Exception handling
+
+## Purpose
+
 Most, if not all, data solutions encounter exception handling at some point.
 
 Exception handling can be caused by events occurring in the environment or by issues related to data handling and transformation processes.
+
+## Motivation
 
 Exceptions that are triggered by the environment are handled by the ETL Process Control subsystem, which caters for durability, consistency and fault-tolerance of the overall data solution. The core ETL principles outline requirements that include 'restartability' and 'loss-lessness' to guarantee that environment-based outages are handled appropriately.
 
@@ -16,6 +22,8 @@ What is considered an  error or exception is very much a business decision, as i
 
 The following section outline the default approach towards exception handling in the solution design. 
 
+## Applicability
+
 Exception handling strategies
 
 In essence the possible strategies with regards to the handling of exceptions in the ETL process are limited. In order of severity:
@@ -29,6 +37,8 @@ The information requirement is very dependant of the situation, weighing quality
  
 
 This is why the type of error handling (as a business requirement) should be determined in the general design. Flexibility is key; an exception handling strategy will realistically use the second strategy for most exceptions, three for a few target tables with specific business requirements, and one for a small number of critical processes.
+
+## Structure
 
 3.1      Strategy 1: report and continue
 
@@ -46,7 +56,7 @@ While this approach means that the data that is made available to the end users 
 
 3.2      Strategy 2: report and reject
 
-In those cases where data correctness *is* considered the highest priority, the ETL can be designed to 'reject' a record in which one or more transformation exceptions are detected. Rather than writing the record to the intended target table, it will instead be tagged with an exception bitmap (explained in detail in this document), logging a message detailing the nature of the exception to the OMD layer, and written to a reject table. The reject table can then be used as the temporary repository for the record while the recycling process put in place improves its quality. 
+In those cases where data correctness *is* considered the highest priority, the ETL can be designed to 'reject' a record in which one or more transformation exceptions are detected. Rather than writing the record to the intended target table, it will instead be tagged with an exception bitmap (explained in detail in this document), logging a message detailing the nature of the exception to the ETL process control layer, and written to a reject table. The reject table can then be used as the temporary repository for the record while the recycling process put in place improves its quality. 
 
 Examples of warehouse solutions in which it may be appropriate to reject records:
 
@@ -79,9 +89,9 @@ It is important that even though the ETL process in question is aborted before c
  
 
 
- 
 
- 
+
+
 
 \4.       Introducing Error Bitmaps
 
@@ -257,30 +267,30 @@ Bitmaps will only show the *types* of exceptions that occurred, not the value th
  
 
 
- 
+
+
+
+
+\5.       Exception Logging in ETL process control
+
+The objective of the ETL process control (DIRECT) framework is to provide a structured approach to describing and recording operational information about the ETL process. It provides a logical layer of abstraction so that a consistent view of the data logistical process can be visualised, maintained and reported independent of toolset in place.
 
  
 
-\5.       Exception Logging in OMD
-
-The objective of the OMD framework is to provide a structured approach to describing and recording operational information about the ETL process. It provides a logical layer of abstraction so that a consistent view of the data logistical process can be visualised, maintained and reported independent of toolset in place.
-
- 
-
-Exception handling methodology uses the OMD framework to store the messages as they are produced during the batch process. The purpose of this table is a dual one; both to enable operational reporting on exceptions as they occur, and to support the exception recycling process (see chapter **Error! Reference source not found.** for more details on recycling). While OMD supports the Error Bitmap concept it is important to note that **Error Bitmaps can also be added as attributes to Interpretation Area, Helper Area and Reporting Structure Area tables**. This is because business logic is handled by ETL in these sections of the architecture.
+Exception handling methodology uses the ETL process control framework to store the messages as they are produced during the batch process. The purpose of this table is a dual one; both to enable operational reporting on exceptions as they occur, and to support the exception recycling process (see chapter **Error! Reference source not found.** for more details on recycling). It is important to note that **Error Bitmaps can also be added as attributes to Interpretation Area, Helper Area and Reporting Structure Area tables**. This is because business logic is handled by ETL in these sections of the architecture.
 
    
 
-Figure 2: OMD with exception handling
+Figure 2: ETL control with exception handling
 
  
 
 
- 
 
- 
 
-5.1      OMD Exception Logging Tables
+
+
+5.1      Exception Logging Tables
 
 
 
@@ -384,9 +394,9 @@ Figure 2: OMD with exception handling
  
 
 
- 
 
- 
+
+
 
 
 
@@ -491,9 +501,9 @@ A good example of an exception that would warrant an automated solution would be
  
 
 
- 
 
- 
+
+
 
 ### Using the original source record vs. EXCEPTION_DETAIL
 
@@ -526,9 +536,9 @@ In this case, the OMD_EVENT_LOG table is directly used as the source for the res
  
 
 
- 
 
- 
+
+
 
 6.3      Step 3: Reprocessing into the Target
 
@@ -552,14 +562,14 @@ If reject tables are part of the exception handling process, records marked with
 
 6.4      Tracking resolution in OMD_EVENT_LOG
 
-Because each record in OMD_EVENT_LOG is stored as an exception *bitmap* that can contain any number of exceptions, an updated record (minus the resolved exception) is then re-added to OMD_EVENT_LOG if there are still outstanding exceptions. This is conforming to the design of OMD, which creates a new module instance for every run.
+Because each record in the ETL process control event log is stored as an exception *bitmap* that can contain any number of exceptions, an updated record (minus the resolved exception) is then re-added to EVENT_LOG if there are still outstanding exceptions. This is conforming to the design of DIRECT, which creates a new module instance for every run.
 
  
 
+## Implementation Guidelines
 
- 
 
- 
+
 
 \7.       Exception handling per Data Warehouse layer
 
@@ -575,7 +585,7 @@ The only conversions executed here, potentially, are data type conversions. In t
 
  
 
-If an exception is detected in the staging layer, an exception will be logged in OMD_EVENT_LOG, but the process will be aborted.
+If an exception is detected in the staging layer, an exception will be logged in EVENT_LOG, but the process will be aborted.
 
  
 
@@ -592,9 +602,9 @@ Combining data from various previously unlinked data sets is inherently prone to
  
 
 
- 
 
- 
+
+
 
 ​                
 
@@ -656,6 +666,10 @@ Combining data from various previously unlinked data sets is inherently prone to
 
    ![Rounded Rectangle: STAGING LAYER](file:///C:\Users\rvos\AppData\Local\Temp\1\msohtmlclip1\01\clip_image012.png)
 
+
+
+
+
  
 
 Rather than creating a reject table based on the target (integration layer) table, the reject table has the format of the source (Staging Layer) table. If the record is not allowed into the integration layer it is ‘parked’ in the reject table and reprocessed by the ETL process in question during its standard process run. While the exception remains unresolved the record remains in the reject table for reprocessing during the following run, until such time that the source alignment issue has been resolved and the record can pass into the integration layer. All other types of exception will be processed as described in the rest of this document.
@@ -663,3 +677,13 @@ Rather than creating a reject table based on the target (integration layer) tabl
 7.3      Presentation Layer
 
 Exception handling in the Presentation Layer is directly related to the functional requirements and, as such, extremely diverse. While discussing the business requirements, the question what to do in case the data does not adhere to the transformation rules defined (the “else” or the rule) should always be asked, and clearly documented. Rather than simply developing the ETL to cater for every possible exception, it should be the business users who define which exceptions are important enough to be logged, what their severity should be, and which response is required.
+
+
+
+## Considerations and Consequences
+
+TBD
+
+## Related Patterns
+
+N/A.

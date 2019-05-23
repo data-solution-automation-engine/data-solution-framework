@@ -20,7 +20,7 @@ The type of logic that is required to populate a Dimension based on two or more 
 Dummy record handling.
 Placeholders / unknown value taxonomy.
 Expiry dates.
-For this reason the logic is slightly more complex. Creating Dimensions by joining History Area tables means that the overlap in timelines will be ‘cut’ in multiple records with smaller intervals. This is explained using the following sample datasets (only the OMD attributes which are required for this query are shown):
+For this reason the logic is slightly more complex. Creating Dimensions by joining History Area tables means that the overlap in timelines will be ‘cut’ in multiple records with smaller intervals. This is explained using the following sample datasets (only the ETL process control attributes which are required for this query are shown):
 HSTG table 1:
 Key
 OMD_INSERT_DATETIME
@@ -59,8 +59,8 @@ Fund Code
 Short Name
 Amount
 Additional Amount
-OMD Effective Date/Time
-OMD Expiry Date/Time
+Effective Date/Time
+Expiry Date/Time
 1
 ABC
 NULL

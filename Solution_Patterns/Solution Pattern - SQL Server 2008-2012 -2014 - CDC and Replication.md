@@ -13,7 +13,7 @@ Source database (typically on another server).
 Replicated source database (on the Data Warehouse Server). This database has CDC enabled, and because of this will contain the replicated source but also the log of changes on this source (corresponding CDC table).
 Staging Area database (on the Data Warehouse server) as part of the default ETL Framework (100_Staging_Area). This database will ultimately receive the CDC delta.
 The following diagram shows the overview of this implementation of replication and CDC:
- 
+
 
 Figure 1: Replication and CDC configuration
 SQL Server’s native CDC functionality reads the transaction log to record changes in system tables associated with each table for which CDC is enabled. It writes those files to system tables in the same database, and those system tables are accessible through direct queries or system functions. CDC can be enabled using the available functions in SQL Server:
@@ -35,3 +35,27 @@ EXEC sys.sp_cdc_disable_table
  EXEC sys.sp_cdc_help_change_data_capture
 Discussion items (not yet to be implemented or used until final)
 None.
+
+## Motivation
+
+
+
+## Applicability
+
+
+
+## Structure
+
+
+
+## Implementation Guidelines
+
+
+
+## Considerations and Consequences
+
+
+
+## Related Patterns
+
+- 

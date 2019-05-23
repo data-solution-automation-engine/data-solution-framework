@@ -1,8 +1,8 @@
+# Presentation Layer overview
+
 The Presentation Layer is the third and final layer in the Data Warehouse architecture. This layer contains the Reporting Structure Area which is the area which is the only area accessible by the (end) users of the information though Business Intelligence software. The Presentation Layer is the part of the Data Warehouse which can be modelled in any way as long as it suits the information and / or software requirements. 
 
 This document defines this layer and describes exactly what the required steps and solutions are. Many references to other parts of the ETL Framework will be made, including error handling and metadata management. The document aims to provide the information to configure the Presentation Layer in a modular way. 
-
-## Presentation Layer overview
 
 The Presentation Layer, or the process from integration to presentation, is comprised of two parts (or areas): the Helper Area and the Reporting Structure Area. It is the part of the Data Warehouse where the business logic is applied. The Presentation Layer is not defined as a persistent layer since it can be recreated from the Integration Layer at any time. However, due to performance considerations most Helper and Reporting Structure will be updated as opposed to a full recalculation.
 
@@ -181,9 +181,9 @@ The following load strategies are available for managing summary / aggregated ta
  
 
 
- 
 
- 
+
+
 
 \4.       The Reporting Structure Area
 
@@ -191,7 +191,7 @@ The Reporting Structure Area is the final part of the Reference Architecture. A 
 
 4.1      Reporting Structure Area tables
 
-Since this area aims to support the front-end tool or solution in the best possible way there is no fixed structure for the tables. The only guideline is the addition of the core OMD attributes.
+Since this area aims to support the front-end tool or solution in the best possible way there is no fixed structure for the tables. The only guideline is the addition of the core ETL process control attributes.
 
 The following attributes however are considered core, and therefore mandatory:
 
@@ -200,8 +200,8 @@ The following attributes however are considered core, and therefore mandatory:
 | **Column Name**               | **Data Type**                | **Reasoning**                                                |
 | ----------------------------- | ---------------------------- | ------------------------------------------------------------ |
 | <entity>_SK                   | INTEGER                      | For Dimensions only; a Dimension should   receive its own dedicated surrogate key since time-variant joins across   Integration Layer tables create more records (as viewed from an Integration   Area key perspective). This is a true surrogate key |
-| OMD_INSERT_MODULE_INSTANCE_ID | INTEGER                      | Default OMD; logging which process has   inserted the record |
-| OMD_EFFECTIVE_DATETIME        | DATETIME    (high precision) | This is the time that the record has been   presented to the Data Warehouse environment. This is not the system date/time   for insert however, but the processing time for the records to be moved into   the Staging Area. |
+|  | INTEGER                      | Default; logging which process has   inserted the record |
+|         | DATETIME    (high precision) | This is the time that the record has been   presented to the Data Warehouse environment. This is not the system date/time   for insert however, but the processing time for the records to be moved into   the Staging Area. |
 
  
 
@@ -216,11 +216,11 @@ The following attributes are optional for the Presentation Layer:
 | **Column Name**                            | **Data Type**                | **Reasoning**                                                |
 | ------------------------------------------ | ---------------------------- | ------------------------------------------------------------ |
 | <Integration Layer entity>_SK              | INTEGER                      | Any inherited surrogate keys from the   Integration Layer essentially act as level keys in a Dimension. |
-| OMD_EXPIRY_DATETIME                        | DATETIME    (high precision) | The date time when the record was closed.   Records are closes based on changes in the history (alteration or deletion).   The value of this attribute is the value of the valid start date time of the   previous related record minus 1 second. The default value is 99991231   23:59:59. |
-| OMD_CURRENT_RECORD_INDICATOR               | VARCHAR(100)                 | The flag (Y/N) whether this record is active.   This makes selection and querying easier. |
-| OMD_DELETED_RECORD_INDICATOR               | VARCHAR(100)                 | This flag (Y/N) indicates that the record has   been deleted from the source system. |
-| OMD_UPDATE_MODULE_INSTANCE_ID              | INTEGER                      | The module ID of the ETL process which has   updated the record. |
-| OMD_CHECKSUM    (multiple may be required) | VARCHAR(100)                 | Using a checksum for record comparison   requires storing a checksum value as an attribute. Multiple checksums may be   implemented. |
+|                    | DATETIME    (high precision) | The date time when the record was closed.   Records are closes based on changes in the history (alteration or deletion).   The value of this attribute is the value of the valid start date time of the   previous related record minus 1 second. The default value is 99991231   23:59:59. |
+|       | VARCHAR(100)                 | The flag (Y/N) whether this record is active.   This makes selection and querying easier. |
+|                | VARCHAR(100)                 | This flag (Y/N) indicates that the record has   been deleted from the source system. |
+|               | INTEGER                      | The module ID of the ETL process which has   updated the record. |
+|   (multiple may be required) | VARCHAR(100)                 | Using a checksum for record comparison   requires storing a checksum value as an attribute. Multiple checksums may be   implemented. |
 
  
 
@@ -229,9 +229,9 @@ The following attributes are optional for the Presentation Layer:
 Error handling for this area is documented part of the ‘A160 – Error handling and recycling’ document. All required error handling concepts (which lead to rejects of records) may be implemented here because information is stored in the Integration Layer as well.
 
 
- 
 
- 
+
+
 
 4.3      Reporting Structure Area development guidelines
 
@@ -246,9 +246,9 @@ Error handling for this area is documented part of the ‘A160 – Error handlin
  
 
 
- 
 
- 
+
+
 
 \5.       The Helper Area
 
@@ -268,8 +268,8 @@ The following metadata attributes are mandatory for the Helper Area tables. The 
 
 | **Column Name**               | **Data Type** | **Reasoning**                                                |
 | ----------------------------- | ------------- | ------------------------------------------------------------ |
-| OMD_INSERT_MODULE_INSTANCE_ID | INTEGER       | Default OMD; logging which process has   inserted the record |
-| OMD_INSERT_DATETIME           | DATETIME      | This is the time that the record has been   presented to the Data Warehouse environment. This is not the system date/time   for insert however, but the processing time for the records to be moved into   the Staging Area. |
+|  | INTEGER       | Default; logging which process has   inserted the record |
+|            | DATETIME      | This is the time that the record has been   presented to the Data Warehouse environment. This is not the system date/time   for insert however, but the processing time for the records to be moved into   the Staging Area. |
 
 5.2      Helper Area relation to error handling
 

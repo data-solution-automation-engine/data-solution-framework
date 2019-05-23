@@ -1,7 +1,7 @@
 # Solution Pattern - Data Modelling - Data Vault Integration Layer
 
 ## Purpose
-This Implementation Pattern describes the data modelling conventions for a Data Vault based Integration Layer. It documents how the OMD attributes relate to support Data Vault based ETL
+This Implementation Pattern describes the data modelling conventions for a Data Vault based Integration Layer. It documents how the ETL process control attributes relate to support Data Vault based ETL
 Structure
 The modelling conventions for Data Vault are as follows:
 Table Type
@@ -10,19 +10,20 @@ Mandatory attribute
 Comments
 Hub 
 HUB_<name>
-<table name without HUB_>_SK
-OMD_INSERT_MODULE_INSTANCE_ID
-OMD_INSERT_DATETIME
-OMD_RECORD_SOURCE_ID
+
+<table name without HUB_>_<key>
+ETL Process Control Id
+Load Date / Time
+Record Source
 <Business Key>
 The first attribute (SK) is the primary key
 An unique key / index is placed on the <Business Key> attribute (5)
 Link
 LNK_<name>
-<table name without LNK_>_SK
-OMD_INSERT_MODULE_INSTANCE_ID
-OMD_INSERT_DATETIME
-OMD_RECORD_SOURCE_ID
+<table name without LNK_>_<key>
+ETL Process Control Id
+Load Date / Time
+Record Source
 <Hub Keys>
 The first attribute (SK) is the primary key
 An unique key / index is placed on the combination of Hub keys
@@ -39,7 +40,6 @@ OMD_SOURCE_ROW_ID
 OMD_CHECKSUM
 The first 3 attributes compose the primary key
 The Hub Key attribute is not set in this table, but inherited from the parent Hub table
-
 Link Satellite
 LSAT_<name>
 <LNK key – inherited from Link table>
@@ -54,7 +54,7 @@ OMD_CHECKSUM
 The first 3 attributes compose the primary key
 The Link Key attribute is not set in this table, but inherited from the parent Link table
 
- 
+
 The following data types apply:
 OMD_EFFECTIVE_DATETIME; high precision datetime e.g. datetime2(7), date)
 OMD_CURRENT_RECORD_INDICATOR; integer
@@ -84,3 +84,27 @@ Consequences
 Index strategy is documented in dedicated RDBMS Solution Patterns
 Discussion items (not yet to be implemented or used until final)
 None.
+
+## Motivation
+
+
+
+## Applicability
+
+
+
+## Structure
+
+
+
+## Implementation Guidelines
+
+
+
+## Considerations and Consequences
+
+
+
+## Related Patterns
+
+- 

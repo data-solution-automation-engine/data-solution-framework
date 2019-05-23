@@ -1,4 +1,4 @@
-# Introduction
+# Staging Layer overview
 
 The Staging Layer covers the first major series of ETL process steps within the Data Warehouse reference architecture. The processes involved with the Staging Layer introduce data from many (often disparate) source applications into the Data Warehouse environment. In this sense the Staging Layer is for the most part literally a place where the data is collected onto the Data Warehouse environment before being integrated in the core Data Warehouse or loaded for other use-cases (i.e. analytics, ad-hoc reporting).
 
@@ -8,11 +8,9 @@ Many references to other parts of the Data Integration Framework will be made in
 
 Every project or delivery has different constraints and opportunities, which is why the detailed definition of how the Staging Layer is implemented (and why) is captured into the Solution Architecture document. 
 
-# Staging Layer overview
-
 The position of the Staging Layer in the overall architecture is outlined in the following diagram.
 
- ![1547519184139](..\9000_Images\Staging_Layer_1_Overview.png)                                               
+ ![1547519184139](.\Images\Staging_Layer_1_Overview.png)                                               
 
 The Staging Layer, or the process from source to staging, consists of two separate parts (areas): 
 
@@ -47,7 +45,7 @@ The reference architecture specifies that data from the source systems is loaded
 
 This approach is presented in the following diagram:
 
-![1547519184139](..\9000_Images\Staging_Layer_2_Functionality.png)   
+![1547519184139](.\Images\Staging_Layer_2_Functionality.png)   
 
 In typical solution designs, the Staging Area ETL is contains the steps where the source data is actually copied into the Data Warehouse environment. Concepts such as Change Data Capture (CDC) are implemented for this purpose.  
 
@@ -120,7 +118,7 @@ This is not the default and preferred solution. But to support this approach if 
 | ERROR_BITMAP        | INTEGER       | The bitmap containing   multiple errors.                     |
 | ERROR_DESCRIPTION   | VARCHAR(100)  | A description of the   error.                                |
 | ERROR_RECYCLE_COUNT | INTEGER       | The number of times the   record has been processed and rejected to date. |
-| ERROR_STATUS        | VARCHAR(100)  | OMD error status code   (for instance ‘F’ for failure’).     |
+| ERROR_STATUS        | VARCHAR(100)  | ETL error status code   (for instance ‘F’ for failure’).     |
 
 As mentioned above the default error handling strategy is to continue loading and to prevent error handling to hamper the data flow. Loading data into the Integration Layer provides flexibility to choose whether or not to select data based on completeness for loading to the information marts. In this sense rejecting records because of an incorrect data type conversion does not stop the process.
 
@@ -130,7 +128,7 @@ There are a number of choices that can be made on this topic, depending on the r
 
 * A partial load of source data (a result of rejected records) may have an impact downstream in the Presentation Layer (for instance inaccurate summary figures). Discretion has to be applied when deciding if the entire load process (current load and all subsequent loads) should be terminated when encountering rejected records
 * In situations where accuracy in the Presentation Layer is not vital (for instance a CRM data mart), loads with a tolerable threshold on the number of rejected records may allowed to continue
-* Where there is a mix of data marts where data completeness and accuracy is vital to some of the data marts and not others (Finance data mart versus CRM data mart), strategies can be put in place to permit partial load while minimizing its impact on all data marts. A possible approach is to filter out partial loads (based on an OMD ID such as BATCH_ID) as well as all subsequent loads when populating data marts that require data to be complete and accurate
+* Where there is a mix of data marts where data completeness and accuracy is vital to some of the data marts and not others (Finance data mart versus CRM data mart), strategies can be put in place to permit partial load while minimizing its impact on all data marts. A possible approach is to filter out partial loads (based on an ETL Process Id) as well as all subsequent loads when populating data marts that require data to be complete and accurate
 
 The complete error handling for each layer in the architecture is documented in detail in the error handling and recycling approach. 
 
@@ -144,17 +142,17 @@ The Staging Area is modelled after the structure of the application that supplie
 
 The structure of the Staging Area therefore is the same as the source table, but always containing the following process attributes:
 
-| Column Name              | **Required / Optional** | **Data Type / constraint**                            | **Reasoning**                                                | **DIRECT / OMD equivalent**     |
+| Column Name              | **Required / Optional** | **Data Type / constraint**                            | **Reasoning**                                                | **DIRECT equivalent**     |
 | ------------------------ | ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------ | ------------------------------- |
-| Load Date/Time Stamp     | Required                | High precision date/time   – not null                 | The date/time that the   record has been presented to the Data Warehouse environment. | OMD Insert Datetime             |
-| Event Date/Time          | Required                | High precision date/time   – not null                 | The date/time the change   occurred in the source system.    | OMD Event Datetime              |
-| Source System ID / Code  | Required                | Varchar(100) – not null                               | The code or ID for the   source system that supplied the data. | OMD Record Source               |
-| Source Row ID            | Required                | Integer – not null                                    | Audit attribute that   captures the row order within the data delta as provided by a unique ETL   execution. The combination of the unique execution instance and the row ID   will always relate back to a single record. Also used to distinguish order if   the effective date/time itself is not unique for a given key (due to   fast-changing data). | OMD Source Row ID               |
-| CDC Operation            | Required                | Varchar(100) – not null                               | Information derived or   received by the ETL process to derive logical deletes. | OMD CDC Operation               |
-| Full row hash            | Optional                | Character(32), when using   MD5 – not null            | Using a checksum for   record comparison requires storing a checksum value as an attribute. Can be   made optional if column-by-column comparison is implemented instead. | OMD Hash Full Record            |
-| ETL Process Execution ID | Required                | Integer – not null                                    | Logging which unique ETL   process has inserted the record.  | OMD Insert Module   Instance ID |
-| Upstream Hash Values     | Optional                | Character(32), when using   MD5 – not null            | Any pre-calculated hash   values one may like to add to optimize upstream parallel loading (i.e.   pre-hashing business keys), | OMD Hash <>                     |
-| <source attributes>      | Required                | According to data   type  conversion table - nullable | The source attributes as   available. Note that if a primary hash key is not used the natural key   (source primary key) needs to be set to NOT NULL. All other attributes are   nullable. | N/A                             |
+| Load Date/Time Stamp     | Required                | High precision date/time   – not null                 | The date/time that the record has been presented to the Data Warehouse environment. |              |
+| Event Date/Time          | Required                | High precision date/time   – not null                 | The date/time the change occurred in the source system.    |Event Datetime              |
+| Source System ID / Code  | Required                | Varchar(100) – not null                               | The code or ID for the source system that supplied the data. |Record Source               |
+| Source Row ID            | Required                | Integer – not null                                    | Audit attribute that captures the row order within the data delta as provided by a unique ETL execution. The combination of the unique execution instance and the row ID will always relate back to a single record. Also used to distinguish order if the effective date/time itself is not unique for a given key (due to fast-changing data). | Source Row ID               |
+| CDC Operation            | Required                | Varchar(100) – not null                               | Information derived or received by the ETL process to derive logical deletes. |CDC Operation               |
+| Full row hash            | Optional                | Character(32), when using   MD5 – not null            | Using a checksum for record comparison requires storing a checksum value as an attribute. Can be   made optional if column-by-column comparison is implemented instead. | Hash Full Record            |
+| ETL Process Execution ID | Required                | Integer – not null                                    | Logging which unique ETL process has inserted the record.  | Insert Module Instance ID |
+| Upstream Hash Values     | Optional                | Character(32), when using   MD5 – not null            | Any pre-calculated hash values one may like to add to optimize upstream parallel loading (i.e. pre-hashing business keys), | Hash <>                     |
+| <source attributes>      | Required                | According to data   type  conversion table - nullable | The source attributes as available. Note that if a primary hash key is not used the natural key (source primary key) needs to be set to NOT NULL. All other attributes are nullable. | N/A                             |
 
 ## Staging Area development guidelines
 
@@ -169,19 +167,19 @@ The following is a list of conventions for the Staging Area:
 
 The structure of the PSA is the same as the Staging Area (including the metadata attributes). The following attributes are mandatory for the PSA tables:
 
-| **Column Name**                   | **Required / Optional** | **Data Type / constraint**                            | **Reasoning**                                                | **DIRECT / OMD equivalent**     |
+| **Column Name**                   | **Required / Optional** | **Data Type / constraint**                            | **Reasoning**                                                | **DIRECT equivalent**     |
 | --------------------------------- | ----------------------- | ----------------------------------------------------- | ------------------------------------------------------------ | ------------------------------- |
-| Primary hash key i.e. <entity>_SK | Optional                | Character(32), when using   MD5 – not null            | The hashed value of the   source (natural) key. Part of the primary key which is issued for each record   in the history table. Can be used instead of composite primary key. | N/A                             |
-| Effective Date/Time               | Required                | High precision date/time   – not null                 | The date/time that the   record has been presented to the Data Warehouse environment. If a Staging   Area is used these values will be inherited. | OMD Insert Datetime             |
-| Event Date/Time                   | Required                | High precision date/time   – not null                 | The date/time the change   occurred in the source system. If a Staging Area is used these values will be   inherited. | OMD Event Datetime              |
-| Source System ID / Code           | Required                | Varchar(100) – not null                               | The code or ID for the   source system that supplied the data. | OMD Record Source               |
-| Source Row ID                     | Required                | Integer – not null                                    | Audit attribute that   captures the row order within the data delta as provided by a unique ETL   execution. The combination of the unique execution instance and the row ID   will always relate back to a single record. Also used to distinguish order if   the effective date/time itself is not unique for a given key (due to   fast-changing data). If a Staging Area is used these values will be   inherited. | OMD Source Row ID               |
-| CDC Operation                     | Required                | Varchar(100) – not null                               | Information derived or   received by the ETL process to derive logical deletes. If a Staging Area is   used these values will be inherited. | OMD CDC Operation               |
-| Full row hash                     | Optional                | Character(32), when using   MD5 – not null            | Using a checksum for   record comparison requires storing a checksum value as an attribute. Can be   made optional if column-by-column comparison is implemented instead. If a   Staging Area is used these values will be inherited. | OMD Hash Full Record            |
-| ETL Process Execution ID          | Required                | Integer – not null                                    | Logging which unique ETL   process has inserted the record.  | OMD Insert Module   Instance ID |
-| Current Row Indicator             | Optional                | Varchar(100) – not null                               | A flag or Boolean to   indicate if the record is the most current one (in relation of the effective   date). | OMD Current Record   Indicator  |
-| Change Date/Time                  | Optional                | High precision date/time   – nullable                 | A derived date/time field   to standardize the main business effective date/time for more harmonised   upstream processing. | OMD Change Datetime             |
-| <source attributes>               | Required                | According to data   type  conversion table - nullable | The source attributes as   available. Note that if a primary hash key is not used the natural key   (source primary key) needs to be set to NOT NULL. All other attributes are   nullable. | N/A                             |
+| Primary hash key i.e. <entity>_SK | Optional                | Character(32), when using   MD5 – not null            | The hashed value of the source (natural) key. Part of the primary key which is issued for each record in the history table. Can be used instead of composite primary key. | N/A                             |
+| Effective Date/Time               | Required                | High precision date/time   – not null                 | The date/time that the record has been presented to the Data Warehouse environment. If a Staging Area is used these values will be inherited. | Insert Datetime             |
+| Event Date/Time                   | Required                | High precision date/time   – not null                 | The date/time the change occurred in the source system. If a Staging Area is used these values will be   inherited. | Event Datetime              |
+| Source System ID / Code           | Required                | Varchar(100) – not null                               | The code or ID for the source system that supplied the data. | Record Source               |
+| Source Row ID                     | Required                | Integer – not null                                    | Audit attribute that captures the row order within the data delta as provided by a unique ETL execution. The combination of the unique execution instance and the row ID will always relate back to a single record. Also used to distinguish order if the effective date/time itself is not unique for a given key (due to fast-changing data). If a Staging Area is used these values will be inherited. | Source Row ID               |
+| CDC Operation                     | Required                | Varchar(100) – not null                               | Information derived or received by the ETL process to derive logical deletes. If a Staging Area is used these values will be inherited. | CDC Operation               |
+| Full row hash                     | Optional                | Character(32), when using   MD5 – not null            | Using a checksum for record comparison requires storing a checksum value as an attribute. Can be made optional if column-by-column comparison is implemented instead. If a Staging Area is used these values will be inherited. | Hash Full Record            |
+| ETL Process Execution ID          | Required                | Integer – not null                                    | Logging which unique ETL process has inserted the record.  | Insert Module Instance ID |
+| Current Row Indicator             | Optional                | Varchar(100) – not null                               | A flag or Boolean to indicate if the record is the most current one (in relation of the effective date). | Current Record   Indicator  |
+| Change Date/Time                  | Optional                | High precision date/time   – nullable                 | A derived date/time field to standardize the main business effective date/time for more harmonised upstream processing. | Change Datetime             |
+| <source attributes>               | Required                | According to data   type  conversion table - nullable | The source attributes as available. Note that if a primary hash key is not used the natural key (source primary key) needs to be set to NOT NULL. All other attributes are nullable. | N/A                             |
 
 The ETL process from the Staging Area to the PSA checks the data based on the source key and the date/time information and compares all the attribute values. This can result in the following actions:
 

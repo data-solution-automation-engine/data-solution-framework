@@ -83,13 +83,9 @@ A full overview is provided below:
 
 - The (reference) **Solution Architecture** documentation is composed of the following documents:
   - Data Integration – 1 – Overview. The current document, providing an overview of Data Integration components.
-  - Data Integration – 2 – Reference Architecture. The reference architecture describes the elements that comprise the (enterprise) Data Warehouse and Business Intelligence foundations, with the details showing how these elements fit together. It also provides the principles and guidelines to enable the design and development of Business Intelligence applications together with a Data Warehouse foundation that is scaleable, maintainable and flexible to meet business needs. These high level designs and principles greatly influence and direct the technical implementation and components
-  - Data Integration – 3 – Staging Layer. This document covers the specific requirements and design of the Staging Layer. The document specifies how to set up a Staging Area and History Area
-  - Data Integration – 4 – Integration Layer. This document covers the specific requirements and design of the Integration Layer; the core Enterprise Data Warehouse
-  - Data Integration – 5 – Presentation Layer. This document covers the specific requirements and design of the Data Marts in the Presentation Layer which supports the Business Intelligence front-end.
-  - Data Integration – 6 – Metadata Model. This document covers the complete process of controlling the system, which ties in with every step in the architecture. All ETL processes make use of the metadata and this document provides the overview of the entire concept. The model can be deployed as a separate module
-  - Data Integration - 7- Error handling and recycling process, which ties in with every step in the architecture. Elements of the error handling and recycling documentation can be used in a variety of situations
-  - Data Integration – 8 – OMD Framework Detailed Design. This document provides detailed process descriptions for the ETL process control (Operational Meta Data model – OMD).
+  - Data Integration – 2 – Staging Layer. This document covers the specific requirements and design of the Staging Layer. The document specifies how to set up a Staging Area and History Area
+  - Data Integration – 3 – Integration Layer. This document covers the specific requirements and design of the Integration Layer; the core Enterprise Data Warehouse
+  - Data Integration – 4 – Presentation Layer. This document covers the specific requirements and design of the Data Marts in the Presentation Layer which supports the Business Intelligence front-end.
 
 - Design Patterns. Detailed backgrounds on design principles: the how-to’s. Design Patterns provide best-practice approaches to typical Data Warehouse challenges. At the same time the Design Patterns provide a template to document future design decisions.
 - Solution Patterns. Highly detailed implementation documentation for specific software platforms. Typically a single Design Patterns is referred to by multiple Solution Patterns, all of which document how to exactly implement the concept using a specific technology
