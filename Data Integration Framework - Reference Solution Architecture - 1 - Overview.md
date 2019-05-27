@@ -1,66 +1,55 @@
 # Reference Solution Architecture - overview
 
-The reference Solution Architecture is designed to facilitate a platform-independent, flexible and manageable development cycle. 
+The reference Solution Architecture ('reference architecture') is designed to facilitate a platform-independent, flexible and manageable data solution. 
 
-The approach should not be seen as a one-size-fits all solution. Content is defined in a modular way as much as possible, and different elements can be applied to suit the needs of individual data solutions. 
+The fundamental principle of the reference architecture is to *design for change* by decoupling 'technical' logic and 'business' logic and ensuring each data integration process can run independently and in parallel with built-in recovery mechanisms. 
 
-The fundamental principle of the framework is to design for change by decoupling 'technical' logic and 'business' logic and ensuring every data integration process can run independently and in parallel - as well as recover at any point in time without impacting dependencies to other processes. 
-
-The framework aims to provide standards for decoupling (functional separation) so new or changed requirements in information delivery can be met without re-engineering the foundations of the data solution.
+The reference architecture aims to provide guidelines for decoupling (functional separation) of the various elements of the data solution, so new or changed requirements can be incorporated without re-engineering the data solution foundations. 
 
 ## Relationship to the Data Integration framework
 
-As an overarching concept, the Data Integration framework is defined as a variety of components which can be used in conjunction with each other, or as stand-alone additions to existing management information solutions. Examples are  pre-defined documents, templates, design- and implementation decisions as well as guidelines on auditability and process control (orchestration approaches).
+As an overarching concept, the Data Integration framework is defined as a collection of components which can be used in conjunction with each other, or as stand-alone additions to existing data solutions. For example, the framework includes pre-defined documents, templates, design- and implementation decisions as well as guidelines on auditability and process control (orchestration approaches).
 
-The Solution Architecture can be seen as the artefact that *combines* the selected options (patterns) and captures the considerations - the rationale for making certain design decisions and how they all work together.
+The Solution Architecture can be seen as the artefact that *combines* the selected options (patterns) and records the considerations - the rationale for making certain design decisions and how the selected components work together.
 
 In short: the Data Integration framework provides the options and the Solution Architecture records which of these options have been selected for given purpose, and why. 
 
 ## Purpose of the reference Solution Architecture
 
-This document describes the foundation of an Enterprise Data Warehouse (EDW) solution, explaining how various elements can be combined together in a data system architecture. 
+This document describes how various concepts can be combined to create the foundation of an enterprise-grade data solution, such as a Data Warehouse. 
 
-In this context, a solution architecture in it's essence is the selection and documentation of various design decisions including the reasoning for taking a certain approach. The documentation of options and considerations - represented as the selected design and solution patterns.
+In this context, a solution architecture is essentially the selection and documentation of various design decisions including the reasoning for taking a certain approach. The documentation of options and considerations - represented by the selected Design- and Solution patterns.
 
-This way, the solution architecture provides the principles and guidelines to enable a scalable, maintainable and flexible data solution - one that can meet the business' needs.  
+This way, the resulting solution architecture artefact provides the (project-customised) principles and guidelines to assist the delivery team in creating a scalable, maintainable and durable data solution.
 
-These high level designs and principles direct the technical implementation and components, which are intended to be capture into a Solution Architecture document for each delivery. The Solution Architecture captures which elements of the architecture are used and the reasoning for this, which is deployment-specific. 
+At a high level, the reference architecture describes the following:
 
-For every project it is required to fine-tune and match the Solution Architecture using these reference designs. Only by carefully selecting which parts should be adopted a fit-for-purpose implementation will be achieved. 
-
- To achieve this, the reference Solution Architecture describes on a high level:
-
-- What layers and areas can be considered.
-- What the steps for data integration are, and in what order they should be processed.
-- What the options and considerations are during these steps.
-- How metadata is used and linked to the architecture layers.
-- How error handling and recycling is used and linked to the layers and areas.
+- What (architecture) layers and areas can be considered
+- What the high level steps for data integration are, and in what order they should be processed
+- What the options and considerations are for each of these steps
+- How ETL process control metadata is used and linked to the layers and areas
+- How exception handling can be applied to the layers and areas.
 
 ## Objectives from a business perspective
 
 To the business, the reference architecture focuses on:
 
-- The ability quickly respond to changing business requirements. The  layered architecture and areas aim to separate concerns by allocating certain components to layers and areas.
-- Reliable use of data for decision making and analysis. This is supported through the application of consistency and durability principles (i.e. ACID) in a parallel processing environment.
-- Reduction of time to value and expected levels of quality. This is enabled by metadata-driven and pattern based development practices (i.e. virtualisation, ETL generation and Data Warehouse Automation)
+- The ability quickly respond to changing business requirements. By using defined layers and areas, the architecture aims to *separate concerns* by allocating certain components and functionality to layers and areas
+- Reliable use of data for decision making and analysis. This is supported through the application of consistency and durability principles (i.e. ACID) in the data environment at technical and application level.
+- Reduction of time to value and expected levels of quality. This is supported by metadata driven and pattern based development practices (i.e. virtualisation, ETL generation and Data Warehouse Automation)
 
 ### Objectives from a technology perspective
 
-The reference Solution Architecture provides the structure in which best practices can be applied. It outlines the boundaries and rules that govern the behaviour of the intended data solution. The key objectives are:
+The reference architecture provides a structure against which best practices can be applied. It outlines the boundaries and rules that govern the behaviour of the intended data solution. 
 
-- Enabling refactoring without impacting consumers of information. Business logic Limited or no need to re-engineer; by decoupling data management (warehouse) and business (transformation) logic a solid foundation to manage all data within the enterprise is established. Changes or additions can be applied without the need to 'go back' and change the underlying foundations and technical improvements can be executed without impacting the reporting environments
-- Built-in handling of (information) complexities, integration and dependencies; pre-defined solutions for error handling, parallelism, reconciliation, recovery and handling of business rules provide a data platform that requires no re-engineering.
-- Application components are ‘built once, reused many times’.
-- High level of maintainability and support; built-in resilience in ETL, archiving, combined with a maintenance Graphical User Interface (GUI) and a strict set of conventions remove maintenance complexities often associated with Data Warehousing
-- Model driven design; define the information model, and expand your solution gradually and consistently from there. ETL is automatically generated using the model specifications
-- A documented and sound foundation for the Data Warehouse; the highly structure and complete documentation of all framework components provide a full picture from the high level concepts all the way down to the technical implementation for a large variety of ETL platforms
-- The Data Integration provides the rules; only the focus on the necessary data (input) and the reporting (output) is required
-- ETL quality and consistency; template driven ETL automation based on a conceptual framework provides a repeatable and dynamic development process which reduces the need for extensive documentation and delivers deterministic and high quality ETL logic
-- All the data in the environment is accessible through a common and user-friendly interface.
-- The right information is provided to the right users in the right format, and in a timely manner.
-- The physical location and structures of the data are transparent to the users.
-- The data is integrated (where applicable), consistent and can be reconciled.
-- The information (query results, reports, etc.) provided to the users is consistent and can be reconciled.
+The key technical objectives are:
+
+- Enabling refactoring without impacting consumers of information. By decoupling data storage and management (warehouse) and business logic (transformation), changes and additions can be applied without the need to change the underlying solution. Technical improvements can be executed without impacting the reporting environments by using versioning.
+- Built-in handling of (ETL) complexities, integration and dependencies; pre-defined solutions for error handling, parallelism, reconciliation, recovery and handling of business rules provide a data platform that requires no re-engineering.
+- Making sure data components are built once, and reused many times.
+- Enabling Pattern-based design (also known as model driven design); define the information model, and expand the data solution gradually and consistently.
+- ETL quality and consistency; Data Warehouse Automation (template driven ETL generation) provides a repeatable and dynamic development process which reduces the need for extensive documentation and can support DevOps delivery approaches.
+- The information is provided to the users is consistent, and can be reconciled. This is supported by applying ACID principles to the ETL patterns; to make sure information (query results, reports, etc.) can be (automatically) validated for integrity at certain points in time.
 
 # Principles
 
@@ -192,7 +181,7 @@ As an example, this approach allows information related to the same customer or 
 
 ![1547521558900](.\Images\558900.png)
 
-Objects in the Integration Layer are not accessible for end-users or Business Intelligence and analytics software (e.g. Cognos). This is because for most scenarios information has not yet been prepared for consumption; only Data Warehouse logic is implemented.  There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Integration Layer which contains essentially raw, but indexed and time variant data in the right context (e.g. related to the correct business keys). This is an ideal structure for statistical analysis.
+Objects in the Integration Layer are not accessible for end-users or Business Intelligence and analytics software. This is because for most scenarios information has not yet been prepared for consumption; only Data Warehouse logic is implemented.  There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Integration Layer which contains essentially raw, but indexed and time variant data in the right context (e.g. related to the correct business keys). This is an ideal structure for statistical analysis.
 
 ## Presentation Layer
 
@@ -282,12 +271,12 @@ The Data Warehouse design implements various levels of predefined constraints an
 
 Every Data Warehouse table contains a predefined set of metadata attributes, which are – with the exception of the Update process attributes – always set to NOT NULL. 
 
-| **Layer    / area** | **Constraint    / concept**                                  |
-| ------------------- | ------------------------------------------------------------ |
-| Staging Area (STG)  | All source attributes are nullable (NULL).                   |
-| History Area (HSTG) | All source attributes are nullable. HSTG tables have a meaningless key   as Primary Key and a unique constraint on the combination of the source key   and the event date/time. This means only one value can be valid at a point in   time. The source to staging interface design ensures that no duplicates can   ever occur by the (correct) assignment of this event date/time. |
-| Integration Layer   | Data Warehouse key tables will always have a -1 placeholder value to   server as the ‘unknown’ record.       Data Warehouse history tables will always have a complete time   interval. This means there is never a ‘gap’ or ‘island’ in the time intervals   and inner joins can always be used. This is implemented by insert a starting   record every time a new DWH key is created.        All record sets that are loaded to the Integration Layer support their   own ‘keying’ processes to reduce dependencies, but also to ensure the   referential integrity requirements are always met. This also means that the   system will always provide a correct view of the data when it was processed,   and how it improves over time. |
-| Presentation Layer  | Every Dimension will contain a -1 dummy record to link orphan records   to. This means all Fact records will have an inner join link to the   Dimensions.       Additionally, if transactions refer to business entities (Data   Warehouse keys) that have no match to other reference data when joining the   various entities into Dimensions (through the intersection / ‘link’ entities   in the Integration Layer) the upper levels are set to ‘Unknown’. No loss of   data is ensured in this process because the standard use of outer joins when   implementing business logic in Dimensions. No NULL values are allowed in the   Dimensions. |
+| **Layer    / area**           | **Constraint    / concept**                                  |
+| ----------------------------- | ------------------------------------------------------------ |
+| Staging Area (STG)            | All source attributes are nullable (NULL).                   |
+| Persistent Staging Area (PSA) | All source attributes are nullable. HSTG tables have a meaningless key   as Primary Key and a unique constraint on the combination of the source key   and the event date/time. This means only one value can be valid at a point in   time. The source to staging interface design ensures that no duplicates can   ever occur by the (correct) assignment of this event date/time. |
+| Integration Layer (INT)       | Data Warehouse key tables will always have a -1 placeholder value to   server as the ‘unknown’ record.       Data Warehouse history tables will always have a complete time   interval. This means there is never a ‘gap’ or ‘island’ in the time intervals   and inner joins can always be used. This is implemented by insert a starting   record every time a new DWH key is created.        All record sets that are loaded to the Integration Layer support their   own ‘keying’ processes to reduce dependencies, but also to ensure the   referential integrity requirements are always met. This also means that the   system will always provide a correct view of the data when it was processed,   and how it improves over time. |
+| Presentation Layer (PRES)     | Every Dimension will contain a -1 dummy record to link orphan records   to. This means all Fact records will have an inner join link to the   Dimensions.       Additionally, if transactions refer to business entities (Data   Warehouse keys) that have no match to other reference data when joining the   various entities into Dimensions (through the intersection / ‘link’ entities   in the Integration Layer) the upper levels are set to ‘Unknown’. No loss of   data is ensured in this process because the standard use of outer joins when   implementing business logic in Dimensions. No NULL values are allowed in the   Dimensions. |
 
  
 
@@ -296,8 +285,6 @@ Every Data Warehouse table contains a predefined set of metadata attributes, whi
 Error handling and exception is applicable to every layer and area in the architecture. Each individual layer definition document will describe how error handling is used for that particular section of the architecture since the exception handling is very different between layers. The error handling and recycling document itself lists and explains the concepts that can be used and will provide an overview of the complete error and exception handling solution.
 
  ![1547521779997](.\Images\79997.png)
-
-The details for error and exception handling are defined in the ETL Framework - 7 - Exception Handling v1.0’ document.
 
 
 # ETL process control

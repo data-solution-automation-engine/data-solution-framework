@@ -7,10 +7,6 @@ The framework is designed to facilitate a platform-independent, flexible and man
 
 The framework is defined in a modular way, allowing different elements to be selected to suit the needs individual data solutions. The individual components can be used in conjunction with each other or as stand-alone additions to existing data solutions.
 
-The fundamental principle of the framework is to design for change by decoupling 'technical' logic and 'business' logic and ensuring each data integration process can run independently and in parallel with built-in recovery mechanisms. 
-
-The framework aims to provide guidelines for decoupling (functional separation) of the various elements of the data solution, so new or changed requirements can be incorporated without re-engineering the data solution foundations. 
-
 To enable collective maintenance of this body of knowledge these standards are developed and maintained using the MarkDown format on Github.
 
 On several occasions, the Data Integration framework makes mention of the ETL process control framework. Although other control frameworks  can be added, the default option for this is the DIRECT framework as maintained in the [DIRECT Github](https://github.com/RoelantVos/DIRECT) (private at the moment while being finalised).
