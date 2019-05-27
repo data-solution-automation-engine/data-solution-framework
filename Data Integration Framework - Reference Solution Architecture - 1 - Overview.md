@@ -38,7 +38,7 @@ To the business, the reference architecture focuses on:
 - Reliable use of data for decision making and analysis. This is supported through the application of consistency and durability principles (i.e. ACID) in the data environment at technical and application level.
 - Reduction of time to value and expected levels of quality. This is supported by metadata driven and pattern based development practices (i.e. virtualisation, ETL generation and Data Warehouse Automation)
 
-### Objectives from a technology perspective
+## Objectives from a technology perspective
 
 The reference architecture provides a structure against which best practices can be applied. It outlines the boundaries and rules that govern the behaviour of the intended data solution. 
 
@@ -48,38 +48,46 @@ The key technical objectives are:
 - Built-in handling of (ETL) complexities, integration and dependencies; pre-defined solutions for error handling, parallelism, reconciliation, recovery and handling of business rules provide a data platform that requires no re-engineering.
 - Making sure data components are built once, and reused many times.
 - Enabling Pattern-based design (also known as model driven design); define the information model, and expand the data solution gradually and consistently.
-- ETL quality and consistency; Data Warehouse Automation (template driven ETL generation) provides a repeatable and dynamic development process which reduces the need for extensive documentation and can support DevOps delivery approaches.
+- ETL quality and consistency; Data Warehouse Automation (template driven ETL generation) provides a repeatable and dynamic development process which reduces the need for extensive documentation and can support DevOps style delivery approaches.
 - The information is provided to the users is consistent, and can be reconciled. This is supported by applying ACID principles to the ETL patterns; to make sure information (query results, reports, etc.) can be (automatically) validated for integrity at certain points in time.
 
 # Principles
 
-To adapt to business needs the intended data solution should decouple ‘warehouse logic’ from ‘business logic’. The basic assumption is that requirements will change over time, and that any solution that specifically is designed for a certain output or requirement will fail over time when adjustments are made. Rather, the framework views requirements from a data perspective and aims to properly integrate and consolidate data before applying a certain view.
+The assumption is that requirements will change over time, and that a data solution that specifically is designed for a certain output or requirement may fail over time when adjustments are made. This is especially the case for interpretation of information, i.e. business requirements. It takes time and collective experience to truly 'nail' the interpretation of data, by adding the context that turns data into information.
 
-![1547519184139](C:/Files/Data_Integration_Framework/Images/1547519184139.png)
+The reference architecture views the data solution as a way to manage the data asset of a company, by enabling the design to continuously adjust to a changing environment, both technical and functional. 
+
+By implementing pattern-based development and ETL generation approaches the design metadata becomes the core intellectual property that drives (and forward engineers in DevOps) the data solution to keep up with the business changes.
+
+Everything changes, but managing data as asset by allowing for flexibility in deployment and gradual interpretation of data makes this manageable.
 
 
 
-No reference architecture or model can exist without adopting basic principles. This paragraph lists these principles along with the fundamental ideas.
+![1547519184139](./Images/1547519184139.png)
 
-- **Hybrid model approach**. Traditionally Data Warehouse models have been classified as either fully normalized (early Inmon) and fully denormalised (Kimball). A hybrid approach utilises components of both concepts. A degree of normalisation ensures that every meaningful (business) entity has its own separate table for distributing surrogate keys and one where history is stored in a traditional Type-2 (denormalised) fashion. Depending on the chosen modelling technique relationships can also be modelled separately. Examples of hybrid approaches are Data Vault, Anchor, Head-and-Version and Matter.
-- **Separation of Data Warehouse concepts**. The core functionality within a Data Warehouse is divided in separate ETL steps. This is different to loading a typical Kimball dimension (Dimensional Bus Architecture) where keys, structure and history are combined in the ETL process. Separating these functions provides additional flexibility and maintainability in the future. This includes:
-  - Surrogate key distribution or hashing of business keys
+
+
+The following fundamental concepts underpin the reference architecture:
+
+- **Hybrid data modelling**. Traditionally Data Warehouse models have been classified as either fully normalised (i.e. Corporate Information Factory) or fully denormalised (Dimensional Modelling / Dimensional Bus Architecture). A hybrid approach utilises components of both concepts. A degree of normalisation ensures that every meaningful (business) entity has its own separate table for distributing surrogate keys and one where history is stored in a traditional Type-2 (denormalised and historised) way. Depending on the selected modelling technique relationships can also be modelled separately. Examples of hybrid data modelling approaches are Data Vault, Focal Point, Anchor, Head-and-Version and Matter.
+- **Modular solution design**. The reference architecture is designed to be customised for individual scenarios. This means every component is in principle designed to be modular. For example:
+  - ETL metadata and process control, which is a stand-alone component (i.e. DIRECT)
+  - Error handling and recycling, including concepts such as the Error Bitmap and reprocessing of failed data loads
+  - Persistent Staging Area, as a log of processed events which can be added to the data solution as a separate schema or file storage area
+- **Separation of Data Warehouse concepts in ETL**. The core functionality within a Data Warehouse is divided in individual modular ETL components. This is different to for instance the ETL pattern for loading a typical 'Kimball' dimension (Dimensional Bus Architecture) where keys, structure and history are combined in a single ETL process. Separating this into smaller (modular) functional components provides additional flexibility and maintainability in the future. This includes, but is not limited to:
+  - Data Warehouse key distribution (including hashing of business keys)
   - Storing and tracking history (managing time-variant data)
-  - Structure and hierarchy
+  - Defining structure and hierarchy
   - Cleaning and integration (business rules)
-- **Flexibility**. A common pitfall of Data Warehouse models is the design (modelling) for a current need of information or specific business requirement. This leads to data being modelled specifically for a set purpose as defined in a given project. However, this often also limits the future usage of the Data Warehouse a future requirements may impact the design or there are differences in the interpretation of data across the organisation. Designing for flexibility in this context means designing to be future proof. This is major goal of the reference architecture that includes:
+- **Design for change**. Designing for change in this context means designing to be future proof, as opposed to designing for a specific business requirement or purpose. This is core principle of the reference architecture that includes:
   - The ability to load data even when relationships between data change. Most hybrid modelling techniques use many-to-many relationships separate of the main entities, even when the data could currently be modelled as one-to-many without a separate relationship table.
   - Catering for different levels of completeness of data. This impacts the way errors are handled / rejected and the specification of failure.
   - Providing multiple versions of the truth (multiple Information Marts for the same data) to support different interpretations of data.
   - Handling changing business rules. To be able to always represent data in another way, this impacts the integration approach and the Information Mart concept.
   - Separate original and transformed data while still retaining the relationship between the two to support lineage and auditability, as well as refactoring of ETL and data models
   - Applying business rules / logic as late as possible: in the delivery of the information (Presentation Layer)
-- **Real-time ready**. All concepts are designed for a possible future of handling real-time data sources
-- **Modular approach**. The architecture and all related products can be used independently with relatively little customisation for different technologies. Every concept that can be modularised contains a separate paragraph explaining how this is achieved. Modules that can be used regardless of architecture include (but not limited to):
-  - Metadata and process control, the complete metadata concept can be implemented regardless of the chosen architecture by creating the necessary metadata attributes and tables. This will require table and mapping customisation.
-  - Error handling and recycling. Concepts such as the Error Bitmap and recycling can be added to any architecture (but will require table and mapping customisation).
-  - Persistent Staging Area / Historical Area. An archive of transactions can be added to the Data Warehouse by creating a separate schema with the described process attributes (record validity attributes).
-- **Corporate memory**. The Data Warehouse collects, integrates stores and manages all data, but does not ‘invent’ new data or addresses data quality issues directly. These should be handled by the operational systems, supported by exception reporting by the Data Warehouse. Data quality and interpretation of information is managed via Data Governance. This principle also means that no information is physically deleted from the Data Warehouse and logical deletes are supported at all times.  
+- **Flexibility in scheduling**. The reference architecture is designed for a possible future of handling near real-time data sources and changes in data refresh frequencies for batch processing. Essentially, the design intends allow changes in scheduling independent from ETL design.
+- **Corporate memory**. The data solution collects, integrates and manages all data but does not ‘invent’ new data or addresses data quality directly. Data quality concerns are ideally handled by the operational systems, supported by exception reporting. Data quality and interpretation of information is managed via Data Governance. This principle also means that no information is physically deleted from the Data Warehouse and logical deletes are supported at all times.  
 
 # Using the reference solution architecture
 
