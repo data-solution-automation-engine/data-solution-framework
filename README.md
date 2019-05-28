@@ -47,7 +47,7 @@ The diagram below outlines the Data Integration framework components. These are 
 
 The idea is to enable a standard and structured way for documenting decisions related to system design and operation.
 
- ![1547519339316](C:/Files/Data_Integration_Framework/Images/5C1547519339316.png)
+ ![1547519339316](./Images/5C1547519339316.png)
 
    
 

@@ -34,6 +34,32 @@ The intention of the Interpretation Area is to reduce replication of the rules i
 
 In separating the state of the data into two physical forms (original and modified), it gives the flexibility of applying multiple sets of rule to a specific data set, in order to suit specific needs. 
 
+## Integration Layer
+
+The Integration Layer consists of the **Raw Data Vault** area and the **Business Data Vault** area. The main purpose of this Layer is to function as the ‘core Data Warehouse layer’ where all the data is collected in a normalised Data Warehouse model. To achieve optimal flexibility and error handling business rules are implemented as late as possible in the ETL process. 
+
+The Raw Data Vault stores the source data without changing the contents in the core Data Warehouse model. The system collects the data from all source systems in a generic way which is suitable for further expansion. The main Data Warehouse functionalities such as surrogate key distribution, storing history and maintaining relationships are done in this area.  
+
+The Business Data Vault uses the same modelling standards as the Raw Data Vault but provided interpretations or alternate views on the granular data. Both areas link closely to each other and in most cases provides separate cleaned or changed instances of tables that already exist in the Raw Data Vault. 
+
+The Business Data Vault is not a full copy of the Raw Data Vault. In most cases the Interpretation Area tables will refer to Integration Area surrogate key tables and provide an alternative perspective to Integration Area historical tables. 
+
+Examples of logic that can be applied in the Business Data Vault are generic business rules such as de-duplication or determining a single customer view. Additionally, the Business Data Vault is also used to design cross-references between similar datasets from different source systems. These cross-references are essentially recursive or intersection entities between business entities in the Raw Data Vault, but contain (business) rules to identify the main keys. 
+
+The important factor is that in this layer, business rules that alter the contents of the data are not yet applied. In the case of derivations, for example in the Business Data Vault, this means the original values will always need to stay available. Also, records are not checked for errors to keep the system as flexible as possible towards the Information Marts.  
+
+The Integration Layer (Integration Area and Interpretation Area) will be created using a **Data Vault 2.0** model which decouples key distribution using main entities (Hubs) but de-normalises reference information (Satellites) for these entities. Relationships between the main entities (Links) can be managed and tracked over time. This is a loosely-coupled data modelling approach which reduces dependencies and timing issues which are expected to occur in the data delivery. 
+
+As an example, this approach allows information related to the same customer or prospect to be delivered and integrated independently. It also supports ongoing linking of customer information to tie in various elements of information to the unique prospect or customer over time without losing flexibility; the logic for de-duplication can be changed and/or recalculated across historical information if required.
+
+![1547521558900](D:/Git_Repositories/Data_Integration_Framework/Images/558900.png)
+
+Objects in the Integration Layer are not accessible for end-users or Business Intelligence and analytics software. This is because for most scenarios information has not yet been prepared for consumption; only Data Warehouse logic is implemented.  There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Integration Layer which contains essentially raw, but indexed and time variant data in the right context (e.g. related to the correct business keys). This is an ideal structure for statistical analysis.
+
+## Principles
+
+The Integration Layer can be modelled using a hybrid (Data Vault, Anchor Modelling) technique. For the Enterprise Data Warehouse, which integrates many sources and is subject to change a Data Vault 2.0 approach is adopted
+
 # The Integration Area
 
 The Integration Area is modelled differently from the Staging Area. In the Integration Area data is divided into common entities which form the core of the Data Warehouse model. Various modelling techniques can be applied for the Integration Layer (3NF, Data Vault, Anchor) as long as the same technique is used for both areas. Regardless of the approach the tables in the Integration Area are either:

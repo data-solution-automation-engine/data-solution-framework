@@ -1,6 +1,6 @@
 # Staging Layer overview
 
-The Staging Layer covers the first major series of ETL process steps within the Data Warehouse reference architecture. The processes involved with the Staging Layer introduce data from many (often disparate) source applications into the Data Warehouse environment. In this sense the Staging Layer is for the most part literally a place where the data is collected onto the Data Warehouse environment before being integrated in the core Data Warehouse or loaded for other use-cases (i.e. analytics, ad-hoc reporting).
+The Staging Layer covers the first series of ETL process steps within the reference architecture. The processes involved with the Staging Layer introduce data from many (often disparate) source applications into the Data Warehouse environment. In this sense the Staging Layer is for the most part literally a place where the data is collected onto the Data Warehouse environment before being integrated in the core Data Warehouse or loaded for other use-cases (i.e. analytics, ad-hoc reporting).
 
 But even then many fundamental decisions are required that have repercussions throughout the rest of the design. This document defines the Staging Layer and describes the required process steps and available solutions.
 
@@ -11,6 +11,20 @@ Every project or delivery has different constraints and opportunities, which is 
 The position of the Staging Layer in the overall architecture is outlined in the following diagram.
 
  ![1547519184139](.\Images\Staging_Layer_1_Overview.png)                                               
+
+## Staging Layer
+
+The Staging Layer consists of the **Staging Area** and the **Persistent Staging Area**. The main purpose of this layer is to collect source data and optionally store it in a source data archive. The Staging Layer prepares and collects data for further process into the Integration Layer.
+
+The Staging Area within the Staging Layer streamlines data types and loads source data into the Data Warehouse environment. This is done by utilising different Change Data Capture (CDC) techniques depending on the source system, files or options / restrictions of the available technology. Another important role for the Staging Area is the correct definition of time in the Data Warehouse. Depending on the type of source and interface dynamics extreme care has to be taken to ensure timelines are setup correctly for proper management of historical information in the subsequent steps.  
+
+The design is to load the source data delta into the History Area. Here the data is stored in the structure of the providing source but changes are tracked over time. The History Area is an important component in Data Recovery (DR) and re-initialisation of data (initial load) and is also used as part of the Full Outer Join comparison against the source systems. 
+
+An option in the Data Warehouse design is to load the source data into a History Area. Here the data is stored in the structure of the providing source but changes are tracked using the Slowly Changing Dimensions (SCD type 2) mechanism. The History Area is an important component in Disaster Recovery (DR) and re-initialisation of data (initial loads). When Change Data Capture, Change Tracking or messaging sources are part of the design the addition of a History Area is strongly recommended. A History Area can also be used for full outer join comparison against the source system and/or a full data dump interface. 
+
+Objects in the Staging Layer are not accessible for end-users or Business Intelligence and analytics software (e.g. Cognos). This is because for most scenarios information has not yet been prepared for consumption. There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Staging Layer which contains essentially raw time variant data. Allow access serves a purpose in prototyping and local self-service BI / visualisation. 
+
+
 
 The Staging Layer, or the process from source to staging, consists of two separate parts (areas): 
 
@@ -65,6 +79,10 @@ The optional processing for the Persistent Staging Area (PSA) creates a historic
 The PSA provides these benefits at the cost of extra disk space, ETL development and maintenance. However, a PSA does not necessarily need to be configured as a database; a scalable file storage environment (HDFS, Azure Data Lake or Amazon S3) can be adopted as well. 
 
 Due to the generic nature of this design depending on the ETL software used these ETL processes and table structures can be created using development patterns / automation.
+
+### Principles
+
+The Staging Layer is always in the same structure as the providing operational system, but all attributes are nullable to avoid load errors
 
 ### Implementing Change Data Capture
 
@@ -163,7 +181,7 @@ The following is a list of conventions for the Staging Area:
 * Source to Staging Area ETL processes use the truncate/insert load strategy. When delta detection is handled by the DWH (i.e. using a Full Outer Join) a Landing Area table can be incorporated.
 * Everything is copied as-is, no transformations are done other than formatting data types. The Staging Area processing may never lead to errors! 
 
-# The Persistent Staging
+# Persistent Staging Area
 
 The structure of the PSA is the same as the Staging Area (including the metadata attributes). The following attributes are mandatory for the PSA tables:
 
@@ -191,7 +209,7 @@ Note: there are other suitable approaches towards a PSA. Depending on the requir
 
 When loading data delta directly into the PSA (i.e. the Staging Area is not adopted) the same rules apply as for the Staging Area. 
 
-## 4.1      Persistent Staging Area development guidelines
+## Persistent Staging Area development guidelines
 
 The following is a list of development conventions for the Persistent Staging Area (PSA):
 

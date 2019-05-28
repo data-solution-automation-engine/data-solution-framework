@@ -24,6 +24,16 @@ As documented in the solution architecture overview, data from the Integration L
 
 The most important aspect of the Presentation Layer is that it inherits its Data Warehouse keys from the Integration Layer, thus enabling backtracking of information. The detailed (raw or cleaned) data from the Integration Layer is still applicable to the keys in the Presentation Layer.
 
+The Presentation Layer consists of the **Helper Area** and the **Reporting Structure Area**. This layer provides the data in a structure that is suitable for reporting and applies any specific business logic. By design information can be provided in any format and/or historical view since the presentation itself is decoupled from the core data store. Where the Integration Layer focuses on optimally storing anything that happens to the data (manage the data itself) and its relationships the Presentation Layer combines these relationships to form Facts and Dimensions. Since historical information is maintained in the previous layer these structures can be easily changed or re-deployed. Deriving dimensional models from a properly structured Integration Layer is very straightforward and development is made very easy because templates are provided and both facts and dimensions can be emptied (truncated) and reloaded at any point in time without losing information. 
+
+The Helper Area of the Presentation Layer is an optional area where semi-aggregates or useful tables can be stored to simplify or speed up processing. These types of tables are usually added for either performance reasons or the wish to implement the same business logic in as few places as possible. Helper tables can be modelled in any way as long as they benefit the Reporting Structure Area. They are not accessible by users or front-end reporting and analysis software. 
+
+By thoughtfully creating aggregate tables which can be shared by the Information Mart one could for instance create a fact table on a certain aggregate level and have different Information Marts aggregate this table further depending on their needs. This way the business logic and performance demanding calculations only have to be done once. 
+
+The Reporting Structure Area is the final part of the reference architecture. An Information Mart is modelled for a specific purpose, audience and technical requirement. The complete Data Warehouse can contain very different Information Marts with different models and different ‘versions of the truth’ depending on the business needs. 
+
+In the process from loading the data from the Integration Layer to the Presentation Layer most of the business logic is implemented.
+
 ## Load strategies
 
 ### Loading from Integration to Presentation
@@ -280,3 +290,27 @@ Error handling for this area is documented part of the ‘A160 – Error handlin
 ·         If the ETL platform supports it, prefix the ‘area’ or ‘folder’ in the ETL tool with ‘300_’ because this is the first area in the third layer in the architecture. This forces most ETL software to sort the folders in the way the architecture handles the data
 
 ·         Reuse the Integration Area surrogate keys wherever possible. This further strengthens the audit capabilities and provides a standard level key in a Dimension
+
+
+
+
+
+## Use of Views
+
+### Decoupling views
+
+The Data Warehouse design incorporates views ‘on top off’’ the Presentation Layer (Information Mart). This is applied for the following reasons:
+
+- Views allow a more flexible implementation of data access security (in addition to the security applied in the BI Layer)
+- Views act as ‘decoupling’ mechanism between the physical table structure and the Semantic Layer (business model) 
+- Views allow for flexible changing of information delivery (historical views)
+
+These views are meant to be 1-to-1, meaning that they represent the physical table structure of the Information Mart. However, during development and upgrades these views can be altered to temporarily reduce the impact of changes in the table structure from the perspective of the BI platform. This way changes in the Information Mart can be made without the necessity to immediately change the Semantic Layer and/or reports. In this approach normal reporting can continue and the switch to the new structure can be done at a convenient moment.  
+
+This is always meant as a temporary solution to mitigate the impact of these changes and the end state after the change should always include the return to the 1-to-1 relationship with the physical table.
+
+A very specific use which includes the only allowed type of functionality to be implemented in the views is the way they deliver the historical information. Initially these views will be restricted to Type 1 information by adding the restriction of showing only the most recent state of the information (where the Expiry Date/Time = ‘9999-12-31’). Over time however it will be possible to change these views to provide historical information if required. On a full Type2 Information Mart, views can be used to deliver any type of history without changing the underlying data or applying business logic.
+
+## Views for virtualisation
+
+Another use case for view is for virtualising the Presentation Layer. As all granular and historic information is stored in the Integration Layer it is possible, if the hardware allows it, to use views to present information in any specific format. This removes the need for ETL – physically moving data – from the solution design. Applicability of virtualisation depends largely on the way the information is accessed and the infrastructure that is in place. Possible application includes when the BI platform uses the information to create cubes, when information is infrequently accessed or with a smaller user base.
