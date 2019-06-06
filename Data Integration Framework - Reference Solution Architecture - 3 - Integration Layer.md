@@ -164,24 +164,3 @@ The Interpretation Area is an optional area where enterprise wide business rules
  The only real difference is that for a certain table not every sibling has to be present in this area. Depending on the applied business rules the Interpretation Area dataset can be a subset of the integration layer dataset, or a fully updated one. 
 
 The Interpretation Area contains derived data from the Integration Area and this can be done for specific tables or for complete or mixed entity sets. For instance, if only cleansing of a specific history table is necessary it will be sufficient to only store a new derived history table which still links to the integration area surrogate key table. If advanced algorithms like deduplication / match and survive are used this might require the creation of a new main entity with both a surrogate key table, history table and perhaps a relationship table.
-
-## Interpretation Area development guidelines
-
-Integration Area ETL can be very specific because of the implementation of business logic. Because of this a typical Interpretation Area pattern cannot be defined. There are however some points of attention:
-
-- If the ETL platform allows it, prefix the ‘area’ or ‘folder’ in the ETL tool with ‘250_’ because this is the second step in the second layer in the architecture. This forces most ETL tools to sort the folders in the way the architecture handles the data
-- The Interpretation Area folder contains all table definitions, all mappings loading from any source (folder) to the Interpretation Area folder and all relevant objects for this process
-- The Interpretation Area only loads data directly from the Integration Area
-- An Integration Area table can never be a target for Interpretation Area ETL
-
-## Interpretation Area relation to error handling
-
-The Interpretation Area can implement the error bitmap concept, or any error handling that might be needed for a specific purpose. As explained in the error handling document (A160 Error handling and recycling) the error bitmap can be used to store multiple errors for a single row and to provide a flexible way to load data to the Presentation Layer. 
-
-For this purpose the Interpretation Area tables may contain the following error handling attributes.
-
-| **Column Name**     | **Data Type** | **Reasoning**                                                |
-| ------------------- | ------------- | ------------------------------------------------------------ |
-| ERROR_BITMAP        | INTEGER       | The numeric value   representing the various errors.         |
-| ERROR_DESCRIPTION   | VARCHAR(100)  | Additional explanation of   the error, containing relevant values from the erroneous record. |
-| ERROR_RECYCLE_COUNT | INTEGER       | A counter recording how   many times this error was selected from the recycling table and re-processed   incorrectly. |

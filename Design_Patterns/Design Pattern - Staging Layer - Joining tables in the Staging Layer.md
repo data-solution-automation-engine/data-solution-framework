@@ -1,4 +1,4 @@
-# Design Pattern - Generic - Joining tables in the Staging Layer
+# Design Pattern - Staging Layer - Joining tables in the Staging Layer
 
 ## Purpose
 This Design Pattern describes what to consider when joining Staging Layer tables (Staging and Persistent / History Staging)

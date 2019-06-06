@@ -1,4 +1,4 @@
-# Design Pattern - Generic - Loading Persistent Staging Area tables
+# Design Pattern - Staging Layer - Loading Persistent Staging Area tables
 
 ## Purpose
 This Design Pattern describes how to load data from the Staging Area (STG) to the History Staging Area (HSTG) - also known as the Persistent Staging Area (PSA).

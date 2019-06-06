@@ -281,36 +281,4 @@ The following metadata attributes are mandatory for the Helper Area tables. The 
 |  | INTEGER       | Default; logging which process has   inserted the record |
 |            | DATETIME      | This is the time that the record has been   presented to the Data Warehouse environment. This is not the system date/time   for insert however, but the processing time for the records to be moved into   the Staging Area. |
 
-5.2      Helper Area relation to error handling
 
-Error handling for this area is documented part of the ‘A160 – Error handling and recycling’ document. All required error handling concepts (which lead to rejects of records) may be implemented here because information is stored in the Integration Layer as well.
-
-5.3      Helper Area development guidelines
-
-·         If the ETL platform supports it, prefix the ‘area’ or ‘folder’ in the ETL tool with ‘300_’ because this is the first area in the third layer in the architecture. This forces most ETL software to sort the folders in the way the architecture handles the data
-
-·         Reuse the Integration Area surrogate keys wherever possible. This further strengthens the audit capabilities and provides a standard level key in a Dimension
-
-
-
-
-
-## Use of Views
-
-### Decoupling views
-
-The Data Warehouse design incorporates views ‘on top off’’ the Presentation Layer (Information Mart). This is applied for the following reasons:
-
-- Views allow a more flexible implementation of data access security (in addition to the security applied in the BI Layer)
-- Views act as ‘decoupling’ mechanism between the physical table structure and the Semantic Layer (business model) 
-- Views allow for flexible changing of information delivery (historical views)
-
-These views are meant to be 1-to-1, meaning that they represent the physical table structure of the Information Mart. However, during development and upgrades these views can be altered to temporarily reduce the impact of changes in the table structure from the perspective of the BI platform. This way changes in the Information Mart can be made without the necessity to immediately change the Semantic Layer and/or reports. In this approach normal reporting can continue and the switch to the new structure can be done at a convenient moment.  
-
-This is always meant as a temporary solution to mitigate the impact of these changes and the end state after the change should always include the return to the 1-to-1 relationship with the physical table.
-
-A very specific use which includes the only allowed type of functionality to be implemented in the views is the way they deliver the historical information. Initially these views will be restricted to Type 1 information by adding the restriction of showing only the most recent state of the information (where the Expiry Date/Time = ‘9999-12-31’). Over time however it will be possible to change these views to provide historical information if required. On a full Type2 Information Mart, views can be used to deliver any type of history without changing the underlying data or applying business logic.
-
-## Views for virtualisation
-
-Another use case for view is for virtualising the Presentation Layer. As all granular and historic information is stored in the Integration Layer it is possible, if the hardware allows it, to use views to present information in any specific format. This removes the need for ETL – physically moving data – from the solution design. Applicability of virtualisation depends largely on the way the information is accessed and the infrastructure that is in place. Possible application includes when the BI platform uses the information to create cubes, when information is infrequently accessed or with a smaller user base.
