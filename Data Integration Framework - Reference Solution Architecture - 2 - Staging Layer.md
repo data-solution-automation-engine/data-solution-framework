@@ -2,7 +2,7 @@
 
 The Staging Layer covers the first series of ETL process steps within the reference architecture. The processes involved with the Staging Layer introduce data from many (often disparate) source applications into the Data Warehouse environment. 
 
-In this sense, the Staging Layer is for the most part literally a place where the data is collected onto the Data Warehouse environment before being integrated in the core Data Warehouse or loaded for other use-cases (i.e. analytics, ad-hoc reporting).
+In this sense, the Staging Layer is for the most part literally a place where the data is collected in the Data Warehouse environment, before being integrated in the core Data Warehouse layer (Integration Layer) or made available for other use-cases (i.e. analytics, ad-hoc reporting) as a more raw data feed.
 
 But even then many fundamental decisions are required that have repercussions throughout the rest of the design. This document defines the Staging Layer and describes the required process steps and available solutions.
 
@@ -14,7 +14,20 @@ The position of the Staging Layer in the overall architecture is outlined in the
 
  ![1547519184139](.\Images\Staging_Layer_1_Overview.png)                                               
 
-## Staging Layer
+Core requirements and principles
+
+* Disconnected (no Referential Integrity)
+* Transient, except for the Persistent Staging Area
+* Raw data, original events
+* Standardised data types
+* Nullable
+* Sequenced
+* Time-stamped & time-ordered
+* Record source identifiable
+
+
+
+## Areas of the Staging Layer
 
 The Staging Layer consists of the **Staging Area** and the **Persistent Staging Area**. The main purpose of this layer is to collect source data and optionally store it in a source data archive. The Staging Layer prepares and collects data for further process into the Integration Layer.
 
@@ -25,8 +38,6 @@ The design is to load the source data delta into the History Area. Here the data
 An option in the Data Warehouse design is to load the source data into a History Area. Here the data is stored in the structure of the providing source but changes are tracked using the Slowly Changing Dimensions (SCD type 2) mechanism. The History Area is an important component in Disaster Recovery (DR) and re-initialisation of data (initial loads). When Change Data Capture, Change Tracking or messaging sources are part of the design the addition of a History Area is strongly recommended. A History Area can also be used for full outer join comparison against the source system and/or a full data dump interface. 
 
 Objects in the Staging Layer are not accessible for end-users or Business Intelligence and analytics software (e.g. Cognos). This is because for most scenarios information has not yet been prepared for consumption. There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Staging Layer which contains essentially raw time variant data. Allow access serves a purpose in prototyping and local self-service BI / visualisation. 
-
-
 
 The Staging Layer, or the process from source to staging, consists of two separate parts (areas): 
 

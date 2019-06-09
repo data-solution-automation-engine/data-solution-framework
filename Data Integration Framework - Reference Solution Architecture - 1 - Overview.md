@@ -2,7 +2,7 @@
 
 The reference Solution Architecture ('reference architecture') is designed to facilitate a platform-independent, flexible and manageable data solution. 
 
-The fundamental principle of the reference architecture is to *design for change* by decoupling 'technical' logic and 'business' logic and ensuring each data integration process can run independently and in parallel with built-in recovery mechanisms. 
+The fundamental principles of the reference architecture is to *design for change* by decoupling 'technical' and 'business' logic, and to ensure each data integration process can run independently and in parallel with built-in recovery mechanisms. Both of these principles are means to enable scalability and flexibility. 
 
 The reference architecture aims to provide guidelines for decoupling (functional separation) of the various elements of the data solution, so new or changed requirements can be incorporated without re-engineering the data solution foundations. 
 
