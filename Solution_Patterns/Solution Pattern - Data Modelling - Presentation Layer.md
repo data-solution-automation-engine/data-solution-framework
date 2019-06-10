@@ -51,13 +51,13 @@ For instance, Type 1 can run every day while for the Type 2 equivalent it may be
 
 The difference between the ETL processes, views and table structures is organised by adopting naming conventions. Type 1 naming is 'normal', without any prefixes or suffixes. Consider the example below:
 
-![](../../Data_Integration_Framework\9000_Images\Solution_Pattern_Presentation_Layer_02.png)
+![](../Images/Solution_Pattern_Presentation_Layer_02.png)
 
 
 
 For Type 2 dimensions a naming convention is used to differentiate the objects ('_Pit').
 
-![](../../Data_Integration_Framework\9000_Images\Solution_Pattern_Presentation_Layer_03.png)
+![](../Images\Solution_Pattern_Presentation_Layer_03.png)
 
 
 
