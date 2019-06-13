@@ -32,10 +32,10 @@ Figure 2: Dependencies
 Multiple passes of the same source table or file are usually required. The first pass will insert new keys in the Hub table; the other passes are needed to populate the Satellite and Link tables.
 The process in Figure 1 shows the entire ETL in one single process. For specific tools this way of developing ETL might be relatively inefficient. Therefore, the process can also be broken up into two separate mappings; one for inserts and one for updates. Logically the same actions will be executed, but physically two separate mappings can be used. This can be done in two ways:
 Follow the same logic, with the same selects, but place filters for the update and insert branches. This leads to an extra pass on the source table, at the possible benefit of running the processes in parallel.
-Only run the insert branch and automatically update the end dates based on the existing information in the Satellite. This process selects all records in the Satellite which have more than one open OMD_EXPIRY_DATE (this is the case after running the insert branch separately), sorts the records in order and uses the OMD_EFFECTIVE_DATE from the previous record to close the next one. This introduces a dependency between the insert and update branch, but will run faster. An extra benefit is that this also closes off any previous records that were left open. As sample query for this selection is:
-SELECT satellite.DWH_ID, satellite.OMD_EXPIRY_DATE
+Only run the insert branch and automatically update the end dates based on the existing information in the Satellite. This process selects all records in the Satellite which have more than one open EXPIRY_DATE (this is the case after running the insert branch separately), sorts the records in order and uses the EFFECTIVE_DATE from the previous record to close the next one. This introduces a dependency between the insert and update branch, but will run faster. An extra benefit is that this also closes off any previous records that were left open. As sample query for this selection is:
+SELECT satellite.DWH_ID, satellite.<Expiry Date/Time>
 FROM  satellite
-WHERE  (            satellite.OMD_EXPIRY_DATE IS NULL AND
+WHERE  (            satellite.<Expiry Date/Time> IS NULL AND
                             2 <= (SELECT COUNT(DWH_ID)
                                      FROM satellite A WHERE a.DWH_ID = satellite.DWH_ID
                                   AND a.FIRM_LEDTS IS NULL) 

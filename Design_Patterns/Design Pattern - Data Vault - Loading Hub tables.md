@@ -1,25 +1,24 @@
 # Design Pattern - Data Vault - Loading Hub tables
 
 ## Purpose
-This Design Pattern describes how to load data into Data Vault Hub style entities.
+This Design Pattern describes how to load data into Data Vault Hub style tables. It is a specification of the Hub ETL process.
 
 ## Motivation
-Loading data into Hub tables is a relatively straightforward process with a set location in the architecture: it is applied when loading data from the Staging Layer to the Integration Layer. It is a vital component of the Data Warehouse architecture, making sure that Data Warehouse keys are distributed properly and at the right point in time. 
+Loading data into Hub tables is a relatively straightforward process with a clearly defined location in the architecture: it is applied when loading data from the Staging Layer to the Integration Layer. 
 
-Decoupling key distribution and historical information is an essential requirement for reducing dependencies in the loading process and enabling flexible storage design in the Data Warehouse. 
+The Hub is a vital component of a Data Vault solution, making sure that Data Warehouse keys are distributed properly and at the right point in time. 
 
-This pattern specifies how the Hub ETL process works and why it is important to follow. 
-
-In a Data Vault based Enterprise Data Warehouse solution, the Hub tables (and corresponding ETL) are the only places where Data Warehouse keys are distributed.
+Decoupling key distribution and managing historical information (changes over time) is essential to reduce loading dependencies. It also simplifies (flexible) storage design in the Data Warehouse. 
 
 Also known as:
 
+- Core Business Concept (Ensemble modelling)
 - Hub (Data Vault modelling concept)
-- Surrogate Key (SK) or Hash Key (HSH) distribution
+- Surrogate Key (SK) or Hash Key (HSH) distribution, as commonly used implementations of the concept
 - Data Warehouse key distribution
 
 ## Applicability
-This pattern is applicable for the process of loading from the Staging Layer into the Integration Area Hub tables. It is used in all Hub in the Integration Layer. Derived (Business Data Vault) Hub tables follow the same pattern, but with business logic applied.
+This pattern is applicable for the process of loading from the Staging Layer into Hub tables. It is used in all Hubs in the Integration Layer. Derived (Business Data Vault) Hub ETL processes follow the same pattern.
 
 ## Structure
 A Hub table contains the unique list of business key, and the corresponding Hub ETL process can be described as an ‘insert only’ of the unique business keys that are not yet in the the target Hub. 
@@ -44,7 +43,7 @@ The logic to create the initial (dummy) Satellite record can both be implemented
 
 When modeling the Hub tables try to be conservative when defining the business keys. Not every foreign key in the source indicates a business key and therefore a Hub table. A true business key is a concept that is known and used throughout the organisation (and systems) and is ‘self-standing’ and meaningful.
 
-To cater for a situation where multiple OMD_INSERT_DATETIME values exist for a single business key, the minimum OMD_INSERT_DATETIME should be the value passed through with the HUB record. This can be implemented in ETL logic, or passed through to the database.  When implemented at a database level, instead of using a SELECT DISTINCT, using the MIN function with a GROUP BY the business key can achieve both a distinct selection, and minimum OMD_INSERT_DATETIME in one step.
+To cater for a situation where multiple Load Date / Time stamp values exist for a single business key, the minimum Load Date / Time stamp should be the value passed through with the HUB record. This can be implemented in ETL logic, or passed through to the database.  When implemented at a database level, instead of using a SELECT DISTINCT, using the MIN function with a GROUP BY the business key can achieve both a distinct selection, and minimum Load Date / Time stamp in one step.
 
 ## Considerations and Consequences
 Multiple passes on the same Staging Layer data set are likely to be required: once for the Hub table(s) but also for any corresponding Link and Satellite tables. 
@@ -52,7 +51,7 @@ Multiple passes on the same Staging Layer data set are likely to be required: on
 Defining Hub ETL processes as atomic modules, as defined in this Design Pattern, means that many Staging Layer tables load data to the same central Hub table. All processes will be very similar with the only difference being the mapping between the Staging Layer business key attribute and the target Hub business key counterpart.
 
 ## Related Patterns
-Design Pattern 006 – Generic – Using Start, Process and End Dates
-Design Pattern 009 – Data Vault – Loading Satellite tables
-Design Pattern 010 – Data Vault – Loading Link tables
-Design Pattern 023 – Data Vault – Missing keys and placeholders
+* Design Pattern 006 – Generic – Using Start, Process and End Dates
+* Design Pattern 009 – Data Vault – Loading Satellite tables
+* Design Pattern 010 – Data Vault – Loading Link tables
+* Design Pattern 023 – Data Vault – Missing keys and placeholders

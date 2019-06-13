@@ -30,12 +30,12 @@ Figure 1: Staging Area ETL process
 
 ## Implementation Guidelines
 Use a single ETL process, module or mapping to load data from a single source system table in the corresponding Staging Area table.
-A control table, parameter or restartable sequence in a mapping can be used to generate the OMD_SOURCE_ROW_ID numbers.
+A control table, parameter or restartable sequence in a mapping can be used to generate the Source Row ID numbers.
 The data type conversion has many uses (as detailed in the A110 Staging Layer document); most notably limiting the variety of data types in the Integration Layer and creating a buffer against changes in the source system.
 
 ## Considerations and Consequences
-Resolving the OMD_RECORD_SOURCE_ID will be done in the Integration Layer because disk space is less an issue in the Staging Layer. Adding key lookups in the Staging Area will also overcomplicate the ETL design and negatively impact performance. Alternatively is can be discussed to hard-code the identifier instead of the Source System name (as the OMD_RECORD_SOURCE). This reduces the requirement for the key lookup but reduces visibility over the data.
-For Staging Area ETL processes that use a CDC based source an extra step is added to control the CDC deltas (using the OMD_SOURCE_CONTROL table). This is explained in the ‘Using CDC’ Design Pattern and subsequent Implementation Patterns.
+Resolving the Record Source ID will be done in the Integration Layer because disk space is less an issue in the Staging Layer. Adding key lookups in the Staging Area will also overcomplicate the ETL design and negatively impact performance. Alternatively is can be discussed to hard-code the identifier instead of the Source System name (as the RECORD_SOURCE). This reduces the requirement for the key lookup but reduces visibility over the data.
+For Staging Area ETL processes that use a CDC based source an extra step is added to control the CDC deltas (using the SOURCE_CONTROL table). This is explained in the ‘Using CDC’ Design Pattern and subsequent Implementation Patterns.
 Known uses
 This type of ETL process is to be used for all Staging Area tables.
 

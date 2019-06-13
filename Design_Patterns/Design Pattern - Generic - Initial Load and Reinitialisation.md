@@ -25,7 +25,7 @@ Figure 2: Re-initialisation
 A true Initial Load occurs only once to populate at least the History Area. To perform an Initial Load the Replicated Source or Full Source table (copy) is used to source the data. If replication is used, the replication agents must be stopped for this process.
 For re-initialisation a single procedure or ETL process should be created to copy the initial load dataset from the History Area into the Staging Area.
 At least the transactional tables must be truncated prior to a full re-initialisation to avoid creating duplicates.
-For the initial load of non-CDC sources a proxy OMD_INSERT_DATE must be defined.
+For the initial load of non-CDC sources a proxy Load Date / Time Stamp must be defined.
 
 ## Considerations and Consequences
 Running re-initialisations essentially discards and re-issues any Data Warehouse keys, which means that all related Cleansing Area and Presentation Layer datasets must be recalculated as well.

@@ -248,9 +248,9 @@ An example query for this is as follows:
 
 <tablename>                        target
 
-, OMD_EXCEPTION_BITMAP            bitmap
+, EXCEPTION_BITMAP            bitmap
 
-, OMD_EXCEPTION                   except
+, EXCEPTION                   except
 
 **WHERE**
 
@@ -320,7 +320,7 @@ Figure 2: ETL control with exception handling
 
 
 
-| **Table Name**        | **OMD_ERROR_BITMAP**                                         |
+| **Table Name**        | **ERROR_BITMAP**                                         |
 | --------------------- | ------------------------------------------------------------ |
 | **Table Description** | Contains the static error reference and   their bitmap position. The table also includes a severity rating. |
 | **Column Name**       | **Description**                                              |
@@ -353,7 +353,7 @@ Figure 2: ETL control with exception handling
 
 
 
-| **Table Name**        | **OMD_SEVERITY**                                             |
+| **Table Name**        | **SEVERITY**                                             |
 | --------------------- | ------------------------------------------------------------ |
 | **Table Description** | Static reference table with the severity   code and description. Standard values: Low (L) / Medium (M) / High (H) /   Critical (C). |
 | **Column Name**       | **Description**                                              |
@@ -384,7 +384,7 @@ Figure 2: ETL control with exception handling
 
 
 
-| **Table Name**         | **OMD_ERROR_TYPE**                                           |
+| **Table Name**         | **ERROR_TYPE**                                           |
 | ---------------------- | ------------------------------------------------------------ |
 | **Table Description**  | Static   reference table with the severity code and description. Standard values: Low (L)   / Medium (M) / High (H) / Critical (C). |
 | **Column Name**        | **Description**                                              |
@@ -478,7 +478,7 @@ While in most cases the number of exceptions should not be big enough to warrant
 
 6.1      Step 1: Trigger for Recycling
 
-The trigger of the recycling process is the appearance of a record in the exception logging table OMD_EXCEPTIONLOG. Either on a periodic basis or triggered by an automated message (see chapter **Error! Reference source not found.** for more information on exception reporting and notification), the data warehouse support team will analyse the detected exceptions and, based on the type, location and severity of the exception, decide on an exception resolution. 
+The trigger of the recycling process is the appearance of a record in the exception logging table EXCEPTION_LOG. Either on a periodic basis or triggered by an automated message (see chapter **Error! Reference source not found.** for more information on exception reporting and notification), the data warehouse support team will analyse the detected exceptions and, based on the type, location and severity of the exception, decide on an exception resolution. 
 
  
 
@@ -507,7 +507,7 @@ A good example of an exception that would warrant an automated solution would be
 
 ### Using the original source record vs. EXCEPTION_DETAIL
 
-To resolve an exception situation it is necessary to examine and (possibly) reprocess the value that originally caused the exception to be recorded. The OMD_EXCEPTIONLOG table offers two possible approaches.
+To resolve an exception situation it is necessary to examine and (possibly) reprocess the value that originally caused the exception to be recorded. The EXCEPTION_LOG table offers two possible approaches.
 
  
 
@@ -517,7 +517,7 @@ The easiest method of recycling an exception is to simply reprocess the original
 
  
 
-The exception log table OMD_EXCEPTIONLOG is used in this case to keep track of the source table and the unique primary key value of the source record in question (columns SOURCE_TABLE and SOURCE_PK respectively).
+The exception log table EXCEPTION_LOG is used in this case to keep track of the source table and the unique primary key value of the source record in question (columns SOURCE_TABLE and SOURCE_PK respectively).
 
  
 
@@ -527,11 +527,11 @@ This approach could potentially even mean that the exception can be recycled, se
 
 ![*](file:///C:\Users\rvos\AppData\Local\Temp\1\msohtmlclip1\01\clip_image001.gif)      **The target record did NOT originate from only one source record**
 
-In situations that the ETL is more complex, it may no longer be feasible to simply reprocess the original source record. For those cases the OMD_EVENT_LOG table contains a free-form text column that is used to store the values that caused the exception(s): EXCEPTION_DETAIL. 
+In situations that the ETL is more complex, it may no longer be feasible to simply reprocess the original source record. For those cases the EVENT_LOG table contains a free-form text column that is used to store the values that caused the exception(s): EXCEPTION_DETAIL. 
 
  
 
-In this case, the OMD_EVENT_LOG table is directly used as the source for the resolution of the exception. While the field is free-form, the format is fixed (source values delimited by a pipe character (”|”), the order of appearance in line with the exception bitmap. This ensures that it is still possible to automate exception resolution, if so required.
+In this case, the EVENT_LOG table is directly used as the source for the resolution of the exception. While the field is free-form, the format is fixed (source values delimited by a pipe character (”|”), the order of appearance in line with the exception bitmap. This ensures that it is still possible to automate exception resolution, if so required.
 
  
 
@@ -560,7 +560,7 @@ Tracking exception resolution historically does mean that data quality related r
 
 If reject tables are part of the exception handling process, records marked with exceptions will generally remain in the reject tables until an acceptable level of data quality has been reached. The above would occur in the reject table rather than in the actual target table. Once the record is deemed to be of sufficient quality, it will be inserted into the true target table, and deleted from the reject table.
 
-6.4      Tracking resolution in OMD_EVENT_LOG
+6.4      Tracking resolution in EVENT_LOG
 
 Because each record in the ETL process control event log is stored as an exception *bitmap* that can contain any number of exceptions, an updated record (minus the resolved exception) is then re-added to EVENT_LOG if there are still outstanding exceptions. This is conforming to the design of DIRECT, which creates a new module instance for every run.
 

@@ -34,12 +34,11 @@ The following general guidelines have been defined for Presentation Layer develo
 * Tables and decoupling views can be generated from metadata.
 * Decoupling views are used to expose history using additional metadata (history type at attribute level).
 * The 'extract' schema is used for data provision to support external systems (e.g. non-BI) and is therefore considered *not* to be part of the standard Presentation Layer.
-* There is also a 'va' schema which is specifically there to expose information to SAS Visual Analytics.
 * There also is a 'temp' schema which is strictly only used to store ETL required information / to support the performance and workings of the ETL.
 
 This is displayed in the following diagram:
 
-![](../../Data_Integration_Framework\9000_Images\Solution_Pattern_Presentation_Layer_01.png)
+![](..\Images\Solution_Pattern_Presentation_Layer_01.png)
 
 
 

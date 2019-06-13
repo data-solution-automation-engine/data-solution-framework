@@ -10,7 +10,7 @@ Cyclic redundancy checks / Hash Bytes
 Applicability
 This pattern is applicable in any ETL process that performs record comparisons against historical records. In some cases it may be required to calculate the checksum in the Staging Area as well, for instance as part of a Full Outer Join interface or Disaster Recovery for native CDC.
 Structure
-The key aspect regarding the role of record comparisons (with or without using checksums to achieve this) is to be aware of the role the OMD_CDC_OPERATION plays.  
+The key aspect regarding the role of record comparisons (with or without using checksums to achieve this) is to be aware of the role the CDC_OPERATION plays.  
 The possible scenarios as listed in the table below:
 Process
 Approach
@@ -24,12 +24,12 @@ No checksums are required.
 Other interfaces rely on load windows to select the delta sets.
 Staging to History
 If the checksum is available in the Staging Area the value can be copied into the History Area. Otherwise the checksum is calculated based on the source attributes.
-Checksum values can be identical between inserts/updates and records that have been identified as a logical delete. Therefore record comparison must include the CDC operation (OMD_CDC_OPERATION).
-If the checksums are different or the checksums are the same but the OMD_CDC_OPERATION is different; continue the SCD2 operation.
-If the checksums are identical and the OMD_CDC_OPERATION is the same as well; discard (filter).
+Checksum values can be identical between inserts/updates and records that have been identified as a logical delete. Therefore record comparison must include the CDC operation.
+If the checksums are different or the checksums are the same but the <CDC operation> is different; continue the SCD2 operation.
+If the checksums are identical and the <CDC operation> is the same as well; discard (filter).
 Staging to Integration
-The checksum is always calculated within the Staging to Integration ETL process based on the necessary attributes in the Staging Area table. This also requires the OMD_CDC_OPERATION to be part of the checksum attributes.
-The comparison is executed based on the new checksum and the existing Integration Area checksum. As with the Staging to History process the OMD_CDC_OPERATION is evaluated to identify Logical Deletes, but in this scenario this happens as part of the checksum creation (i.e. source attributes and the CDC operation will be the new checksum).
+The checksum is always calculated within the Staging to Integration ETL process based on the necessary attributes in the Staging Area table. This also requires the <CDC operation> to be part of the checksum attributes.
+The comparison is executed based on the new checksum and the existing Integration Area checksum. As with the Staging to History process the <CDC operation> is evaluated to identify Logical Deletes, but in this scenario this happens as part of the checksum creation (i.e. source attributes and the CDC operation will be the new checksum).
 
 The following diagram displays how checksum values are used:
 

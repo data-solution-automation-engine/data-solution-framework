@@ -11,11 +11,11 @@ This pattern is only applicable to designated Source-to-Staging (Staging Layer) 
 Structure
 The process of the Full Outer Join mechanism to detect delta information is as follows:
 Load the Source table dataset (without filters).
-Load the History Area dataset, but only for the most recent version of each record / key. This is the record with the most recent OMD_INSERT_DATETIME (effective date). Additionally, only records which are not labeled as a logical delete (OMD_CDC_OPERATION <> ‘Delete’) must be selected to avoid redundant processing as these records will not be available in the Source system anymore.
+Load the History Area dataset, but only for the most recent version of each record / key. This is the record with the most recent INSERT_DATETIME (effective date). Additionally, only records which are not labeled as a logical delete (CDC_OPERATION <> ‘Delete’) must be selected to avoid redundant processing as these records will not be available in the Source system anymore.
 Perform the Full Outer Join by joining the Source and History datasets on the table keys. For the History Area this not the Primary Key but the original Source system key, also identified as being part of the Unique Index on the History table.
 Interpret the join results, either by using a checksum function or attribute comparison.  The interpretation is as follows:
-OMD_CHECKSUM (if used): if the Source key is NULL then use the History Checksum going forward, otherwise use the Source Checksum.
-OMD_CDC_OPERATION uses the following logic:
+FULL_ROW_CHECKSUM (if used): if the Source key is NULL then use the History Checksum going forward, otherwise use the Source Checksum.
+CDC_OPERATION uses the following logic:
 If the History key is NULL then ‘Insert’.
 Otherwise if the Source key is null then ‘Delete’.
 Otherwise if the checksums and/or attributes are different then ‘Update’.
@@ -23,10 +23,10 @@ If none of the above then ‘No Change’.
 Key attributes(s): if the Source key is NULL select the History key value, otherwise use the Source key value.
 Other attributes(s): if the Source key is NULL select the History attribute value, otherwise use the Source attribute value.
 Any records that have been labeled as ‘No Change’ are filtered out (discarded) as this stage.
-The remaining records are inserted into the Staging Area table as the delta set to be processed further. In these steps the standard metadata attributes such as the OMD_RECORD_SOURCE and OMD_INSERT_DATETIME are defined.
-In the case of a Full Outer Join mechanism the Event / Date Time (OMD_INSERT_DATETIME) is dependent on the execution of the ETL process since this defines the point in time where the comparison is done. For this purpose, the logic to derive the OMD_INSERT_DATETIME is:
-If the Module (Instance) is run as part of a Batch, the start date/time of the Batch (BATCH_INSTANCE_START_DATETIME) is used as OMD_INSERT_DATETIME.
-If the Module is run independently, the start date/time of the Module is used as OMD_INSERT_DATETIME.
+The remaining records are inserted into the Staging Area table as the delta set to be processed further. In these steps the standard metadata attributes such as the RECORD_SOURCE and INSERT_DATETIME are defined.
+In the case of a Full Outer Join mechanism the Event / Date Time is dependent on the execution of the ETL process since this defines the point in time where the comparison is done. For this purpose, the logic to derive the INSERT_DATETIME is:
+If the Module (Instance) is run as part of a Batch, the start date/time of the Batch (BATCH_INSTANCE_START_DATETIME) is used as INSERT_DATETIME.
+If the Module is run independently, the start date/time of the Module is used as INSERT_DATETIME.
 Implementation guidelines
 Typical implementations of the Full Outer Join mechanism cover the direct comparison between the source system and the History Area although alternative are possible to avoid potentially unwanted intrusion from the perspective of the operational system. These alternatives include the handling of a full dump of the source system’s tables into a separate section of the Staging Area (landing zone) from which the default process can continue.
 When comparing datasets, either by using a checksum or attribute comparison, the impact of the data type differences between the source and the History Area have to be taken into account. The exact behavior for this is dependent on the combination of the ETL and database platforms that are being used. In all scenarios the checksum should be calculated after the data type conversion (which is part of the Staging Area requirements).

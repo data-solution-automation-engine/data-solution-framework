@@ -23,7 +23,7 @@ Expiry dates.
 For this reason the logic is slightly more complex. Creating Dimensions by joining History Area tables means that the overlap in timelines will be ‘cut’ in multiple records with smaller intervals. This is explained using the following sample datasets (only the ETL process control attributes which are required for this query are shown):
 HSTG table 1:
 Key
-OMD_INSERT_DATETIME
+INSERT_DATETIME
 Fund Code
 Amount
 1
@@ -38,7 +38,7 @@ As opposed to the Integration Area, the History Area only keeps track of changed
 In both tables, the Fund Code is the logical key (source primary key).
 HSTG table 2:
 Key
-OMD_INSERT_DATETIME
+INSERT_DATETIME
 Fund Code
 Short Name
 Additional Amount
@@ -97,21 +97,21 @@ There are various methods in SQL to achieve this result, and ETL software provid
 -- Select all variations of the available time intervals
 WITH TimeIntervals AS
 (
-  SELECT OMD_INSERT_DATETIME FROM HSTG_Table1
+  SELECT INSERT_DATETIME FROM HSTG_Table1
   UNION 
-  SELECT OMD_INSERT_DATETIME FROM HSTG_Table2
+  SELECT INSERT_DATETIME FROM HSTG_Table2
 ),
 -- Calculate the ranges (time intervals / slices) between the available time intervals
 Ranges AS
 (
  SELECT
-   OMD_INSERT_DATETIME AS OMD_EFFECTIVE_DATETIME,
+   INSERT_DATETIME AS EFFECTIVE_DATETIME,
    (
     SELECT
-       ISNULL (MIN (OMD_INSERT_DATETIME),'99991231') OMD_EXPIRY_DATETIME
+       ISNULL (MIN (INSERT_DATETIME),'99991231') EXPIRY_DATETIME
     FROM TimeIntervals
-    WHERE OMD_INSERT_DATETIME > TimeIntervals1.OMD_INSERT_DATETIME
-   ) OMD_EXPIRY_DATETIME
+    WHERE INSERT_DATETIME > TimeIntervals1.INSERT_DATETIME
+   ) EXPIRY_DATETIME
  FROM TimeIntervals AS TimeIntervals1
 ),
 -- Connect the source tables (table 1)
@@ -120,17 +120,17 @@ Table1 AS (
        c.HSTG_Table1_SK,
        c.Fundcode,
        c.Total_Amount,
-       c.OMD_INSERT_DATETIME as OMD_EFFECTIVE_DATETIME,     
+       c.INSERT_DATETIME as EFFECTIVE_DATETIME,     
 COALESCE
 (
-                 MIN(c2.OMD_INSERT_DATETIME),CONVERT(DATETIME,'99991231')
-            ) AS OMD_EXPIRY_DATETIME
+                 MIN(c2.INSERT_DATETIME),CONVERT(DATETIME,'99991231')
+            ) AS EXPIRY_DATETIME
     FROM HSTG_Table1 c
     LEFT OUTER JOIN HSTG_Table1 c2
     ON   c.Fundcode = c2.Fundcode
-    AND  c.OMD_INSERT_DATETIME < c2.OMD_INSERT_DATETIME
+    AND  c.INSERT_DATETIME < c2.INSERT_DATETIME
     GROUP BY
-       c.HSTG_Table1_SK, c.Fundcode, c.Total_Amount, c.OMD_INSERT_DATETIME
+       c.HSTG_Table1_SK, c.Fundcode, c.Total_Amount, c.INSERT_DATETIME
 ),
 -- Connect the source tables (table 2)
 Table2 AS (
@@ -139,17 +139,17 @@ Table2 AS (
        c.Fundcode,
        c.Short_name,
        c.Additional_amount,
-       c.OMD_INSERT_DATETIME as OMD_EFFECTIVE_DATETIME,     
+       c.INSERT_DATETIME as EFFECTIVE_DATETIME,     
        COALESCE(
-                            MIN(c2.OMD_INSERT_DATETIME),CONVERT(DATETIME,'99991231')
-                       ) AS OMD_EXPIRY_DATETIME
+                            MIN(c2.INSERT_DATETIME),CONVERT(DATETIME,'99991231')
+                       ) AS EXPIRY_DATETIME
        FROM HSTG_Table2 c
        LEFT OUTER JOIN HSTG_Table2 c2
        ON     c.Fundcode = c2.Fundcode
-       AND    c.OMD_INSERT_DATETIME < c2.OMD_INSERT_DATETIME
+       AND    c.INSERT_DATETIME < c2.INSERT_DATETIME
        GROUP BY
           c.HSTG_Table2_SK, c.Fundcode, c.Short_Name, c.Additional_Amount,
-          c.OMD_INSERT_DATETIME
+          c.INSERT_DATETIME
 )
 -- Join the various tables to the available time ranges
 SELECT
@@ -157,31 +157,31 @@ SELECT
    Table1.Total_Amount,
    Table2.Short_Name,
    Table2.Additional_Amount,
-   R.OMD_EFFECTIVE_DATETIME,
-   R.OMD_EXPIRY_DATETIME
+   R.EFFECTIVE_DATETIME,
+   R.EXPIRY_DATETIME
 FROM Ranges R
 LEFT JOIN Table1 ON
-   NOT Table1.OMD_EFFECTIVE_DATETIME >= R.OMD_EXPIRY_DATETIME
-   AND NOT Table1.OMD_EXPIRY_DATETIME <= R.OMD_EFFECTIVE_DATETIME
+   NOT Table1.EFFECTIVE_DATETIME >= R.EXPIRY_DATETIME
+   AND NOT Table1.EXPIRY_DATETIME <= R.EFFECTIVE_DATETIME
 LEFT JOIN Table2 ON
-   NOT Table2.OMD_EFFECTIVE_DATETIME >= R.OMD_EXPIRY_DATETIME
-   AND NOT Table2.OMD_EXPIRY_DATETIME <= R.OMD_EFFECTIVE_DATETIME
+   NOT Table2.EFFECTIVE_DATETIME >= R.EXPIRY_DATETIME
+   AND NOT Table2.EXPIRY_DATETIME <= R.EFFECTIVE_DATETIME
 The above SQL statement creates a full historical view of both complete History Area tables. In most cases however the History Area also tracks changes for attributes that might not be relevant for the specific Dimension and omitting these from the subquery creates redundant records in the selection. This is not incorrect in terms of the information contents but does create additional records in the Dimension table which do not contribute to the overall solution and result in performance and storage costs. It is possible to prevent this from happening by filtering these records in the subquery sections where the History Area tables are added to the Common Table Expression in the example:
-ROW_NUMBER() OVER (PARTITION BY Table2.key, Table2.Additional_Amount ORDER BY Table2.OMD_INSERT_DATETIME) AS RowNumber
+ROW_NUMBER() OVER (PARTITION BY Table2.key, Table2.Additional_Amount ORDER BY Table2.INSERT_DATETIME) AS RowNumber
 The final selection requires a corresponding filter to be applied:
 WHERE Table2.RowNumber IS NULL OR Table2.RowNumber=1
 In the above function the ‘Short Name’ attribute has been excluded from the selection by making sure only the first record, the one with the earliest effective date, is loaded in case there are duplicate records. This provides the correct outcome in terms of changes over time, but the resulting expiry date will not correspond anymore. This is not an issue as the expiry date is only used inside the Common Table Expression and not used in the rest of the Dimension ETL. Instead, ‘End Dating’ will be handled by a separate ETL process. For this reason, the expiry date should not be loaded into the ETL in production situation and is shown here for demonstration purposes only.
-Additionally, performance considerations often prevent a full rebuild of the Dimension table. In these scenarios the OMD_SOURCE_CONTROL table can be used to manage load windows to only select the changes that occurred since the last time the ETL process was run. This can be achieved by altering the ‘Timelines’ section of the above mentioned query as follows:
+Additionally, performance considerations often prevent a full rebuild of the Dimension table. In these scenarios the SOURCE_CONTROL table can be used to manage load windows to only select the changes that occurred since the last time the ETL process was run. This can be achieved by altering the ‘Timelines’ section of the above mentioned query as follows:
 WITH TimeIntervals AS
 (
-SELECT DISTINCT OMD_INSERT_DATETIME
+SELECT DISTINCT INSERT_DATETIME
 FROM
        (
-              SELECT OMD_INSERT_DATETIME FROM HSTG_ACURITY_ACU_DEF
+              SELECT INSERT_DATETIME FROM HSTG_ACURITY_ACU_DEF
               UNION
-              SELECT OMD_INSERT_DATETIME FROM HSTG_ACURITY_ACU_MIC
+              SELECT INSERT_DATETIME FROM HSTG_ACURITY_ACU_MIC
        ) TimeSubQuery
-WHERE OMD_INSERT_DATETIME> <place your control date here>
+WHERE INSERT_DATETIME> <place your control date here>
 )
 This control data can be passed on to the selection query through the ETL software.
  After this selection the base Dimension structure is defined and subsequent ETL tasks within the same Module can focus on the remaining actions to complete the Dimension:
@@ -216,8 +216,8 @@ In short:
 If the History Area processing take a fair amount of time, uses a lot of cache and/or cannot be configured to use dynamic/persistent caching it is probably better to load from the STG directly.
 If the ETL tool does not have adequate caching options (update and persist cache in memory) it is probably better to load from STG.
 In very specific situations related to messaging or Change Data Capture it may be possible that changes arrive very late from the operational system. This can happen if for instance an ETL process which reads information is paused for a number of days after which it receives all the changes that have occurred from that point onwards. These records may precede the Dimension load window (control date) at this point and will not be automatically be loaded. There is no easy method of handling this specific kind of late arriving information but alternatives include removing and reloading a small selection of the target table. Care has to be taken to correctly manage the fact table keys in this case.
-An alternative solution to the above situation is to extend the example selection query with a comparison of the already processed Module Instance IDs from the OMD_SOURCE_CONTROL table. The proposed logic would be: select all records from the HSTG tables where the OMD_INSERT_DATETIME is greater than the control date or any Module Instance IDs that are not already present in the OMD_SOURCE_CONTROL table but are greater than the earliest available control date.
-During the designated recovery (rollback) process the OMD_SOURCE_CONTROL table must be rolled back as well.
+An alternative solution to the above situation is to extend the example selection query with a comparison of the already processed Module Instance IDs from the SOURCE_CONTROL table. The proposed logic would be: select all records from the HSTG tables where the INSERT_DATETIME is greater than the control date or any Module Instance IDs that are not already present in the SOURCE_CONTROL table but are greater than the earliest available control date.
+During the designated recovery (rollback) process the SOURCE_CONTROL table must be rolled back as well.
 Known uses
 None.
 

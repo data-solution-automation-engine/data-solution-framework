@@ -31,7 +31,7 @@ Cheese
 29-11-2011 23:00
 
 In this example a user has changed the name of the particular product with the key CHS multiple times in a single day and afterwards the value has been reset to the original value.
-If the ETL interval is daily only these two values are selected from the source (with the OMD_INSERT_DATETIME being the ‘Event Date Time’).
+If the ETL interval is daily only these two values are selected from the source (with the Load Date / Time stamp being the ‘Event Date Time’).
 Key
 Value
 Event Date Time
