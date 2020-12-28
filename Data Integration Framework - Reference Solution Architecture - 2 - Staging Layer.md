@@ -12,7 +12,7 @@ Every project or delivery has different constraints and opportunities, which is 
 
 The position of the Staging Layer in the overall architecture is outlined in the following diagram.
 
- ![1547519184139](.\Images\Staging_Layer_1_Overview.png)                                               
+ ![1547519184139](./Images/Staging_Layer_1_Overview.png)
 
 Core requirements and principles
 
@@ -72,7 +72,7 @@ The reference architecture specifies that data from the source systems is loaded
 
 This approach is presented in the following diagram:
 
-![1547519184139](.\Images\Staging_Layer_2_Functionality.png)   
+![1547519184139](./Images/Staging_Layer_2_Functionality.png)
 
 In typical solution designs, the Staging Area ETL is contains the steps where the source data is actually copied into the Data Warehouse environment. Concepts such as Change Data Capture (CDC) are implemented for this purpose.  
 
