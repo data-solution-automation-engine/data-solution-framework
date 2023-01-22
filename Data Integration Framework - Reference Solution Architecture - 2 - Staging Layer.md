@@ -124,9 +124,9 @@ By their nature, source systems in an Enterprise Data Warehouse can consist of a
 
 The formatting of data types is done in the following way:
 
-* Any text attributes smaller or equal than 100 positions will be mapped to VARCHAR(100) or similar
-* Any text attributes higher than 100 but smaller or equal than 1000 will be mapped to VARCHAR (1000) or similar
-* The rest of the text attributes will be mapped to VARCHAR(4000)
+* Any text attributes smaller or equal than 100 positions will be mapped to NVARCHAR(100) or similar
+* Any text attributes higher than 100 but smaller or equal than 1000 will be mapped to NVARCHAR (1000) or similar
+* The rest of the text attributes will be mapped to NVARCHAR(4000)
 * Dates, times, date times will be mapped to a high precision date/time (DATE, DATETIME2)
 * All decimals or numeric values including Bits, Booleans and Floating Points will be mapped to a high precision numeric (NUMBER, NUMERIC(38,20))
 
