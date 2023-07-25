@@ -133,7 +133,7 @@ The Solution Pattern finally creates the actual code or ETL mapping and is there
 
 The following high level reference architecture depicts the three main layers:
 
-![1547521419126](.\Images\HighLevelSolutionOverview.png)
+![1547521419126](./Images/HighLevelSolutionOverview.png)
 
 The basic flow of data as specified in the reference architecture is:
 
@@ -170,7 +170,7 @@ For tables that store history the metadata includes the regular start and end da
 
 The reference architecture itself exists in a larger system of components and functionality. While these are considered out of scope for the data integration framework, it can be useful to mention this wider context.
 
-![1547521593410](.\Images\93410.png)
+![1547521593410](./Images/93410.png)
 
 This diagram shows the some of the key concepts that relate to the reference architecture.
 

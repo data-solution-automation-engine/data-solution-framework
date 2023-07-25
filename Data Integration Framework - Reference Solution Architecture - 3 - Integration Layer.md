@@ -52,7 +52,7 @@ The Integration Layer (Integration Area and Interpretation Area) will be created
 
 As an example, this approach allows information related to the same customer or prospect to be delivered and integrated independently. It also supports ongoing linking of customer information to tie in various elements of information to the unique prospect or customer over time without losing flexibility; the logic for de-duplication can be changed and/or recalculated across historical information if required.
 
-![1547521558900](D:/Git_Repositories/Data_Integration_Framework/Images/558900.png)
+![1547521558900](./Images/558900.png)
 
 Objects in the Integration Layer are not accessible for end-users or Business Intelligence and analytics software. This is because for most scenarios information has not yet been prepared for consumption; only Data Warehouse logic is implemented.  There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Integration Layer which contains essentially raw, but indexed and time variant data in the right context (e.g. related to the correct business keys). This is an ideal structure for statistical analysis.
 
