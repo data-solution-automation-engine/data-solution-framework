@@ -1,15 +1,17 @@
+---
+uid: Design-Pattern-Staging-Layer-Persistent-Staging-Guidelines
+---
+
 # Design Pattern - Staging Layer - Persistent Staging Guidelines
 
 ## Purpose
 
-
 ## Motivation
-- 
 
 ## Applicability
 
-
 ## Structure
+
 The following is a list of development conventions for the Persistent Staging Area (PSA):
 
 - When loading the PSA from the Staging Area, always start a PSA ETL process as soon as the Staging Area is finished to ensure that there are no ‘gaps’ in the history. Since the Staging Area has the ‘truncate/insert’ load strategy, PSA data has to be processed before the next Staging Area run. During normal loads, the Integration Area has no dependency on the History Area and loading into history and integration can be done in parallel if the Data Warehouse has capacity for concurrent jobs. This is handled by the ‘Batch’ concept which guarantees the unit of work; e.g. making sure all data delta has been processed
@@ -46,8 +48,6 @@ Note: there are other suitable approaches towards a PSA. Depending on the requir
 
 When loading data delta directly into the PSA (i.e. the Staging Area is not adopted) the same rules apply as for the Staging Area. 
 
-
 ## Considerations and Consequences
-
 
 ## Related Patterns

@@ -1,0 +1,8 @@
+- name: Home
+  href: index.md
+- name: Overview
+  href: overview/toc.yml
+- name: Design Patterns
+  href: design-patterns/toc.yml
+- name: Solution Patterns
+  href: solution-patterns/toc.yml
