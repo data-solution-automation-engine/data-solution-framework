@@ -1,5 +1,7 @@
 # Data Solution Framework
 
+A documentation library containing reusable design- and solution patterns.
+
 ## Introduction
 
 The Data Solution Framework provides a software and methodology independent, structured approach to developing data solutions.
