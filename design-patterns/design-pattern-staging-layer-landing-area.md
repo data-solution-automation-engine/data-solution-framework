@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This Design Pattern describes how to load data from source systems into the Staging Area.
+This Design Pattern describes how to load data from source systems into the landing area of the staging layer.
 
 ## Motivation
 
