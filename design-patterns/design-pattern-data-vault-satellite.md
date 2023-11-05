@@ -3,7 +3,7 @@
 ---
 **NOTE**
 
-This design pattern requires a major update.
+This design pattern requires a major update to refresh the content.
 
 ---
 
