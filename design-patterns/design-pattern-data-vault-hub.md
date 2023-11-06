@@ -1,3 +1,7 @@
+---
+uid: design-pattern-data-vault-hub-table
+---
+
 # Design Pattern - Data Vault - Hub table
 
 ---
@@ -9,9 +13,11 @@ This design pattern requires a major update to refresh the content.
 
 ## Purpose
 
-This Design Pattern describes how to load data into Data Vault Hub style tables. It is a specification of the Hub ETL process.
+This design pattern describes how to define, and load data into, Data Vault Hub style tables.
 
 ## Motivation
+
+A Data Vault Hub is the physical implementation of a Core Business Concept. These are the the key identified 'things' that can be meaningfully identified as part of an organization's business processes.
 
 Loading data into Hub tables is a relatively straightforward process with a clearly defined location in the architecture: it is applied when loading data from the Staging Layer to the Integration Layer.
 
@@ -39,6 +45,8 @@ The process performs a distinct selection on the business key attribute(s) in th
 During the selection the key distribution approach is implemented to make sure a dedicated Data Warehouse key is created. This can be an integer value, a hash key (i.e. MD5 or SHA1) or a natural business key.
 
 ## Implementation Guidelines
+
+Hubs are core business concepts which must be immediately and uniquely identifiable through their name.
 
 Loading a Hub table from a specific Staging Layer table is a single, modular, ETL process. This is a requirement for flexibility in loading information as it enables full parallel processing.
 
