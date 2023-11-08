@@ -1,15 +1,11 @@
 ---
-uid: design-pattern-data-vault-link-table
+uid: design-pattern-data-vault-link
 ---
 
-# Design Pattern - Data Vault - Loading Link tables
+# Design Pattern - Data Vault - Link
 
----
-**NOTE**
-
-This design pattern requires a major update to refresh the content.
-
----
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
 
 ## Purpose
 

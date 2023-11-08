@@ -1,11 +1,11 @@
-# Design Pattern - Data Vault - Satellites table
-
 ---
-**NOTE**
-
-This design pattern requires a major update to refresh the content.
-
+uid: design-pattern-data-vault-satellite
 ---
+
+# Design Pattern - Data Vault - Satellite
+
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
 
 ## Purpose
 

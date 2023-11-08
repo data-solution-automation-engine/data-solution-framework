@@ -1,8 +1,8 @@
 ---
-uid: design-pattern-data-vault-hub-table
+uid: design-pattern-data-vault-hub
 ---
 
-# Design Pattern - Data Vault - Hub table
+# Design Pattern - Data Vault - Hub
 
 > [!WARNING]
 > This design pattern requires a major update to refresh the content.
