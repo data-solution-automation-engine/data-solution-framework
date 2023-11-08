@@ -4,12 +4,8 @@ uid: design-pattern-data-vault-hub-table
 
 # Design Pattern - Data Vault - Hub table
 
----
-**NOTE**
-
-This design pattern requires a major update to refresh the content.
-
----
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
 
 ## Purpose
 
