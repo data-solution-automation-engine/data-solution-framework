@@ -34,7 +34,7 @@ This pattern is applicable for the process of loading from the Staging Layer int
 
 ## Structure
 
-A Hub table contains the unique list of business key, and the corresponding Hub ETL process can be described as an �insert only� of the unique business keys that are not yet in the the target Hub.
+A Hub table contains the unique list of business key, and the corresponding Hub ETL process can be described as an 'insert only' of the unique business keys that are not yet in the the target Hub.
 
 The process performs a distinct selection on the business key attribute(s) in the Staging Area table and performs a key lookup to verify if the available business keys already exists in the target Hub table. If the business key already exists the row can be discarded, if not it can be inserted.
 

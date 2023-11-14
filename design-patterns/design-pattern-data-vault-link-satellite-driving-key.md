@@ -9,12 +9,18 @@ uid: design-pattern-data-vault-link-satellite-driving-key
 
 > [!NOTE]
 > Depending on your philosophy on Data Vault implementation, Link Satellites may not be relevant or applicable.
-> This is especially applicable to the driving key mechanism.
 > There are very viable considerations to implement a Data Vault model *without* Link-Satellites.
+> This is especially applicable to the driving key mechanism.
 
 ## Purpose
 
-This design pattern describes how to represent cross-key end-dating for a Link-Satellite in Data Vault methodology. In Data Vault, Link-Satellite tables manage the change for relationships over time, but there might not be a good data-driven candidate to evaluate when certain relationships are valid.
+This design pattern describes how to represent cross-key end-dating for a Link-Satellite in Data Vault methodology.
+
+In Data Vault, Link-Satellite tables are an option that can be used manage the context (and changes for) relationships over time. In many cases, the context includes attributes that can be used to evaluate if a relationship can be considered 'active', or not, at a point in time.
+
+For example, if an attribute 'is valid' or equivalent exists, this data can be used to determine if a relationship is valid and can be used for downstream data delivery. However, depending on the systems and data that are available, there might not always be a good data-driven candidate to evaluate the validity of a relationship.
+
+The 'driving key' mechanism is a special technique to apply validity of relationships when there are no reliable data points to do so.
 
 ## Motivation
 
@@ -22,17 +28,15 @@ To provide an approach for establishing validity for Link Satellites, when no co
 
 ## Applicability
 
-This pattern is only applicable for loading data to Link-Satellite tables from:
-
-* The Staging Area into the Integration Area.
-* The Integration Area into the Interpretation Area.
-* The only difference to the specified ETL template is any business logic required in the mappings towards the Interpretation Area tables.
+This pattern is applicable for processing data for a Link-Satellite table, or its keyed-instance (relationship describing Hub) equivalent.
 
 ## Structure
 
- Standard Link-Satellites use the Driving Key concept to manage the ending of �old� relationships.
+Standard Link-Satellites use the Driving Key concept to manage the ending of �old� relationships.
 
 ## Implementation Guidelines
+
+To avoid data redundancy, it is recommended to manage this process into the target table as opposed to using end-dating.
 
 ## Considerations and Consequences
 
