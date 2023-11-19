@@ -69,6 +69,7 @@ Defining Hub ETL processes as atomic modules, as defined in this Design Pattern,
 
 ## Related Patterns
 
+- [Design Pattern - Logical - Core Business Concept](xref:design-pattern-logical-core-business-concept)
 - Design Pattern 006 - Generic - Using Start, Process and End Dates
 - Design Pattern 009 - Data Vault - Loading Satellite tables
 - Design Pattern 010 - Data Vault - Loading Link tables
