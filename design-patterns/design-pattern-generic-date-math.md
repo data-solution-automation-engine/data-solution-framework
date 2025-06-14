@@ -21,6 +21,7 @@ Creating Dimensions from a Data Vault model essentially means joining the variou
 Figure 1: Example Data Vault model
 Creating dimensions by joining tables with history means that the overlap in timelines (effective and expiry dates) will be ‘cut’ in multiple records with smaller intervals. This is explained using the following sample datasets, only the tables which contain ‘history’ are shown.
 
+```
 SAT Product
 
 Key|Product Name|Effective Date|Expiry Date	
@@ -39,6 +40,7 @@ Product Key
 Channel Key
 Effective Date
 Expiry Date
+```
 
 This set indicates that the product has been moved to a different sales channel over time.
 
@@ -58,10 +60,7 @@ This set indicates that the product has been moved to a different sales channel 
 04-03-2011
 31-12-9999
 
-When merging these to data sets into a dimension the overlaps in time are calculated:
-
- Business Insights > Design Pattern 019 - Creating Dimensions from Hub tables > BI8.png
-Figure 2: Timelines
+When merging these to data sets into a dimension the overlaps in time are calculated.
 
 In other words, the merging of both the historic data sets where one has 4 records (time periods) and the other one has 3 records (time periods) results into a new set that has 6 (‘smaller’) records. This gives the following result data set (changes are highlighted):\
 Dimension Key
@@ -72,6 +71,7 @@ Effective Date
 Expiry Date
 1
 73
+
 -
 -1
 01-01-1900
@@ -108,6 +108,8 @@ Cheese-Gold
 31-12-9999
 
 This result can be achieved by joining the tables on their usual keys and calculating the overlapping time ranges:
+
+```
 SELECT 
  B.PRODUCT_NAME,
  C.CHANNEL_KEY,
@@ -137,6 +139,7 @@ WHERE
    THEN B.EXPIRY_DATE
    ELSE D.EXPIRY_DATE -- smallest of the two expiry dates
  END)
+```
 
 ## Implementation guidelines
 The easiest way to join multiple tables is a cascading set based approach. This is done by joining the Hub and Satellite and treating this as a single set which is joined against another similar set of data (for instance a Link and Link-Satellite). The result of this is a new set of consistent timelines for a certain grain of information. This set can be treated as a single set again and joined with the next set (for instance a Hub and Satellite) and so forth.
