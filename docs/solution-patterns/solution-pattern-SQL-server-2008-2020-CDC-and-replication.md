@@ -1,4 +1,4 @@
-# Solution Pattern - SQL Server 2008-2016 - CDC and Replication
+# Solution Pattern - SQL Server Family - CDC and Replication
 
 ## Purpose
 
@@ -33,16 +33,17 @@ The resulting database structure is as follows:
 SQL Server's native CDC functionality reads the transaction log to record changes in system tables associated with each table for which CDC is enabled. It writes those files to system tables in the same database, and those system tables are accessible through direct queries or system functions.
 
 CDC can be enabled using the available functions in SQL Server:
-* Execute sys.sp_cdc_enable_db on the Replicated Source database
-* Execute sys.sp_cdc_enable_table on the table that should have CDC enabled
+
+* Execute `sys.sp_cdc_enable_db` on the Replicated Source database
+* Execute `sys.sp_cdc_enable_table` on the table that should have CDC enabled
 
 The following minimum parameters are required:
 
-* Source_schema: database schema if available, otherwise dbo as the default schema.
+* Source_schema: database schema if available, otherwise `dbo` as the default schema.
 * Source_name: the name of the source table
 * Supports_Net_Changes : 1 (enable).
 
-The newly created CDC table is created under the cdc schema as part of the System Tables.
+The newly created CDC table is created under the CDC schema as part of the System Tables.
 
 ## Implementation Guidelines
 
@@ -52,10 +53,14 @@ This approach requires changes to the source systems, which may not always be po
 
 Information about the state of CDC, or disabling the mechanism is available using similar procedures to the creation statement:
 
+```sql
 EXEC sys.sp_cdc_disable_table
       @source_schema          = N'dbo',
       @source_name            = N'Employee',
       @capture_instance       = N'dbo_Employee'
  EXEC sys.sp_cdc_help_change_data_capture
+```
 
 ## Related Patterns
+
+N/A

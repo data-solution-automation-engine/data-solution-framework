@@ -3,14 +3,10 @@
     "content": [
       {
         "files": [
-          "docs/**/*.{md,yml}",
-          "design-patterns/**/*.{md,yml}" 
+          "docs/**/*.{md,yml}"
         ],
-        "exclude": 
-        [
-          "docs/**/include/**",
-          "docs/_site/**",
-          "solution-architecture/**"
+        "exclude": [
+          "docs/_site/**"
         ]
       }
     ],
@@ -21,28 +17,20 @@
         ]
       }
     ],
-    "overwrite": [
-      {
-        "files": [
-          "docs/toc.yml"
-        ]
-      }
-    ],
     "output": "docs/_site",
     "globalMetadata": {
-      "_appLogoPath": ".",
+      "_appLogoPath": "docs/images/logo.png",
       "_appTitle": "Data Solution Framework",
-      "_enableSearch": "true",
-      "_disableTocFilter": "true",
-      "_disableBreadcrumb": "true",
+      "_enableSearch": true,
+      "_disableTocFilter": true,
+      "_disableBreadcrumb": true,
       "_appFooter": "<span>Data Solution Framework</span>",
-      "_disableContribution": "true"
+      "_disableContribution": true
     },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default",
-      "modern"
+      "default"
     ],
     "postProcessors": [],
     "keepFileLink": false,

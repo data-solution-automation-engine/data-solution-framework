@@ -61,11 +61,7 @@ By implementing pattern-based development and ETL generation approaches the desi
 
 Everything changes, but managing data as asset by allowing for flexibility in deployment and gradual interpretation of data makes this manageable.
 
-
-
 ![1547519184139](./Images/1547519184139.png)
-
-
 
 The following fundamental concepts underpin the reference architecture:
 

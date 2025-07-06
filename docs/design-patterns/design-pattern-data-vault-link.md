@@ -15,7 +15,7 @@ This design pattern describes how to define, and load data into, Data Vault Link
 
 A Link table in Data Vault is the physical implementation of a Natural Business Relationship. A Link uniquely identifies a relationship between Core Business Concepts (Hub tables in Data Vault).
 
-The Link concept in Data Vault provides the flexibility of this data modeling approach. Links are sets of (hub) keys that indicate that a relationship between those Hubs has existed at some point in time.
+The Link concept in Data Vault provides the flexibility of this data modelling approach. Links are sets of (hub) keys that indicate that a relationship between those Hubs has existed at some point in time.
 
 A Link table is similar in concept to the Hub table, but only stores key pairs.
 
@@ -65,4 +65,4 @@ This type of ETL process is to be used for loading all link tables in both the I
 ## Related Patterns
 
 * Design Pattern - Generic - Using Start, Process and End Dates
-* [Design Pattern - Data Vault - Hub tables](xref:design-pattern-data-vault-hub-table)
+* [Design Pattern - Data Vault - Hub tables](xref:design-pattern-data-vault-hub)
