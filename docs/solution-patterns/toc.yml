@@ -1,3 +1,6 @@
-items:
 - name: Overview
   href: index.md
+- name: Solution Pattern - Data Modelling - Presentation Layer
+  href: solution-pattern-data-modeling-presentation-layer.md
+- name: Solution Pattern - SQL Server - CDC and Replication
+  href: solution-pattern-SQL-Server-Family-CDC-and-replication.md

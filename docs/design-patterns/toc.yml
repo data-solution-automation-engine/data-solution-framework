@@ -1,3 +1,70 @@
-items:
 - name: Overview
   href: index.md
+- name: Design Pattern - Data Vault - Hub
+  uid: design-pattern-data-vault-hub
+- name: Link Satellite with Driving Key
+  href: design-pattern-data-vault-link-satellite-driving-key.md
+- name: Data Vault Link Satellite
+  href: design-pattern-data-vault-link-satellite.md
+- name: Data Vault Link
+  href: design-pattern-data-vault-link.md
+- name: Missing Keys and Placeholders
+  href: design-pattern-data-vault-missing-keys-and-placeholders.md
+- name: Data Vault Satellite
+  href: design-pattern-data-vault-satellite.md
+- name: Dimensional Loading from PSA
+  href: design-pattern-dimensional-loading-from-the-persistent-staging-area.md
+- name: Dimensional Time Dimension
+  href: design-pattern-dimensional-time-dimension.md
+- name: Generic Control Framework
+  href: design-pattern-generic-control-framework.md
+- name: Generic Data Extraction from Internal Systems
+  href: design-pattern-generic-data%20extraction%20from%20internal%20systems.md
+- name: Generic Data Integration into DWH
+  href: design-pattern-generic-data-integration-into-a-data-warehouse.md
+- name: Generic Date Math
+  href: design-pattern-generic-date-math.md
+- name: Generic Delta Calculations
+  href: design-pattern-generic-delta-calculations.md
+- name: Generic Exception Handling
+  href: design-pattern-generic-exception-handling.md
+- name: Generic Exposing Data from DWH
+  href: design-pattern-generic-exposing-data-from-the-data-warehouse.md
+- name: Generic Full Outer Join Interfaces
+  href: design-pattern-generic-full-outer-join-interfaces.md
+- name: Generic Fundamental Data Logistics Requirements
+  href: design-pattern-generic-fundamental-data-logistics-requirements.md
+- name: Generic Handling Flat Files
+  href: design-pattern-generic-handling-flat-files.md
+- name: Generic Handling Logical Deletes
+  href: design-pattern-generic-handling-logical-deletes.md
+- name: Generic Initial Load and Reinitialization
+  href: design-pattern-generic-initial-load-and-reinitialization.md
+- name: Generic Interfacing from Operational System
+  href: design-pattern-generic-interfacing-from-an-operational-system.md
+- name: Generic Loading Landing from Transactional CDC
+  href: design-pattern-generic-loading-landing-from-transactional-CDC.md
+- name: Generic Loading PSA Using Row Compacting
+  href: design-pattern-generic-loading-staging-area-tables-using-row-compacting.md
+- name: Generic Logical Partition Keys
+  href: design-pattern-generic-logical-partition-keys.md
+- name: Generic Managing Multi-Temporality
+  href: design-pattern-generic-managing-multi-temporality.md
+- name: Generic Referential Integrity
+  href: design-pattern-generic-referential-integrity.md
+- name: Generic Types of History
+  href: design-pattern-generic-types-of-history.md
+- name: Generic Using Checksums
+  href: design-pattern-generic-using-checksums.md
+- name: Logical Core Business Concept
+  href: design-pattern-logical-core-business-concept.md
+- name: Logical Natural Business Relationship
+  href: design-pattern-logical-natural-business-relationship.md
+- name: Presentation Layer Using Views
+  href: design-pattern-presentation-layer-using-views.md
+- name: Joining Tables in the Staging Layer
+  href: design-pattern-staging-layer-joining-tables-in-the-staging-layer.md
+- name: Staging Layer Landing Area
+  href: design-pattern-staging-layer-landing-area.md
+- name: Staging Layer Persistent Staging Area
+  href: design-pattern-staging-layer-persistent-staging-area.md

@@ -3,23 +3,24 @@
     "content": [
       {
         "files": [
-          "docs/**/*.{md,yml}"
+          "/**/*.{md,yml}",
+          "toc.yml"
         ],
         "exclude": [
-          "docs/_site/**"
+          "_site/**"
         ]
       }
     ],
     "resource": [
       {
         "files": [
-          "docs/**/images/**"
+          "/**/images/**"
         ]
       }
     ],
-    "output": "docs/_site",
+    "output": "_site",
     "globalMetadata": {
-      "_appLogoPath": "docs/images/logo.png",
+      "_appLogoPath": "images/logo.png",
       "_appTitle": "Data Solution Framework",
       "_enableSearch": true,
       "_disableTocFilter": true,

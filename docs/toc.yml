@@ -1,6 +1,8 @@
 - name: Home
   href: index.md
+- name: Solution Architecture
+  href: solution-architecture/index.md
 - name: Design Patterns
-  href: design-patterns/toc.yml
+  href: design-patterns/index.md
 - name: Solution Patterns
-  href: solution-patterns/toc.yml
+  href: solution-patterns/index.md
