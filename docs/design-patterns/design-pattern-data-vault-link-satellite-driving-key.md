@@ -34,11 +34,11 @@ This pattern is applicable for processing data for a Link-Satellite table, or it
 
 Standard Link-Satellites use the Driving Key concept to manage the ending of old relationships.
 
-## Implementation Guidelines
+## Implementation guidelines
 
 To avoid data redundancy, it is recommended to manage this process into the target table as opposed to using end-dating.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 ## Related Patterns
 

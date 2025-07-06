@@ -32,10 +32,10 @@
 * Transaction data should not be updated. E.g. should the data change, flag the old transaction as ‘deleted’ and create a new record
 * All data in the Data Warehouse must be reconcilable to the sources
 
-## Implementation Guidelines
+## Implementation guidelines
 
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 
 ## Related Patterns

@@ -44,9 +44,9 @@ Compared to other Source-to-Staging mechanisms the Full Outer Join is relatively
 The design decision to only load the delta record set into the Staging Area ensures that subsequent processes are all handled the same way, as most source-to-staging mechanism are delta based.
 By its nature, the Full Outer Join can only provide a single snapshot / historical interval for each run. This is opposed to more granular transaction log based Change Data Capture mechanisms which capture all changes that have occurred and typically contain multiple changes for a single key in the Staging Area before it is processed further.
 
-## Implementation Guidelines
+## Implementation guidelines
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 ## Related Patterns
 

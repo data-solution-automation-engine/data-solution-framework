@@ -111,14 +111,14 @@ DWH Key	| Logical Key | Name | Current Name | Colour | Start date | End date
 2 | CHS | Old Cheese | A+ Cheese | Golden | 20-07-2008 | 12-03-2010
 1 | CHS | Cheese | A+ Cheese | Golden | 05-01-2000 | 19-07-2008
 
-## Implementation Guidelines
+## Implementation guidelines
 
 * Obviously, corresponding records are identified by the logical key.
 * Type 1-B and the corresponding concept in Type 6 usually require separate mappings to update the entire history. Special care from a performance perspective because it has to be avoided that the entire history will be rewritten over and over again when really only the latest situation for that logical key. This mapping will have to aggregate the dataset to merge the latest state per natural key with the target table, and it will have to run after the regular Type 2 processes.
 * Avoid using NULL in the end date attribute of the most recent record to indicate an open / recent record date. Some databases have troubles handling NULL values and it is best practice to avoid NULL values wherever possible, especially in dimensions.
 * Depending on the location in the Data Warehouse either tables or attributes may be defined for a specific history type. For instance, defining a table as SCD Type 2 means that a change in every attribute will lead to a new record (and closing an old one). In Data Marts the common approach is often to specify a history type per attribute. So a change in one attribute may lead to an SCD Type 2 event, but a change in another one may cause the history to be overwritten.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 Not applicable.
 
 ## Related Patterns

@@ -566,7 +566,7 @@ Because each record in the ETL process control event log is stored as an excepti
 
  
 
-## Implementation Guidelines
+## Implementation guidelines
 
 
 
@@ -680,7 +680,7 @@ Exception handling in the Presentation Layer is directly related to the function
 
 
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 TBD
 

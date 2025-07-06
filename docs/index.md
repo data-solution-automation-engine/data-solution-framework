@@ -48,5 +48,5 @@ The pattern structure (Design and Solution Pattern layout) always is as follows:
 * **Applicability**, a listing of where this pattern can be expected to play a role.
 * **Structure**, the main section with the pattern details.
 * **Implementation guidelines**, any references to how to implement this pattern (Design Patterns only). Note that the Solution Pattern is intended to explain the specifics in a technical context. This is meant to capture any generic topics.  
-* **Considerations and consequences**, meant to offer some alternative views and experiences as to what it means to take a certain decision.
+* **CConsiderations and consequences**, meant to offer some alternative views and experiences as to what it means to take a certain decision.
 * **Related patterns**, any references towards further reading and related content.

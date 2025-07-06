@@ -45,9 +45,9 @@ The following minimum parameters are required:
 
 The newly created CDC table is created under the CDC schema as part of the System Tables.
 
-## Implementation Guidelines
+## Implementation guidelines
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 This approach requires changes to the source systems, which may not always be possible or allowed. It has to be verified if you are allowed to install the publisher agent on the source system.
 

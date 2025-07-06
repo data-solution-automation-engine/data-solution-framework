@@ -43,12 +43,12 @@ Therefore, the logic is slightly more complex. Joining Persistent Staging Area t
 
 ### Example Datasets
 
-| HSTG Table 1 | Key | INSERT_DATETIME | Fund Code | Amount     |
+| PSA Table 1 | Key | INSERT_DATETIME | Fund Code | Amount     |
 |--------------|-----|-----------------|-----------|------------|
 |              | 1   | 2012-01-01      | ABC       | $1,000,000 |
 |              | 2   | 2013-06-02      | ABC       | $1,500,000 |
 
-| HSTG Table 2 | Key | INSERT_DATETIME | Fund Code | Short Name | Additional Amount |
+| PSA Table 2 | Key | INSERT_DATETIME | Fund Code | Short Name | Additional Amount |
 |--------------|-----|-----------------|-----------|------------|-------------------|
 |              | 1   | 2012-04-05      | ABC       | ABC Corp   | $5,000            |
 |              | 2   | 2013-07-07      | ABC       | ABC Pty    | $5,000            |
@@ -79,9 +79,9 @@ Therefore, the logic is slightly more complex. Joining Persistent Staging Area t
 ```sql
 -- Select all variations of the available time intervals
 WITH TimeIntervals AS (
-  SELECT INSERT_DATETIME FROM HSTG_Table1
+  SELECT INSERT_DATETIME FROM PSA_Table1
   UNION
-  SELECT INSERT_DATETIME FROM HSTG_Table2
+  SELECT INSERT_DATETIME FROM PSA_Table2
 ),
 
 -- Calculate the ranges (time intervals / slices) between available time intervals
@@ -99,32 +99,32 @@ Ranges AS (
 -- Connect source table 1
 Table1 AS (
   SELECT
-    c.HSTG_Table1_SK,
+    c.PSA_Table1_SK,
     c.Fundcode,
     c.Total_Amount,
     c.INSERT_DATETIME AS EFFECTIVE_DATETIME,
     COALESCE(MIN(c2.INSERT_DATETIME), CONVERT(DATETIME, '99991231')) AS EXPIRY_DATETIME
-  FROM HSTG_Table1 c
-  LEFT JOIN HSTG_Table1 c2 ON
+  FROM PSA_Table1 c
+  LEFT JOIN PSA_Table1 c2 ON
     c.Fundcode = c2.Fundcode AND
     c.INSERT_DATETIME < c2.INSERT_DATETIME
-  GROUP BY c.HSTG_Table1_SK, c.Fundcode, c.Total_Amount, c.INSERT_DATETIME
+  GROUP BY c.PSA_Table1_SK, c.Fundcode, c.Total_Amount, c.INSERT_DATETIME
 ),
 
 -- Connect source table 2
 Table2 AS (
   SELECT
-    c.HSTG_Table2_SK,
+    c.PSA_Table2_SK,
     c.Fundcode,
     c.Short_name,
     c.Additional_amount,
     c.INSERT_DATETIME AS EFFECTIVE_DATETIME,
     COALESCE(MIN(c2.INSERT_DATETIME), CONVERT(DATETIME, '99991231')) AS EXPIRY_DATETIME
-  FROM HSTG_Table2 c
-  LEFT JOIN HSTG_Table2 c2 ON
+  FROM PSA_Table2 c
+  LEFT JOIN PSA_Table2 c2 ON
     c.Fundcode = c2.Fundcode AND
     c.INSERT_DATETIME < c2.INSERT_DATETIME
-  GROUP BY c.HSTG_Table2_SK, c.Fundcode, c.Short_Name, c.Additional_Amount, c.INSERT_DATETIME
+  GROUP BY c.PSA_Table2_SK, c.Fundcode, c.Short_Name, c.Additional_Amount, c.INSERT_DATETIME
 )
 
 -- Join tables to time ranges

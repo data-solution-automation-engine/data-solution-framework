@@ -28,7 +28,7 @@ The Staging Area is sourced from the CDC table and uses the ETL process control 
 
 Most default / native CDC solutions do not have Disaster Recovery. If for some reason CDC is disabled for a period of time or CDC details are accidentally lost there is no solution to recover the resulting gap between the source and the Data Warehouse. If a value changes multiple times during the downtime these changes are always lost, but the Data Warehouse must be brought back in sync with the (most recent value of the) source. The CDC Catch-up Process makes sure that the most recent version of the source records are in line with the Data Warehouse information.
 
-If this process finds discrepancies, changes must have occurred and this information is sent to the Staging Area as a missed delta set to be processed further. The CDC Catch-up Process works by comparing the most recent state of the source (in the Replicated Source table) against History Staging Area (HSTG).
+If this process finds discrepancies, changes must have occurred and this information is sent to the Staging Area as a missed delta set to be processed further. The CDC Catch-up Process works by comparing the most recent state of the source (in the Replicated Source table) against History Staging Area (PSA).
 Granularity of the delta selection from the CDC table can be controlled to some extent using built-in functions that interpret CDC information. A Net Change is always for the period of time for loading (which can span multiple days) so an extra function is required to make sure that catch-up processes work correctly if the CDC data has not been picked up for some time(intervals).
 
 This is explained in the following example (for a day interval):  
@@ -71,11 +71,11 @@ Create a reusable procedure to calculate the Net Change per time interval based 
 An alternative to the above mentioned reusable procedure is to run the Staging Area mapping multiple times (one for each time interval to catch-up).
 In a CDC environment, the Staging Area delta selection process can only select a dataset up to the maximum previous date/time value of the defined interval. For example if the interval is set to day, only CDC records up to the end of the previous day can be selected. Omitting this results in additional CDC information being selected (or truncated) and linked incorrectly to the Load Date / Time stamp (which relates to the effective and expiry dates).
 
-## Implementation Guidelines
+## Implementation guidelines
 
 
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 This design decision focuses on establishing a scheduled (i.e. time-interval driven) delta selection based on CDC information.
 

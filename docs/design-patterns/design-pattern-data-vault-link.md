@@ -39,7 +39,7 @@ Business Insights > Design Pattern 010 - Data Vault - Loading Link tables > imag
 
 In a pure relational Link it is required that a dummy key is available in each corresponding Link-Satellite to complete the timelines. This is handled as part of the Link-Satellite processing as a Link can contain multiple Link-Satellites. Dummy records are only required to be inserted for each driving key as a view in time across the driving key is ultimately required. Inserting a dummy record for every Link key will cause issues in the timeline. This is explained in more detail in the Link-Satellite Design Pattern.
 
-## Implementation Guidelines
+## Implementation guidelines
 
 Use a single ETL process, module or mapping to load the Link table, thus improving flexibility in processing. Every ETL process should have a distinct function.
 
@@ -56,7 +56,7 @@ The default and arguably most flexible way is to incorporate this concept as par
 Depending on how the Link table is modelled (what kind of relationship it manages) the Link table may contains a relationship type attribute. If a link table contains multiple, or changing, relationships (types) this attributes is moved to the Link-Satellite table.
 Ending /closing relationships is always done in the Link-Satellite table, typically using a separate ETL process.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 Multiple passes on source data is likely to be required. In extreme cases a single source table might be used (branch out) to Hubs, Satellites, Links and Link Satellites.
 

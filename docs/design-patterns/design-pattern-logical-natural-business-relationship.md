@@ -22,12 +22,12 @@ The Natural Business Relationship (NBR) describes how the Core Business Concepts
 
 If there can be multiple different ways the same concepts can be related to each other it will result in multiple business relationships.
 
-## Implementation Guidelines
+## Implementation guidelines
 
 * A Natural Business Relationship is typically implemented as a 'Link' table using Data Vault methodology.
 * When working with multiple relationships between the same concepts, it is not advisable to 'type' these e.g. by adding a relationship type or identifier. Instead, it is preferred to model this as separate relationships.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 N/A
 

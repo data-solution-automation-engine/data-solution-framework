@@ -28,7 +28,7 @@ The ETL process can be described as a slowly changing dimension / history update
 Load Date / Time Stamp (used for the target Effective Date / Time and potentially the Update Date / TimeE attributes).
 Source Row Id.
 
-## Implementation Guidelines
+## Implementation guidelines
 
 Multiple passes of the same source table or file are usually required. The first pass will insert new keys in the Hub table; the other passes are needed to populate the Satellite and Link tables.
 
@@ -53,7 +53,7 @@ If you have a Change Data Capture based source, the attribute comparison is not 
 
 Use hash values to detect changes, instead of comparing attributes separately. The hash value is created from all attributes except the business key and ETL process control values.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 Multiple passes on source data are likely to be required.
 

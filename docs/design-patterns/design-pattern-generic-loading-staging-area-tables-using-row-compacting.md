@@ -1,9 +1,9 @@
 # Design Pattern - Generic - Loading Staging Area tables using Record Condensing
 
 ## Purpose
-This Design Pattern specifies how a data source that contains multiple changes for the same business key is processed. For instance when using ‘net changes’ within a Change Data Capture interval or when the source application supplies redundant records.
+This Design Pattern specifies how a data source that contains multiple changes for the same business key is processed. For instance when using ï¿½net changesï¿½ within a Change Data Capture interval or when the source application supplies redundant records.
 Motivation
-This process is optional for the Staging Area; its application depends on the specific (nature of the) data source itself. The reason to implement a ‘condense’ process in the Staging Area ETL is to prevent implementing this logic in multiple locations when loading data out of the Staging Area (to the History and Integration Areas). During this process no information is lost, only redundant records are removed. These are records that are, in reality, no changes at all in the Data Warehouse context.
+This process is optional for the Staging Area; its application depends on the specific (nature of the) data source itself. The reason to implement a ï¿½condenseï¿½ process in the Staging Area ETL is to prevent implementing this logic in multiple locations when loading data out of the Staging Area (to the History and Integration Areas). During this process no information is lost, only redundant records are removed. These are records that are, in reality, no changes at all in the Data Warehouse context.
 Also known as
 Condensing Records
 Net changes
@@ -18,20 +18,20 @@ CHS
 Cheese
 28-10-2011 15:00
 CHS
-Cheese – Yellow
+Cheese ï¿½ Yellow
 29-11-2011 11:00
 CHS
-Cheese – Gold
+Cheese ï¿½ Gold
 29-11-2011 13:00
 CHS
-Cheese – Yellow
+Cheese ï¿½ Yellow
 29-11-2011 17:00
 CHS
 Cheese
 29-11-2011 23:00
 
 In this example a user has changed the name of the particular product with the key CHS multiple times in a single day and afterwards the value has been reset to the original value.
-If the ETL interval is daily only these two values are selected from the source (with the Load Date / Time stamp being the ‘Event Date Time’).
+If the ETL interval is daily only these two values are selected from the source (with the Load Date / Time stamp being the ï¿½Event Date Timeï¿½).
 Key
 Value
 Event Date Time
@@ -55,16 +55,16 @@ If all changes from a CDC source are captured this process is not required.
 There is a performance overhead when processing larger deltas or when running an initial load.
 Typically CDC sources where not all changes are processed but only the net changes for an interval. For instance when only the last change per day should be processed.
 Message sources can have the same issue when treated the same way (only last record state per interval).
-Design Pattern 015 – Generic – Loading Staging Area tables.
-Design Pattern 021 – Generic – Using CDC.
+Design Pattern 015 ï¿½ Generic ï¿½ Loading Staging Area tables.
+Design Pattern 021 ï¿½ Generic ï¿½ Using CDC.
 Consequences
 There is a performance overhead when processing larger deltas or when running an initial load.
 Known uses
 Typically CDC sources where not all changes are processed but only the net changes for an interval. For instance when only the last change per day should be processed.
 Message sources can have the same issue when treated the same way (only last record state per interval).
 Related patterns
-Design Pattern 015 – Generic – Loading Staging Area tables.Design Pattern 015 - Generic - Loading Staging Area Tables
-Design Pattern 021 – Generic – Using CDC.
+Design Pattern 015 ï¿½ Generic ï¿½ Loading Staging Area tables.Design Pattern 015 - Generic - Loading Staging Area Tables
+Design Pattern 021 ï¿½ Generic ï¿½ Using CDC.
 Discussion items (not yet to be implemented or used until final)
 None.
 
@@ -80,11 +80,11 @@ None.
 
 
 
-## Implementation Guidelines
+## Implementation guidelines
 
 
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 
 

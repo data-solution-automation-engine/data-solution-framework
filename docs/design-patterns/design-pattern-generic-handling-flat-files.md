@@ -22,10 +22,10 @@ Messaging applications (brokers) typically contain built-in functionality for th
 * If the ETL process (Module) is successful the original files can optionally be moved to an archive directory. 
 * If the ETL process (Module) is unsuccessful the files are also removed but the original zip file is untouched, resetting the process to before the execution started.
 
-## Implementation Guidelines
+## Implementation guidelines
 * Every separate source system has its own directory in the landing area.
 * Every source directory has an archive directory.
-* ETL process must be capable of loading multiple files in one execution. This may require file comparisons to detect the deltas to be loaded in the Staging Area if the file contains a full dataset (‘complete dump’). If the file already contains a delta it can be loaded into the Staging Layer directly.
+* ETL process must be capable of loading multiple files in one execution. This may require file comparisons to detect the deltas to be loaded in the Staging Area if the file contains a full dataset (ï¿½complete dumpï¿½). If the file already contains a delta it can be loaded into the Staging Layer directly.
 * The data types in the staging table are all unicode to support a potentialy wide variety of characters (i.e. NVARCHAR (100) or NVARCHAR (1000)). This is done to simplify further processing and to prevent data type issues from flat file sources
 * If applicable the data types of the flat file source definition are set to the same length as defined in the previous bullet.  This is done to reduce the impact of field changes
 * A single Batch (workflow) may be created when a source systems delivers more than one file. This depends on the size of the files and the total processing time
@@ -34,7 +34,7 @@ Messaging applications (brokers) typically contain built-in functionality for th
 * File lists may be used to select which files to load and to handle the changing filenames (date!). This also provides the opportunity to process multiple files at once
 * If files are delivered less frequently than the ETL process runs, for instance files are delivered weekly but the ETL process runs daily, a file list still needs to be created. This file list contains an empty dummy file so the process does not fail
 
-## Considerations and consequences
+## CConsiderations and consequences
 The decision not to copy the data types from the file definitions but to check and explicitly convert these in the ETL process will mean that explicit checks and data type conversions will have to be added later in the Integration Layer. 
 
 Typically (and recommended) this is done as part of the Interpretation Layer ETL processes as this allows to process data that has quality issues. Dirty data will be loaded into the Integration Area where it can be handled accordingly for issues such as missing business keys.
@@ -44,7 +44,7 @@ This can be achieved in a variety of ways, but must be consistent.
 
 Some examples are:
 * Using the created and/or modified date/time from the file.
-* Using a derived generation date of the file relative to the ‘sysdate day’. This can be useful when processing daily batch data. In a daily interval, one (1) day can be subtracted from the generation date in order to process the correct date time of the event. The same process is applicable to any other used Batch interval. A file date that is the same as the sysdate means that the file itself was generated on the same day, usually just past midnight. If the generation date is the sysdate minus one date, then the generation date can be used as date time event.
+* Using a derived generation date of the file relative to the ï¿½sysdate dayï¿½. This can be useful when processing daily batch data. In a daily interval, one (1) day can be subtracted from the generation date in order to process the correct date time of the event. The same process is applicable to any other used Batch interval. A file date that is the same as the sysdate means that the file itself was generated on the same day, usually just past midnight. If the generation date is the sysdate minus one date, then the generation date can be used as date time event.
 
 ## Related Patterns
-* Design Pattern 015 – Generic – Loading Staging Area Tables.
+* Design Pattern 015 ï¿½ Generic ï¿½ Loading Staging Area Tables.

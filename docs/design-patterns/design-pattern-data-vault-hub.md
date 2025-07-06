@@ -40,7 +40,7 @@ The process performs a distinct selection on the business key attribute(s) in th
 
 During the selection the key distribution approach is implemented to make sure a dedicated Data Warehouse key is created. This can be an integer value, a hash key (i.e. MD5 or SHA1) or a natural business key.
 
-## Implementation Guidelines
+## Implementation guidelines
 
 Hubs are core business concepts which must be immediately and uniquely identifiable through their name.
 
@@ -61,7 +61,7 @@ When modeling the Hub tables try to be conservative when defining the business k
 
 To cater for a situation where multiple Load Date / Time stamp values exist for a single business key, the minimum Load Date / Time stamp should be the value passed through with the HUB record. This can be implemented in ETL logic, or passed through to the database.  When implemented at a database level, instead of using a SELECT DISTINCT, using the MIN function with a GROUP BY the business key can achieve both a distinct selection, and minimum Load Date / Time stamp in one step.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 Multiple passes on the same Staging Layer data set are likely to be required: once for the Hub table(s) but also for any corresponding Link and Satellite tables.
 

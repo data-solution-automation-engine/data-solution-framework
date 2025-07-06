@@ -64,11 +64,11 @@ Design Pattern 028  Generic  Full Outer Join interfaces.
 
 
 
-## Implementation Guidelines
+## Implementation guidelines
 
 
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 
 

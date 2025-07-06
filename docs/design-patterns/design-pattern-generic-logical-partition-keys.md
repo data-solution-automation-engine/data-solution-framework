@@ -39,12 +39,12 @@ If the number of rows is still voluminous even after streaming them in to single
 Once the data has been logically grouped into logical partition groups, the ETL job reading from the staging job can read the job in stream or in succession, depending on the optimal load balance in the ETL tool used.
 The exercise of finding the optimal ETL load is a trial and error process depending on the resources available, number of data, how big the existing data is in the target table (where applicable), and other factors.
 
-## Implementation Guidelines
+## Implementation guidelines
 If the ETL load will be doing a lookup in the target table, consider using the partition keys when building the lookup cache. The records in the lookup cache can be built using the partition key that is currently being processed. This may lessen the build time of the lookup cache if the number of records is lessened.
 Consider using the partition keys as part of the index in the target table to return results more quickly from the target table when doing lookups.
 If one of the partition streams fails, only the failed stream needs to be re-run. Existing streams do not need to be re-run if they have succeeded.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 In some cases there is no useable field in the source data that can be used as part of the logical key. In this case, a character attribute can be used to determine the logical partition. However, the selected field must still form part of the natural key of the source file so that there are no processing errors due to records being processed multiple times within the same run.
 Known uses
 Any table that requires stream loading due to big data sets.

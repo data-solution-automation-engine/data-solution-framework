@@ -31,9 +31,9 @@ This pattern is only applicable for loading data to Link-Satellite tables from:
 
  Standard Link-Satellites use the Driving Key concept to manage the ending of old relationships.
 
-## Implementation Guidelines
+## Implementation guidelines
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 ## Related Patterns
 

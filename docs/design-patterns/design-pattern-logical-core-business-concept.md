@@ -32,11 +32,11 @@ Core Business Concepts can be categorized into:
 * Thing (physical or Virtual)
 * Other Concepts (everything that is important, but does not fit the other categories)
 
-## Implementation Guidelines
+## Implementation guidelines
 
 A Core Business Concept is typically implemented as a 'Hub' table using Data Vault methodology.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 N/A
 

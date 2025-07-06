@@ -36,7 +36,7 @@ Missing Source Attribute (Non recordable Source) (-6). Used when source fails to
 Missing Target Attribute (Non recordable DWH Attribute) (-7). Used for temporal data that falls before the deployment of the attribute.
 Deciding between the various types of unknown is a business question that is decided based on how the source database works.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 The Hubs must be pre-populated with the placeholder values (records).
 ETL processes loading data into the Integration Area must automatically resolve NULL values to (potentially different) placeholders.
 Implementing a full taxonomy of potential unknown values as hard business rules must be weighed against extra complexity while loading Integration Area tables.

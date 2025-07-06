@@ -34,7 +34,7 @@ An example is as follows:
 
 ETL processes are recommended to be placed in the directory/folder where they pull data _to_. For instance the ETL logic for ‘Staging to History’ exists in the ‘150_History_Area’ folder and loads data from the ‘100_Staging_Area’.
 
-## Consequences and considerations
+## Considerations and consequences
 In some situations adding some of the listed functionality to ETL processes may seem overkill or perhaps even redundant. This (perceived) additional effort will impact the developing duration. 
 
 But in the context of maintaining a generic design (e.g. to support ETL generation and maintenance) this will still be necessary. Concessions can be made per architectural layer (all ETL processes within a certain architecture step). It is recommended to document any pattern exceptions in the Solution Architecture documentation.

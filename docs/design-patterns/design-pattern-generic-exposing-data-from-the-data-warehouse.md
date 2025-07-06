@@ -14,10 +14,10 @@
 *  Design the extract process so it may be re-used for multiple consumers
 *  Include control to enable audit and reconciliation
 
-## Implementation Guidelines
+## Implementation guidelines
 
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 
 ## Related Patterns

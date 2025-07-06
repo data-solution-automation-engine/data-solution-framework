@@ -19,10 +19,10 @@ Implementation guidelines
 Every separate source system has its own directory in the landing area.
 Every source directory has an archive directory.
 
-## Considerations and Consequences
+## CConsiderations and consequences
 The decision not to copy the data types from the file definitions but to check and explicitly convert these in the ETL process will mean that explicit checks and data type conversions will have to be added later.
 Known uses
 None.
 
 ## Related Patterns
-Design Pattern 015 – Generic – Loading Staging Area tables.
+Design Pattern 015 ï¿½ Generic ï¿½ Loading Staging Area tables.

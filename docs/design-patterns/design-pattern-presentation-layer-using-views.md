@@ -28,10 +28,10 @@ A very specific use which includes the only allowed type of functionality to be 
 
 Another use case for view is for virtualising the Presentation Layer. As all granular and historic information is stored in the Integration Layer it is possible, if the hardware allows it, to use views to present information in any specific format. This removes the need for ETL – physically moving data – from the solution design. Applicability of virtualisation depends largely on the way the information is accessed and the infrastructure that is in place. Possible application includes when the BI platform uses the information to create cubes, when information is infrequently accessed or with a smaller user base.
 
-## Implementation Guidelines
+## Implementation guidelines
 
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 
 ## Related Patterns

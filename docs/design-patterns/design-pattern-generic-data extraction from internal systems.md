@@ -17,10 +17,10 @@ This Design Pattern describes the overarching concepts related to extracting dat
 * The standard data integration tool must be used to extract data from the source systems, unless another efficient data extract utility is provided as part of the application package (this may include using SQL for ETL)
 * Implement incremental extracts where possible, as this is more scalable.
 
-## Implementation Guidelines
+## Implementation guidelines
 
 
-## Considerations and Consequences
+## CConsiderations and consequences
 
 
 ## Related Patterns
