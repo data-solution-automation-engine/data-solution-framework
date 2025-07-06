@@ -18,12 +18,12 @@ Reasoning
 Source to Staging (Full Outer Join or Disaster Recovery only)
 Checksum is created and stored in the Staging Area table.
 The checksum does not need to be recalculated from Staging to History as the full outer join process will always correctly identify the CDC operation.
-In case of a Logical Delete, all attributes will retain their last known value (copied from the History Area table) thus the checksum will be calculated with these values.
+In case of a Logical Delete, all attributes will retain their last known value (copied from the Persistent Staging Area table) thus the checksum will be calculated with these values.
 Source to Staging (CDC, push or pull)
 No checksums are required.
 Other interfaces rely on load windows to select the delta sets.
 Staging to History
-If the checksum is available in the Staging Area the value can be copied into the History Area. Otherwise the checksum is calculated based on the source attributes.
+If the checksum is available in the Staging Area the value can be copied into the Persistent Staging Area. Otherwise the checksum is calculated based on the source attributes.
 Checksum values can be identical between inserts/updates and records that have been identified as a logical delete. Therefore record comparison must include the CDC operation.
 If the checksums are different or the checksums are the same but the <CDC operation> is different; continue the SCD2 operation.
 If the checksums are identical and the <CDC operation> is the same as well; discard (filter).
@@ -36,7 +36,7 @@ The following diagram displays how checksum values are used:
 Figure 1: Checksums and comparisons
 Implementation guidelines
 Using checksums is an alternative to attribute-per-attribute comparison of records. Each method has its advantages and disadvantages and the applicability is ultimately based on the functionality the ETL or database specific functions can provide.
-Advantages of attribute comparison include avoiding checksum ‘collision’; i.e. detecting too many changes or (worse) missing changes. The collision rate depends on the used algorithm but no checksum algorithm is 100% perfect.
+Advantages of attribute comparison include avoiding checksum collision; i.e. detecting too many changes or (worse) missing changes. The collision rate depends on the used algorithm but no checksum algorithm is 100% perfect.
 Disadvantages of attribute comparison include issues regarding NULL handling (requiring dummy values) and rounding of numeric values.
 Different ETL platforms or databases have varying functionality regarding to checksums. Careful testing is required when not sure of the behavior of the specific checksum.
 When deciding between the checksum options, storage must be taken into account as well. Checksum data types range between integer values to 24 byte character (hash) values.
@@ -46,11 +46,11 @@ Checksum values have proven to be convenient while troubleshooting as the values
 Known uses
 None.
 Related patterns
-Design Pattern 009 – Data Vault – Loading Satellite tables.
-Design Pattern 014 – Generic – Handling Logical Deletes.
-Design Pattern 015 – Generic – Loading Staging Area tables.
-Design Pattern 017 – Generic – Loading History Area tables.
-Design Pattern 028 – Generic – Full Outer Join interfaces.
+Design Pattern 009  Data Vault  Loading Satellite tables.
+Design Pattern 014  Generic  Handling Logical Deletes.
+Design Pattern 015  Generic  Loading Staging Area tables.
+Design Pattern 017  Generic  LoadPersistent Staging AreaArea tables.
+Design Pattern 028  Generic  Full Outer Join interfaces.
 
 ## Motivation
 

@@ -105,7 +105,7 @@ The following metadata attributes are mandatory for the history tables:
 | ETL process control Id | INTEGER                      | Default ETL process control attribute for any table for logging which process has inserted the record. |
 | ETL process control Id | INTEGER                      | The module ID of the ETL process which has updated the record. |
 | Record Source Id          | INTEGER                      | The relation to the ETL process control table which contains the identification of the source system that originally supplied the information. |
-| Source Row Id             | INTEGER                      | Copied from the Staging Area. The combination of ETL process control Id and Source Row Id always relate back to a single History Area record |
+| Source Row Id             | INTEGER                      | Copied from the Staging Area. The combination of ETL process control Id and Source Row Id always relate back to a single Persistent Staging Area record |
 | Deleted Record Indicator  | VARCHAR(100)                 | This flag (Y/N) indicates that the record has been deleted from the source system. |
 
  The following attributes are optional for the history tables in the Integration Layer: 

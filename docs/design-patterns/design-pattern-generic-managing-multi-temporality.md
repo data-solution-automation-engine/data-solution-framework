@@ -48,4 +48,4 @@ After the Staging Layer has been loaded the subsequent Integration Area ETL proc
 * Design Pattern – Data Vault – Loading Satellite tables.
 * Design Pattern – Data Vault – Loading Link tables.
 * Design Pattern – Generic – Loading Staging Area tables.
-* Design Pattern – Generic – Loading History Area tables.
+* Design Pattern – Generic – Loading Persistent Staging Area tables.

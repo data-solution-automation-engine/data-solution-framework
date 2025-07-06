@@ -6,7 +6,7 @@ This Design Pattern describes how to process data from the Staging Area (STG) to
 
 ## Motivation
 
-The History Area is a generic concept that serves multiple purposes in the Data Warehouse architecture. The structure is source specific (similar to the Staging Area) but the History Area is designed to track changes over time and contains additional attributes for this purpose. While in most cases the structure of the STG and HSTG areas are similar in terms of attributes (with some specific exceptions in constraints), this is not a requirement. There may be scenarios where some attributes are omitted, and the templates used should be able to support this.
+The Persistent Staging Area is a generic concept that serves multiple purposes in the Data Warehouse architecture. The structure is source specific (similar to the Staging Area) but the Persistent Staging Area is designed to track changes over time and contains additional attributes for this purpose. While in most cases the structure of the STG and HSTG areas are similar in terms of attributes (with some specific exceptions in constraints), this is not a requirement. There may be scenarios where some attributes are omitted, and the templates used should be able to support this.
 The STG to HSTG process is in many ways a straightforward and consistent process that can be implemented without additional metadata - naming conventions are sufficient. The HSTG does not even need to be a relational database (RDBMS) - it can be a flat file or other type of storage. HSTG provides a raw archive of source data that was presented to the Data Warehouse environment and can be used for refactoring, auditing or 'replaying history' in upstream Data Warehouse layers.
 Also known as
 Archiving
@@ -14,13 +14,13 @@ Staging to History ETL
 Persistent Staging Area (PSA)
 
 ## Applicability
-This pattern is only applicable for loading processes from source systems or files to the History Area (via the Staging Layer) only.
+This pattern is only applicable for loading processes from source systems or files to the Persistent Staging Area (via the Staging Layer) only.
 
 ## Structure
 
 The following is a list of development conventions for the Persistent Staging Area (PSA):
 
-- When loading the PSA from the Staging Area, always start a PSA ETL process as soon as the Staging Area is finished to ensure that there are no ‘gaps’ in the history. Since the Staging Area has the ‘truncate/insert’ load strategy, PSA data has to be processed before the next Staging Area run. During normal loads, the Integration Area has no dependency on the History Area and loading into history and integration can be done in parallel if the Data Warehouse has capacity for concurrent jobs. This is handled by the ‘Batch’ concept which guarantees the unit of work; e.g. making sure all data delta has been processed
+- When loading the PSA from the Staging Area, always start a PSA ETL process as soon as the Staging Area is finished to ensure that there are no ‘gaps’ in the history. Since the Staging Area has the ‘truncate/insert’ load strategy, PSA data has to be processed before the next Staging Area run. During normal loads, the Integration Area has no dependency on the Persistent Staging Area and loading into history and integration can be done in parallel if the Data Warehouse has capacity for concurrent jobs. This is handled by the ‘Batch’ concept which guarantees the unit of work; e.g. making sure all data delta has been processed
 - If the ETL platform supports it, prefix the ‘schema’, ‘area’ or ‘folder’ in the RDBMS and ETL software with ‘150_’. The PSA is part of the first layer in the architecture, but is updated after the Staging Area (if adopted). This forces most ETL tools to sort the folders in the way the architecture handles the data
 - Everything is copied as-is, no transformations are done.
 - There is no requirement for error handling in PSA ETL.
@@ -50,9 +50,9 @@ The above three components together satisfy the HSTG template requirements. The 
 
 
 ## Implementation Guidelines
-Use a single ETL process, module or mapping to load data from a single source system table in the corresponding History Area table.
-The Load Date / Time stamp is the logical �effective date�, and is copied from the Staging Area table. The Staging Area handles the correct definition of the time a change has occurred.
-Because of the differences between source interfaces, relying on the CDC Operation (i.e. Insert, Update or Delete) to detect change is not always possible. For this reason all History Area ETL processes need to contain a key lookup to compare values (detect changes).
+Use a single ETL process, module or mapping to load data from a single source system table in the corresponding Persistent Staging Area table.
+The Load Date / Time stamp is the logical effective date, and is copied from the Staging Area table. The Staging Area handles the correct definition of the time a change has occurred.
+Because of the differences between source interfaces, relying on the CDC Operation (i.e. Insert, Update or Delete) to detect change is not always possible. For this reason all Persistent Staging Area ETL processes need to contain a key lookup to compare values (detect changes).
 
 The structure of the PSA is the same as the Staging Area (including the metadata attributes). The following attributes are mandatory for the PSA tables:
 
@@ -81,9 +81,9 @@ Note: there are other suitable approaches towards a PSA. Depending on the requir
 When loading data delta directly into the PSA (i.e. the Staging Area is not adopted) the same rules apply as for the Staging Area. 
 
 ## Consequences and Considerations
-Loading processes towards the Integration Area can either be sourced from the Staging Area or the History Area depending on the scheduling requirements.
+Loading processes towards the Integration Area can either be sourced from the Staging Area or the Persistent Staging Area depending on the scheduling requirements.
 
-The History Area can be loaded in parallel with the Integration Area, or between the Staging Area and Integration Area.
+The Persistent Staging Area can be loaded in parallel with the Integration Area, or between the Staging Area and Integration Area.
 
 The 'prevent reprocessing' functionality can also be implemented using the Event Date / Time attribute instead of the Load Date / Time attribute. 
 

@@ -16,7 +16,7 @@ Also known as:
 
 ## Applicability
 
-This pattern concerns the full scope of loading processes between source systems and (and in) the Staging Layer. There is a strong relationship between CDC and the Staging and History Areas.
+This pattern concerns the full scope of loading processes between source systems and (and in) the Staging Layer. There is a strong relationship between CDC and the Staging and Persistent Staging Areas.
 
 ## Structure
 
@@ -29,7 +29,7 @@ The Staging Area is sourced from the CDC table and uses the ETL process control 
 Most default / native CDC solutions do not have Disaster Recovery. If for some reason CDC is disabled for a period of time or CDC details are accidentally lost there is no solution to recover the resulting gap between the source and the Data Warehouse. If a value changes multiple times during the downtime these changes are always lost, but the Data Warehouse must be brought back in sync with the (most recent value of the) source. The CDC Catch-up Process makes sure that the most recent version of the source records are in line with the Data Warehouse information.
 
 If this process finds discrepancies, changes must have occurred and this information is sent to the Staging Area as a missed delta set to be processed further. The CDC Catch-up Process works by comparing the most recent state of the source (in the Replicated Source table) against History Staging Area (HSTG).
-Granularity of the delta selection from the CDC table can be controlled to some extent using built-in functions that interpret CDC information. A �Net Change� is always for the period of time for loading (which can span multiple days) so an extra function is required to make sure that catch-up processes work correctly if the CDC data has not been picked up for some time(intervals).
+Granularity of the delta selection from the CDC table can be controlled to some extent using built-in functions that interpret CDC information. A Net Change is always for the period of time for loading (which can span multiple days) so an extra function is required to make sure that catch-up processes work correctly if the CDC data has not been picked up for some time(intervals).
 
 This is explained in the following example (for a day interval):  
 Default
@@ -83,6 +83,6 @@ Although it is possible in theory to make dumps of the most granular level of CD
 
 ## Related Patterns
 
-* Design Pattern 006 � Generic � Using Start, Process and End dates.
-* Design Pattern 015 � Generic � Loading STG tables.
-* Design Pattern 021 � Generic � Initial Load and Re-initialisation.
+* Design Pattern 006  Generic  Using Start, Process and End dates.
+* Design Pattern 015  Generic  Loading STG tables.
+* Design Pattern 021  Generic  Initial Load and Re-initialisation.

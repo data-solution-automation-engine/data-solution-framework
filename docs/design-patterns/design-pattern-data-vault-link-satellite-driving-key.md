@@ -32,7 +32,7 @@ This pattern is applicable for processing data for a Link-Satellite table, or it
 
 ## Structure
 
-Standard Link-Satellites use the Driving Key concept to manage the ending of �old� relationships.
+Standard Link-Satellites use the Driving Key concept to manage the ending of old relationships.
 
 ## Implementation Guidelines
 

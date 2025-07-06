@@ -87,9 +87,9 @@ DWH Key	| Logical Key | Name | Previous Name | Colour | Update date
 
 **Type 4**. This history tracking mechanism operates by using separate tables to store the history. One table contains the most recent version of the record and the history table contains some or all history.
 
-**Type 5**. The type 5 method of tracking history uses versions of tables for every period in time. Also known as �snapshotting�. No example is supplied since it's basically a copy of the entire table.
+**Type 5**. The type 5 method of tracking history uses versions of tables for every period in time. Also known as snapshotting. No example is supplied since it's basically a copy of the entire table.
 
-**Type 6 / hybrid**. Also known as �twin time stamping�, the type 6 approach combines the concepts of type 1-B, type 2 and type 3 mechanisms (1+2+3=6!). In the following example the attribute combination is the name. It consists of two attributes.
+**Type 6 / hybrid**. Also known as twin time stamping, the type 6 approach combines the concepts of type 1-B, type 2 and type 3 mechanisms (1+2+3=6!). In the following example the attribute combination is the name. It consists of two attributes.
 A new record is inserted in the Data Warehouse table.
 
 DWH Key	| Logical Key | Name | Current Name | Colour | Start date | End date

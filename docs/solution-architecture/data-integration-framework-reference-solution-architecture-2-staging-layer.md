@@ -33,16 +33,16 @@ The Staging Layer consists of the **Staging Area** and the **Persistent Staging 
 
 The Staging Area within the Staging Layer streamlines data types and loads source data into the Data Warehouse environment. This is done by utilising different Change Data Capture (CDC) techniques depending on the source system, files or options / restrictions of the available technology. Another important role for the Staging Area is the correct definition of time in the Data Warehouse. Depending on the type of source and interface dynamics extreme care has to be taken to ensure timelines are setup correctly for proper management of historical information in the subsequent steps.  
 
-The design is to load the source data delta into the History Area. Here the data is stored in the structure of the providing source but changes are tracked over time. The History Area is an important component in Data Recovery (DR) and re-initialisation of data (initial load) and is also used as part of the Full Outer Join comparison against the source systems. 
+The design is to load the source data delta into the Persistent Staging Area. Here the data is stored in the structure of the providing source but changes are tracked over time. The Persistent Staging Area is an important component in Data Recovery (DR) and re-initialisation of data (initial load) and is also used as part of the Full Outer Join comparison against the source systems. 
 
-An option in the Data Warehouse design is to load the source data into a History Area. Here the data is stored in the structure of the providing source but changes are tracked using the Slowly Changing Dimensions (SCD type 2) mechanism. The History Area is an important component in Disaster Recovery (DR) and re-initialisation of data (initial loads). When Change Data Capture, Change Tracking or messaging sources are part of the design the addition of a History Area is strongly recommended. A History Area can also be used for full outer join comparison against the source system and/or a full data dump interface. 
+An option in the Data Warehouse design is to load the source data into a Persistent Staging Area. Here the data is stored in the structure of the providing source but changes are tracked using the Slowly Changing Dimensions (SCD type 2) mechanism. The Persistent Staging Area is an important component in Disaster Recovery (DR) and re-initialisation of data (initial loads). When Change Data Capture, Change Tracking or messaging sources are part of the design the addition of a Persistent Staging Area is strongly recommended. A Persistent Staging Area can also be used for full outer join comparison against the source system and/or a full data dump interface. 
 
 Objects in the Staging Layer are not accessible for end-users or Business Intelligence and analytics software (e.g. Cognos). This is because for most scenarios information has not yet been prepared for consumption. There is an exception to this rule; for specific data mining or statistical analysis it is often preferable for analysts to access the raw / unprocessed data. This means this access can be granted for the Staging Layer which contains essentially raw time variant data. Allow access serves a purpose in prototyping and local self-service BI / visualisation. 
 
 The Staging Layer, or the process from source to staging, consists of two separate parts (areas): 
 
 * The Staging Area, and
-* The Persistent Staging Area  (PSA, or History Area)
+* The Persistent Staging Area  (PSA, or Persistent Staging Area)
 
 The Integration Metadata Model is generic, and is documented in detail in the ETL Process Control and Metadata document. 
 
@@ -52,7 +52,7 @@ The ETL associated with the *Staging Area* copies data from different source sys
 
 During these processes the content of the data is not changed, however changes to the format of the data types are done to conform to a standardised limited set. The Staging Area is non-persistent and therefore is emptied (truncated) every time the table is loaded with new data delta during an ETL process (truncate/insert mechanism). The important design decisions for the Staging Area are to determine the correct event date/time for each (type of) source interface and to ensure that information is interfaced correctly (i.e. delta calculation, load date/time stamp setting, order of processing etc.).
 
-A second area can be added to the Staging Layer to archive data in the source structure: the *Persistent Staging Area* (History Area). This will preserve the (table) structure of the source applications while at the same time storing the data in a historical fashion. This allows for a number of functions including positioning as ODS and Disaster Recovery. In worst-case scenarios, where modelling decisions have been made which cannot be reverted, the History Area can be used to repopulate parts of the Data Warehouse in the updated model using the re-initialisation process.
+A second area can be added to the Staging Layer to archive data in the source structure: the *Persistent Staging Area* (Persistent Staging Area). This will preserve the (table) structure of the source applications while at the same time storing the data in a historical fashion. This allows for a number of functions including positioning as ODS and Disaster Recovery. In worst-case scenarios, where modelling decisions have been made which cannot be reverted, the Persistent Staging Area can be used to repopulate parts of the Data Warehouse in the updated model using the re-initialisation process.
 
 The Staging Area and Persistent Staging Area can be used independently, or in combination with each other:
 
