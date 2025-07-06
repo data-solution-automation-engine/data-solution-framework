@@ -1,16 +1,13 @@
 # Design Pattern - Generic - Referential Integrity
 
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
+
 ## Purpose
-
-
 
 ## Motivation
 
-
-
 ## Applicability
-
-
 
 ## Structure
 
@@ -33,12 +30,10 @@ Every Data Warehouse table contains a predefined set of metadata attributes, whi
 
 ## Implementation guidelines
 
-
-
 ## Considerations and consequences
 
 TBD
 
 ## Related patterns
 
-N/A.
+N/A

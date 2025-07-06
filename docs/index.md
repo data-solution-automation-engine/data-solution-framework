@@ -18,7 +18,7 @@ Design and implementation of data solutions can be a labour-intensive activity t
 
 Over time, as requirements change and demand for data increases, the architecture faces challenges in the complexity, consistency and flexibility in the design (and maintenance) of the data integration processes.
 
-These changes can include latency and availability requirements, a bigger variety of operational systems that generate data, and the need to expose information in different ways. At the same time, data tends to increate in volume, variety, and velocity.
+These changes can include latency and availability requirements, a bigger variety of operational systems that generate data, and the need to expose information in different ways. At the same time, data tends to increase in volume, variety, and velocity.
 
 These issues are compounded by an absence of agreed industry best practices; which in turn leads to various ad-hoc patterns being implemented based on an individual's experience (or lack thereof). Implications of (poor) design decisions are often not fully understood, and only become apparent when the investment in time and money has already been done.
 

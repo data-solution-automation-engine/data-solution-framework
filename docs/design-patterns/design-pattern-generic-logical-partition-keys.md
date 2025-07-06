@@ -1,5 +1,8 @@
 # Design Pattern - Generic - Logical Partition Keys
 
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
+
 ## Purpose
 
 This design pattern describes how to handle large data volumes by using logical partition keys. It is a technique which may help loading large datasets faster; an alternative approach to handling large data volumes.

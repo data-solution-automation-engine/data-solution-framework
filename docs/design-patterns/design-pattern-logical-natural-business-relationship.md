@@ -4,6 +4,9 @@ uid: design-pattern-logical-natural-business-relationship
 
 # Design Pattern - Natural Business Relationship
 
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
+
 ## Purpose
 
 This design pattern defines a Natural Business Relationship (NBR) entity.
