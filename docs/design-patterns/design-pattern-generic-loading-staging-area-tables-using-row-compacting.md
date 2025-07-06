@@ -84,7 +84,7 @@ None.
 
 
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 
 

@@ -36,7 +36,7 @@ Core Business Concepts can be categorized into:
 
 A Core Business Concept is typically implemented as a 'Hub' table using Data Vault methodology.
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 N/A
 

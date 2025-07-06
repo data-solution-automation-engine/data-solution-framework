@@ -34,7 +34,7 @@ Messaging applications (brokers) typically contain built-in functionality for th
 * File lists may be used to select which files to load and to handle the changing filenames (date!). This also provides the opportunity to process multiple files at once
 * If files are delivered less frequently than the ETL process runs, for instance files are delivered weekly but the ETL process runs daily, a file list still needs to be created. This file list contains an empty dummy file so the process does not fail
 
-## CConsiderations and consequences
+## Considerations and consequences
 The decision not to copy the data types from the file definitions but to check and explicitly convert these in the ETL process will mean that explicit checks and data type conversions will have to be added later in the Integration Layer. 
 
 Typically (and recommended) this is done as part of the Interpretation Layer ETL processes as this allows to process data that has quality issues. Dirty data will be loaded into the Integration Area where it can be handled accordingly for issues such as missing business keys.

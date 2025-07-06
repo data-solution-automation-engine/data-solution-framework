@@ -53,7 +53,7 @@ If you have a Change Data Capture based source, the attribute comparison is not 
 
 Use hash values to detect changes, instead of comparing attributes separately. The hash value is created from all attributes except the business key and ETL process control values.
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 Multiple passes on source data are likely to be required.
 

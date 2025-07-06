@@ -35,7 +35,7 @@
 ## Implementation guidelines
 
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 
 ## Related Patterns

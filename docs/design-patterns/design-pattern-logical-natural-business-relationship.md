@@ -27,7 +27,7 @@ If there can be multiple different ways the same concepts can be related to each
 * A Natural Business Relationship is typically implemented as a 'Link' table using Data Vault methodology.
 * When working with multiple relationships between the same concepts, it is not advisable to 'type' these e.g. by adding a relationship type or identifier. Instead, it is preferred to model this as separate relationships.
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 N/A
 

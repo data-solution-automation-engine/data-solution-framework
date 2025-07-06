@@ -31,7 +31,7 @@ Another use case for view is for virtualising the Presentation Layer. As all gra
 ## Implementation guidelines
 
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 
 ## Related Patterns

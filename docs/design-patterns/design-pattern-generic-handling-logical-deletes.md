@@ -46,7 +46,7 @@ The Deleted Row Indicator (�Deleted� in this example) keeps the design strai
 * Treat the Deleted Row Indicator as any attribute that triggers a SCD2 mechanism.
 * If you have a Change Data Capture based source the attribute comparison may potentially be skipped because the CDC mechanisms inform the system whether the record in the Staging Area is new, updated or deleted.
 
-## CConsiderations and consequences
+## Considerations and consequences
 * A deleted record in the source system leads to an extra record in the Data Warehouse. With this in mind the meaning of the (Data Warehouse) effective and expiry dates should be very clear: they indicated the time interval for when a value/record was active.
 * This approach stores the last state of the record when it was deleted. This is a design decision. As an alternative the values can also be set to NULL although this may cause some problems when re-opening records. 
 

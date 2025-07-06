@@ -35,7 +35,7 @@ The logic to create the initial (dummy) Satellite record can both be implemented
 When modeling the Hub tables try to be conservative when defining the business keys. Not every foreign key in the source indicates a business key and therefore a Hub table. A true business key is a concept that is known and used throughout the organisation (and systems) and is �self-standing� and meaningful.
 To cater for a situation where multiple Load Date / Time stamp values exist for a single business key, the minimum Load Date / Time stamp should be the value passed through with the HUB record. This can be implemented in ETL logic, or passed through to the database.  When implemented at a database level, instead of using a SELECT DISTINCT, using the MIN function with a GROUP BY the business key can achieve both a distinct selection, and minimum Load Date / Time Stamp in one step.
 
-## CConsiderations and consequences
+## Considerations and consequences
 N/A
 
 ## Related Patterns

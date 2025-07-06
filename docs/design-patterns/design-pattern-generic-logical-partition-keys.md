@@ -44,7 +44,7 @@ If the ETL load will be doing a lookup in the target table, consider using the p
 Consider using the partition keys as part of the index in the target table to return results more quickly from the target table when doing lookups.
 If one of the partition streams fails, only the failed stream needs to be re-run. Existing streams do not need to be re-run if they have succeeded.
 
-## CConsiderations and consequences
+## Considerations and consequences
 In some cases there is no useable field in the source data that can be used as part of the logical key. In this case, a character attribute can be used to determine the logical partition. However, the selected field must still form part of the natural key of the source file so that there are no processing errors due to records being processed multiple times within the same run.
 Known uses
 Any table that requires stream loading due to big data sets.

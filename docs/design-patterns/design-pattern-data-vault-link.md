@@ -56,7 +56,7 @@ The default and arguably most flexible way is to incorporate this concept as par
 Depending on how the Link table is modelled (what kind of relationship it manages) the Link table may contains a relationship type attribute. If a link table contains multiple, or changing, relationships (types) this attributes is moved to the Link-Satellite table.
 Ending /closing relationships is always done in the Link-Satellite table, typically using a separate ETL process.
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 Multiple passes on source data is likely to be required. In extreme cases a single source table might be used (branch out) to Hubs, Satellites, Links and Link Satellites.
 

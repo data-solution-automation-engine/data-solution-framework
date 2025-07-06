@@ -14,6 +14,6 @@ This pattern is only applicable for every process in the data solution.
 
 ## Implementation guidelines
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 ## Related Patterns

@@ -680,7 +680,7 @@ Exception handling in the Presentation Layer is directly related to the function
 
 
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 TBD
 

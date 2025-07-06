@@ -19,7 +19,7 @@ Implementation guidelines
 Every separate source system has its own directory in the landing area.
 Every source directory has an archive directory.
 
-## CConsiderations and consequences
+## Considerations and consequences
 The decision not to copy the data types from the file definitions but to check and explicitly convert these in the ETL process will mean that explicit checks and data type conversions will have to be added later.
 Known uses
 None.

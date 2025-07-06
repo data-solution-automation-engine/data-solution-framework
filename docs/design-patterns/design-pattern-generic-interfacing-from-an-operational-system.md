@@ -31,7 +31,7 @@ The following list captures the fundamental requirements of an interface between
 * Consider scalability in terms of ability to add more data elements or tables to existing interfaces. In some cases significant effort may be required to add or modify interfaces, and this effort may be limited by increasing the scope of data in a single change. This is especially the case when dealing with third-party systems. It may be better to retrieve all the data in one go as in some cases the first contact is �free�, but subsequent efforts to add additional interfaces typically meet more resistance, suffer from politics or require additional funding. A downside to this approach is the extra effort both in terms of maintenance and development to load/ stage (and perhaps integrate) all tables. However, in some cases this trade-off is a positive one in the longer term when no extra communication to the source system owners is required.
 * An additional consideration is that information that is captured by the Data Warehouse can be archived in the Persistent Staging Area (PSA), which enables the solution to collect information early on in the development cycle (for use later on).
 
-## CConsiderations and consequences
+## Considerations and consequences
 Not applicable.
 
 ## Related Patterns

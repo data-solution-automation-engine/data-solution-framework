@@ -38,7 +38,7 @@ Standard Link-Satellites use the Driving Key concept to manage the ending of old
 
 To avoid data redundancy, it is recommended to manage this process into the target table as opposed to using end-dating.
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 ## Related Patterns
 

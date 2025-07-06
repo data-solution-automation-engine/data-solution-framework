@@ -72,7 +72,7 @@ Type 2 dimensions use a suffix (`_Pit`) to differentiate objects:
 | **Fact Table**   | `ben.FACT_<TableName>`        | `<TableName>_SK` (primary key)<br>Dimension Keys<br>ETL Process Control Id<br>Load Date/Time<br>Deleted Record Indicator<br>Type 1 Checksum<br>Type 2 Checksum<br>Effective Date/Time<br>Expiry Date/Time<br>Current Record Indicator | Unique key/index on Dimension keys.                                                              |
 | **Other**        | `ben.<TableName>`             | `<TableName>_SK`<br>ETL Process Control Id<br>Load Date/Time<br>Other ETL attributes as required                              | Not all datasets are delivered as star schemas.<br>Wide or normalized tables preferred where applicable. |
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 ### Separation of Type 1 and Type 2 ETL Processes
 

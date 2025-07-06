@@ -75,7 +75,7 @@ In a CDC environment, the Staging Area delta selection process can only select a
 
 
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 This design decision focuses on establishing a scheduled (i.e. time-interval driven) delta selection based on CDC information.
 

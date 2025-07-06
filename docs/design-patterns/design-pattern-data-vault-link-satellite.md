@@ -33,7 +33,7 @@ This pattern is only applicable for loading data to Link-Satellite tables from:
 
 ## Implementation guidelines
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 ## Related Patterns
 

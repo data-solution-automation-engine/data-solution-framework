@@ -72,7 +72,7 @@ The structure of the Staging Area therefore is the same as the source table, but
 | Upstream Hash Values     | Optional                | Character(32), when using   MD5 – not null            | Any pre-calculated hash values one may like to add to optimize upstream parallel loading (i.e. pre-hashing business keys), | Hash <>                   |
 | <source attributes>      | Required                | According to data   type  conversion table - nullable | The source attributes as available. Note that if a primary hash key is not used the natural key (source primary key) needs to be set to NOT NULL. All other attributes are nullable. | N/A                       |
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 * Resolving the Record Source ID will be done in the Integration Layer because disk space is less an issue in the Staging Layer. 
 * Adding key lookups in the Staging Area will also overcomplicate the ETL design and negatively impact performance. Alternatively is can be discussed to hard-code the identifier instead of the Source System name (as the RECORD_SOURCE). This reduces the requirement for the key lookup but reduces visibility over the data.

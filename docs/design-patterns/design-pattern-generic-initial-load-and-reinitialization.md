@@ -27,7 +27,7 @@ For re-initialisation a single procedure or ETL process should be created to cop
 At least the transactional tables must be truncated prior to a full re-initialisation to avoid creating duplicates.
 For the initial load of non-CDC sources a proxy Load Date / Time Stamp must be defined.
 
-## CConsiderations and consequences
+## Considerations and consequences
 Running re-initialisations essentially discards and re-issues any Data Warehouse keys, which means that all related Cleansing Area and Presentation Layer datasets must be recalculated as well.
 Known uses
 An Initial Load has to be done at the end of the initial development stage for new information. Re-initialisations are typically part of bigger patches or troubleshooting. This also covers remodelling parts of the Integration Layer (the true Data Warehouse).

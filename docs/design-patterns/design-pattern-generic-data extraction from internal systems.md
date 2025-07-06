@@ -20,7 +20,7 @@ This Design Pattern describes the overarching concepts related to extracting dat
 ## Implementation guidelines
 
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 
 ## Related Patterns

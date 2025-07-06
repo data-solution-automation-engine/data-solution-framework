@@ -68,7 +68,7 @@ Design Pattern 028  Generic  Full Outer Join interfaces.
 
 
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 
 

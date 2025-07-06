@@ -46,7 +46,7 @@ By its nature, the Full Outer Join can only provide a single snapshot / historic
 
 ## Implementation guidelines
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 ## Related Patterns
 

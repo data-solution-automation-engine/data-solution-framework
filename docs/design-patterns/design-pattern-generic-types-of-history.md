@@ -118,7 +118,7 @@ DWH Key	| Logical Key | Name | Current Name | Colour | Start date | End date
 * Avoid using NULL in the end date attribute of the most recent record to indicate an open / recent record date. Some databases have troubles handling NULL values and it is best practice to avoid NULL values wherever possible, especially in dimensions.
 * Depending on the location in the Data Warehouse either tables or attributes may be defined for a specific history type. For instance, defining a table as SCD Type 2 means that a change in every attribute will lead to a new record (and closing an old one). In Data Marts the common approach is often to specify a history type per attribute. So a change in one attribute may lead to an SCD Type 2 event, but a change in another one may cause the history to be overwritten.
 
-## CConsiderations and consequences
+## Considerations and consequences
 Not applicable.
 
 ## Related Patterns

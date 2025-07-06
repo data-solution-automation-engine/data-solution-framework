@@ -35,7 +35,7 @@ Every Data Warehouse table contains a predefined set of metadata attributes, whi
 
 
 
-## CConsiderations and consequences
+## Considerations and consequences
 
 TBD
 
