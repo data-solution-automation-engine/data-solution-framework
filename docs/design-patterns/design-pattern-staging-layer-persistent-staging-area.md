@@ -4,6 +4,9 @@ uid: design-pattern-staging-layer-persistent-staging-area
 
 # Design Pattern - Staging Layer - Persistent Staging Area
 
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
+
 ## Purpose
 
 This Design Pattern describes how to process data from the Staging Area (STG) to the Persistent Staging Area (PSA) - also known as the Persistent Staging Area (PSA).
@@ -97,7 +100,7 @@ The Persistent Staging Area can be loaded in parallel with the Integration Area,
 
 The 'prevent reprocessing' functionality can also be implemented using the Event Date / Time attribute instead of the Load Date / Time attribute. 
 
-## Related Patterns
+## Related patterns
 
 * [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates]()
 * Implementation Pattern for SSIS - Loading Persistent Staging Area tables

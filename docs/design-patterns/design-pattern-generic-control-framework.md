@@ -1,4 +1,11 @@
-# Design Pattern - Staging Layer - Staging Area Guidelines
+---
+uid: design-pattern-generic-control-framework
+---
+
+# Design Pattern - Generic - Control Framework
+
+> [!WARNING]
+> This design pattern is a placeholder awaiting content
 
 ## Purpose
 
@@ -8,7 +15,7 @@ This Design Pattern describes the reasoning for, and functionality provided by, 
 
 ## Applicability
 
-This pattern is only applicable for every process in the data solution.
+This pattern is only applicable for _every_ process in the data solution.
 
 ## Structure
 
@@ -16,4 +23,4 @@ This pattern is only applicable for every process in the data solution.
 
 ## Considerations and consequences
 
-## Related Patterns
+## Related patterns

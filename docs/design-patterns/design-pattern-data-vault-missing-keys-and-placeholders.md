@@ -1,4 +1,11 @@
+---
+uid: design-pattern-data-vault-missing-keys-and-placeholders
+---
+
 # Design Pattern - Data Vault - Missing Keys and Placeholders
+
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
 
 ## Purpose
 
@@ -43,5 +50,5 @@ Implementing a full taxonomy of potential unknown values as hard business rules 
 Known uses
 This type of ETL process is to be used in all Hub or Surrogate Key tables in the Integration Area. The Interpretation Area Hub tables, if used, have similar characteristics but the ETL process contains business logic.
 
-## Related Patterns
+## Related patterns
 Design Pattern 008  Data Vault  Loading Hub tables.

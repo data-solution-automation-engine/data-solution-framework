@@ -1,4 +1,7 @@
-# Design Pattern - Staging Layer - Staging Area Guidelines
+# Design Pattern - Staging Layer - Landing Area Guidelines
+
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
 
 ## Purpose
 
@@ -78,7 +81,7 @@ The structure of the Staging Area therefore is the same as the source table, but
 * Adding key lookups in the Staging Area will also overcomplicate the ETL design and negatively impact performance. Alternatively is can be discussed to hard-code the identifier instead of the Source System name (as the RECORD_SOURCE). This reduces the requirement for the key lookup but reduces visibility over the data.
 * For Staging Area ETL processes that use a CDC based source an extra step is added to control the CDC deltas (using a load window table). This is explained in the Using CDC Design Pattern and subsequent Implementation Patterns.
 
-## Related Patterns
+## Related patterns
 
 * Design Pattern 003 - Mapping requirements
 * Design Pattern 006 - Using Start, Process and End dates

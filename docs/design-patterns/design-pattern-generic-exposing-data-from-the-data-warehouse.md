@@ -20,4 +20,4 @@
 ## Considerations and consequences
 
 
-## Related Patterns
+## Related patterns

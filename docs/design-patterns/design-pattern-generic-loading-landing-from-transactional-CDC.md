@@ -81,7 +81,7 @@ This design decision focuses on establishing a scheduled (i.e. time-interval dri
 
 Although it is possible in theory to make dumps of the most granular level of CDC details, the approach taken here is to design an approach which makes it flexible to adjust the grain but at the same time doesn't record the atomic CDC data. In other words, if at some point in time the grain is adjusted (from day to half-day for instance) the intra-day history will be built from that point onwards and cannot be initial loaded.
 
-## Related Patterns
+## Related patterns
 
 * Design Pattern 006  Generic  Using Start, Process and End dates.
 * Design Pattern 015  Generic  Loading STG tables.

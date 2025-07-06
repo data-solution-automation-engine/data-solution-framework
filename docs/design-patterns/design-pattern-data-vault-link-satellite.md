@@ -35,7 +35,7 @@ This pattern is only applicable for loading data to Link-Satellite tables from:
 
 ## Considerations and consequences
 
-## Related Patterns
+## Related patterns
 
 * Design Pattern - Using Start, Process and End Dates
 * Design Pattern - Satellite

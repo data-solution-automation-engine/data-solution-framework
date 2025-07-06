@@ -1,5 +1,8 @@
 # Design Pattern - Generic - Types of History
 
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
+
 ## Purpose
 
 This design pattern describes the definitions for the commonly used history storage concepts.
@@ -9,15 +12,18 @@ This design pattern describes the definitions for the commonly used history stor
 Due to definitions changing over time and different definitions being made by different parties there usually is a lot of discussion about what exactly constitutes the different types of history. This design pattern aims to define these history types in order to provide the common ground for discussion.
 
 This is also known as:
+
 * SCD; Slowly Changing Dimensions
 * Type 1,2,3,4 etc.
 
 ## Applicability
+
 Every situation where historical data is needed / stored or a discussion arises.
 
 Depending on the Data Warehouse architecture, this can be needed in a variety of situations. But typically these concepts are applied in the integration and presentation layer of the Data Warehouse.
 
 ## Structure
+
 The following history types are defined, some distinction is made where there are multiple viable explanations. All definitions can be valid coming from a specific background and in order to cater for every situation some history types are tagged with specific letters indicating a slightly different approach.
 
 **Type 0**. No change, while uncommon it has to be mentioned that this passive approach sometimes is implemented when storage space is to be saved or only the initial state has to be preserved.
@@ -119,9 +125,11 @@ DWH Key	| Logical Key | Name | Current Name | Colour | Start date | End date
 * Depending on the location in the Data Warehouse either tables or attributes may be defined for a specific history type. For instance, defining a table as SCD Type 2 means that a change in every attribute will lead to a new record (and closing an old one). In Data Marts the common approach is often to specify a history type per attribute. So a change in one attribute may lead to an SCD Type 2 event, but a change in another one may cause the history to be overwritten.
 
 ## Considerations and consequences
+
 Not applicable.
 
-## Related Patterns
+## Related patterns
+
 * Design Pattern 011 - Kimball - Multiple SCD2 time periods.
 * Design Pattern 005 - Generic - Current view on historical data.
 * Design Pattern 007 - Kimball - Receiving order of information and late and early arrivals.

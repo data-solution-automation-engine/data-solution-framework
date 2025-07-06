@@ -48,6 +48,6 @@ By its nature, the Full Outer Join can only provide a single snapshot / historic
 
 ## Considerations and consequences
 
-## Related Patterns
+## Related patterns
 
 * Design Pattern 015  Generic  Loading Staging Area tables.

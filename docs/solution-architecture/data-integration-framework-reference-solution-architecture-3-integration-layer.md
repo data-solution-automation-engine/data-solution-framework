@@ -1,5 +1,8 @@
 #  Integration Layer overview
 
+> [!WARNING]
+> This document requires a major update to refresh the content.
+
 The Integration Layer is the second layer in the reference Data Warehouse solution architecture. This Layer is not designed to be accessible by (end) users of the information but serves as the true Data Warehouse Layer, where information is maintained in such a way that it is both resilient and flexible. The Integration Layer sources its information from the Staging Area and stores it in a consistent and atomic way, without applying business logic. This data can then be presented in a consumable form in the Presentation Layer.
 
 This document defines the Integration Layer and describes the involved steps and techniques. Various references to other documents of the ETL Framework will be made, including error handling and metadata management. Ultimately, this document provides the information to configure the Integration Layer in a flexible and modular way.

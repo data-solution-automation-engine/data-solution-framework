@@ -40,6 +40,6 @@ A Core Business Concept is typically implemented as a 'Hub' table using Data Vau
 
 N/A
 
-## Related Patterns
+## Related patterns
 
 * [Design Pattern - Data Vault - Hub](xref:design-pattern-data-vault-hub)

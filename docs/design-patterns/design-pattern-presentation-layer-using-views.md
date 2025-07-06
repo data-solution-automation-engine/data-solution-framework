@@ -1,16 +1,17 @@
 # Design Pattern - Presentation Layer - Using Views
 
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
+
 ## Purpose
 
-
 ## Motivation
-- 
 
 ## Applicability
 
 ## Structure
 
-#### Using views for decoupling
+### Using views for decoupling
 
 The Data Warehouse design incorporates views ‘on top off’’ the Presentation Layer (Information Mart). This is applied for the following reasons:
 
@@ -24,14 +25,12 @@ This is always meant as a temporary solution to mitigate the impact of these cha
 
 A very specific use which includes the only allowed type of functionality to be implemented in the views is the way they deliver the historical information. Initially these views will be restricted to Type 1 information by adding the restriction of showing only the most recent state of the information (where the Expiry Date/Time = ‘9999-12-31’). Over time however it will be possible to change these views to provide historical information if required. On a full Type2 Information Mart, views can be used to deliver any type of history without changing the underlying data or applying business logic.
 
-#### Using views for virtualisation
+### Using views for virtualisation
 
 Another use case for view is for virtualising the Presentation Layer. As all granular and historic information is stored in the Integration Layer it is possible, if the hardware allows it, to use views to present information in any specific format. This removes the need for ETL – physically moving data – from the solution design. Applicability of virtualisation depends largely on the way the information is accessed and the infrastructure that is in place. Possible application includes when the BI platform uses the information to create cubes, when information is infrequently accessed or with a smaller user base.
 
 ## Implementation guidelines
 
-
 ## Considerations and consequences
 
-
-## Related Patterns
+## Related patterns

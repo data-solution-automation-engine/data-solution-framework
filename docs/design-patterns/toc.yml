@@ -45,7 +45,7 @@
 - name: Generic Loading Landing from Transactional CDC
   href: design-pattern-generic-loading-landing-from-transactional-CDC.md
 - name: Generic Loading PSA Using Row Compacting
-  href: design-pattern-generic-loading-staging-area-tables-using-row-compacting.md
+  href: design-pattern-generic-loading-landing-area-tables-using-row-compacting.md
 - name: Generic Logical Partition Keys
   href: design-pattern-generic-logical-partition-keys.md
 - name: Generic Managing Multi-Temporality

@@ -1,5 +1,8 @@
 # Staging Layer overview
 
+> [!WARNING]
+> This document requires a major update to refresh the content.
+
 The Staging Layer covers the first series of ETL process steps within the reference architecture. The processes involved with the Staging Layer introduce data from many (often disparate) source applications into the Data Warehouse environment. 
 
 In this sense, the Staging Layer is for the most part literally a place where the data is collected in the Data Warehouse environment, before being integrated in the core Data Warehouse layer (Integration Layer) or made available for other use-cases (i.e. analytics, ad-hoc reporting) as a more raw data feed.

@@ -140,7 +140,7 @@ LEFT JOIN Table1 ON NOT (Table1.EFFECTIVE_DATETIME >= R.EXPIRY_DATETIME OR Table
 LEFT JOIN Table2 ON NOT (Table2.EFFECTIVE_DATETIME >= R.EXPIRY_DATETIME OR Table2.EXPIRY_DATETIME <= R.EFFECTIVE_DATETIME)
 ```
 
-## Related Patterns
+## Related patterns
 
 * Design Pattern 019 - Data Vault - Creating Dimensions from Hub tables.
 * Design Pattern 006 - Generic - Managing temporality by using Start, Process and End dates.

@@ -62,7 +62,7 @@ Multiple passes on source data is likely to be required. In extreme cases a sing
 
 This type of ETL process is to be used for loading all link tables in both the Integration Area as well as the Interpretation Area. This is because the Link table is also used to relate raw (Integration Area) data and cleansed (Interpretation Area) data together.
 
-## Related Patterns
+## Related patterns
 
 * Design Pattern - Generic - Using Start, Process and End Dates
 * [Design Pattern - Data Vault - Hub tables](xref:design-pattern-data-vault-hub)

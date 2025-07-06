@@ -67,7 +67,7 @@ Multiple passes on the same Staging Layer data set are likely to be required: on
 
 Defining Hub ETL processes as atomic modules, as defined in this Design Pattern, means that many Staging Layer tables load data to the same central Hub table. All processes will be very similar with the only difference being the mapping between the Staging Layer business key attribute and the target Hub business key counterpart.
 
-## Related Patterns
+## Related patterns
 
 - [Design Pattern - Logical - Core Business Concept](xref:design-pattern-logical-core-business-concept)
 - Design Pattern 006 - Generic - Using Start, Process and End Dates

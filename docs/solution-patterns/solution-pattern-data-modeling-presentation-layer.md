@@ -1,4 +1,11 @@
+---
+uid: solution-pattern-data-modelling-presentation-layer
+---
+
 # Solution Pattern - Data Modelling - Presentation Layer
+
+> [!WARNING]
+> This solution pattern requires a major update to refresh the content.
 
 ## Purpose
 
@@ -90,6 +97,6 @@ For example, attributes like Business Unit Type, State, Counter, and Ownership m
 
 If the logic view and/or base table are Type 2, it is relatively straightforward to translate this into a mixed-history view. For example, half the attributes can be Type 2 and the other half Type 1, implemented in the decoupling view while leaving underlying structures as full Type 2.
 
-## Related Patterns
+## Related patterns
 
 - Design Pattern 002 - Generic - Types of History

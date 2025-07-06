@@ -50,5 +50,5 @@ The Deleted Row Indicator (�Deleted� in this example) keeps the design strai
 * A deleted record in the source system leads to an extra record in the Data Warehouse. With this in mind the meaning of the (Data Warehouse) effective and expiry dates should be very clear: they indicated the time interval for when a value/record was active.
 * This approach stores the last state of the record when it was deleted. This is a design decision. As an alternative the values can also be set to NULL although this may cause some problems when re-opening records. 
 
-## Related Patterns
+## Related patterns
 * Design Pattern 006 - Generic - Managing Temporality by using Start, Process and End Dates.

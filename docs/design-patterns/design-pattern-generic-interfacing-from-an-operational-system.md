@@ -34,5 +34,5 @@ The following list captures the fundamental requirements of an interface between
 ## Considerations and consequences
 Not applicable.
 
-## Related Patterns
+## Related patterns
 * Design Pattern 006 - Generic - Managing Temporality by using Start, Process and End Dates.

@@ -32,7 +32,7 @@ Key|Product Name|Effective Date|Expiry Date
 73|Cheese – Gold|04-04-2011|31-12-9999
 
 The first record is a dummy record created together with the Hub record. This was updated as part of the history / SCD updates.
-Before being joined to the other sets this Satellite table is joined to the Hub table first. The Hub table maps the Data Warehouse key ‘73’ to the business key ‘CHS’.
+Before being joined to the other sets this Satellite table is joined to the Hub table first. The Hub table maps the Data Warehouse key ‘73’ to the business key 'CHS'.
 
 SAT Product –Channel (Link-Satellite):
 Link Key
@@ -109,7 +109,7 @@ Cheese-Gold
 
 This result can be achieved by joining the tables on their usual keys and calculating the overlapping time ranges:
 
-```
+```sql
 SELECT 
  B.PRODUCT_NAME,
  C.CHANNEL_KEY,
@@ -142,6 +142,7 @@ WHERE
 ```
 
 ## Implementation guidelines
+
 The easiest way to join multiple tables is a cascading set based approach. This is done by joining the Hub and Satellite and treating this as a single set which is joined against another similar set of data (for instance a Link and Link-Satellite). The result of this is a new set of consistent timelines for a certain grain of information. This set can be treated as a single set again and joined with the next set (for instance a Hub and Satellite) and so forth.
 When creating a standard Dimension table it is recommended to assign new surrogate keys for every dimension record. The only reason for this is to prevent a combination of Integration Layer surrogate keys to be present in the associated Fact table. The range of keys can become very wide. This also fits in with the classic approach towards loading Facts and Dimensions where the Fact table ETL performs a key lookup towards the Dimension table. Using Data Vault as Integration Layer opens up other options as well but this is a well-known (and understood) type of ETL.
 The original Integration Layer keys remain attributes of the new Dimension table.
@@ -151,14 +152,16 @@ Some ETL tools or databases make the WHERE clause a bit more readable by providi
 This approach requires the timelines in all tables to be complete, ensuring referential integrity in the central Data Vault model. This means that every Hub has to have a record in the Satellite table with a start date of ‘01-01-1900’ and one which ends at ‘31-12-9999’ (can be the same record if there is no history yet). Without this dummy record to complete the timelines the query to calculate the overlaps will become very complex. SQL filters the records in the original WHERE clause before joining to the other history set. This requires the selection on the date range to be done on the JOIN clause but makes it impossible to get the EXPIRY_DATE correct in one pass. The solution with this approach is to only select the EFFECTIVE_DATE values, order these, and join this dataset back to itself to be able to compare the previous row (or the next depending on the sort) and derive the EXPIRY_DATE. In this context the solution to add dummy records to complete the timelines is an easier solution which also improves the integrity of the data in the Data Vault model.
 
 ## Considerations and consequences
+
 This approach requires the timelines in all tables to be complete, ensuring referential integrity in the central Data Vault model. This means that every Hub has to have a record in the Satellite table with a start date of ‘01-01-1900’ and one which ends at ‘31-12-9999’ (can be the same record if there is no history yet). Without this dummy record to complete the timelines the query to calculate the overlaps will become very complex. SQL filters the records in the original WHERE clause before joining to the other history set. This requires the selection on the date range to be done on the JOIN clause but makes it impossible to get the EXPIRY_DATE correct in one pass. The solution with this approach is to only select the EFFECTIVE_DATE values, order these, and join this dataset back to itself to be able to compare the previous row (or the next depending on the sort) and derive the EXPIRY_DATE. In this context the solution to add dummy records to complete the timelines is an easier solution which also improves the integrity of the data in the Data Vault model.
 Known uses
 
 This type of ETL process is to be used to join historical tables together in the Integration Layer.
 
 ## Related patterns
-* Design Pattern 002 – Generic – Types of history
-* Design Pattern 006 – Generic – Using Start, Process and End dates.
-* Design Pattern 008 – Data Vault – Loading Hub tables
-* Design Pattern 009 – Data Vault – Loading Satellite tables
-* Design Pattern 010 – Data Vault – Loading Link tables.
+
+- Design Pattern 002 – Generic – Types of history
+- Design Pattern 006 – Generic – Using Start, Process and End dates.
+- Design Pattern 008 – Data Vault – Loading Hub tables
+- Design Pattern 009 – Data Vault – Loading Satellite tables
+- Design Pattern 010 – Data Vault – Loading Link tables.

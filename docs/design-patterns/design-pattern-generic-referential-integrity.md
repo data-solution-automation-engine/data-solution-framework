@@ -39,6 +39,6 @@ Every Data Warehouse table contains a predefined set of metadata attributes, whi
 
 TBD
 
-## Related Patterns
+## Related patterns
 
 N/A.

@@ -1,16 +1,17 @@
 # Design Pattern - Generic - Data integration into a Data Warehouse
 
+> [!WARNING]
+> This design pattern is a placeholder awaiting content
+
 ## Purpose
 
-
 ## Motivation
-- 
 
 ## Applicability
 
-
 ## Structure
-*  Reconciliation and auditing must be built in all processes. By default this is managed by the ETL process control model.
+
+* Reconciliation and auditing must be built in all processes. By default this is managed by the ETL process control model.
 * Change history to hierarchy, e.g. product hierarchy, must be captured (also known as slowly changing dimension)
 * Optimise throughput without compromising data integrity
 * Transformation process must include re-start and exception handling with no or minimum manual intervention. Do not rely on the database backup and recovery for process restart and retry. By default this is built in all ETL Framework templates.
@@ -34,8 +35,6 @@
 
 ## Implementation guidelines
 
-
 ## Considerations and consequences
 
-
-## Related Patterns
+## Related patterns

@@ -31,6 +31,6 @@ If there can be multiple different ways the same concepts can be related to each
 
 N/A
 
-## Related Patterns
+## Related patterns
 
 * [Design Pattern - Data Vault - Link](xref:design-pattern-data-vault-link)

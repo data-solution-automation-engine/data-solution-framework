@@ -57,7 +57,7 @@ Use hash values to detect changes, instead of comparing attributes separately. T
 
 Multiple passes on source data are likely to be required.
 
-## Related Patterns
+## Related patterns
 
 Design Pattern 006 - Generic - Using Start, Process and End Dates
 Design Pattern 009 - Data Vault - Loading Satellite tables

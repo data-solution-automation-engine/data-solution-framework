@@ -1,4 +1,11 @@
+---
+uid: solution-pattern-sql-server-family-cdc-and-replication
+---
+
 # Solution Pattern - SQL Server Family - CDC and Replication
+
+> [!WARNING]
+> This solution pattern requires a major update to refresh the content.
 
 ## Purpose
 
@@ -61,6 +68,6 @@ EXEC sys.sp_cdc_disable_table
  EXEC sys.sp_cdc_help_change_data_capture
 ```
 
-## Related Patterns
+## Related patterns
 
 N/A

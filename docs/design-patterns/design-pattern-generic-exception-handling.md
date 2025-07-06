@@ -1,5 +1,8 @@
 # Design Pattern - Generic - Exception handling
 
+> [!WARNING]
+> This design pattern requires a major update to refresh the content.
+
 ## Purpose
 
 Most, if not all, data solutions encounter exception handling at some point.
@@ -684,6 +687,6 @@ Exception handling in the Presentation Layer is directly related to the function
 
 TBD
 
-## Related Patterns
+## Related patterns
 
 N/A.

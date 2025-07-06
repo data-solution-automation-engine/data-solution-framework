@@ -1,4 +1,4 @@
-# Design Pattern - Generic - Loading Staging Area tables using Record Condensing
+# Design Pattern - Generic - Loading Landing Area tables using Record Condensing
 
 ## Purpose
 This Design Pattern specifies how a data source that contains multiple changes for the same business key is processed. For instance when using �net changes� within a Change Data Capture interval or when the source application supplies redundant records.
@@ -88,6 +88,6 @@ None.
 
 
 
-## Related Patterns
+## Related patterns
 
 - 

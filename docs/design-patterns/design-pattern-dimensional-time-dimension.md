@@ -24,5 +24,5 @@ The decision not to copy the data types from the file definitions but to check a
 Known uses
 None.
 
-## Related Patterns
+## Related patterns
 Design Pattern 015 � Generic � Loading Staging Area tables.

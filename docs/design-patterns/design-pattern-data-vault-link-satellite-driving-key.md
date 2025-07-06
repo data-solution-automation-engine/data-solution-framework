@@ -40,7 +40,7 @@ To avoid data redundancy, it is recommended to manage this process into the targ
 
 ## Considerations and consequences
 
-## Related Patterns
+## Related patterns
 
 * Design Pattern - Using Start, Process and End Dates
 * Design Pattern - Satellite
