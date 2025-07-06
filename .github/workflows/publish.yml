@@ -1,0 +1,15 @@
+# ... previous steps ...
+- name: Build DocFX site
+  run: docfx build
+
+- name: Add .nojekyll file to disable Jekyll on GitHub Pages
+  run: echo "" > _site/.nojekyll
+
+- name: Deploy to GitHub Pages
+  uses: peaceiris/actions-gh-pages@v4
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    publish_dir: ./_site
+    publish_branch: gh-pages
+    user_name: github-actions[bot]
+    user_email: github-actions[bot]@users.noreply.github.com
