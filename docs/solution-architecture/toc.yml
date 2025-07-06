@@ -1,3 +1,10 @@
-items:
-- name: Overview
+- name: Introduction
   href: index.md
+- name: Solution Architecture Overview
+  href: data-integration-framework-reference-solution-architecture-1-overview.md
+- name: Staging Layer
+  href: data-integration-framework-reference-solution-architecture-2-staging-layer.md
+- name: Integration Layer
+  href: data-integration-framework-reference-solution-architecture-3-integration-layer.md
+- name: Presentation Layer
+  href: data-integration-framework-reference-solution-architecture-4-presentation-layer.md
