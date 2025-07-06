@@ -1,0 +1,52 @@
+name: Docs
+
+on:
+  # Runs on pushes targeting the default branch.
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  generate-docs:
+
+    permissions:
+      id-token: write
+      pages: write
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Update DocFX
+      run: dotnet tool update -g docfx
+
+    - name: DocFX Build
+      working-directory: docs
+      run: docfx .\docfx.json
+      continue-on-error: false
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: 'docs/_site'
+
+    - name: Deploy to GitHub Pages
+      if: github.event_name == 'push'
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+#    - name: Publish
+#      if: github.event_name == 'push'
+#      uses: peaceiris/actions-gh-pages@v3
+#      with:
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+#        publish_dir: docs/_site
+#        force_orphan: true
