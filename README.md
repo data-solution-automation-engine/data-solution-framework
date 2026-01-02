@@ -1,16 +1,14 @@
-# Data Solution Framework
+# Design and Solution Patterns
 
-A documentation library containing reusable design- and solution patterns.
+A documentation library containing reusable design- and solution patterns, supporting [Data Engine Thinking](https://dataenginethinking.com/en/).
 
 ## Getting started
 
 Please have a look at [the introduction documentation](./docs/index.md) to get started!
 
-The automatically-generated documentation site is available on [GitHub pages](https://data-solution-automation-engine.github.io/data-solution-framework/).
-
 ## Implementation
 
-This repository is intended to be cloned and modified for organisation-specific scenarios. All files are text-based (MarkDown format, by default) for convenient editing and collaboration using Git. A DocFX file is also provided to generate static HTML from the repository's contents.
+This repository is intended to be cloned and modified for organization-specific scenarios. All files are text-based (MarkDown format, by default) for convenient editing and collaboration using Git. A DocFX file is also provided to generate static HTML from the repository's contents.
 
 To generate the content as a website (on localhost port 8081), please run the following from the 'docs' directory of the repository:
 

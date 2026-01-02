@@ -1,3 +1,7 @@
+---
+uid: design-pattern-generic-types-of-history
+---
+
 # Design Pattern - Generic - Types of History
 
 > [!WARNING]
@@ -13,7 +17,7 @@ Due to definitions changing over time and different definitions being made by di
 
 This is also known as:
 
-* SCD; Slowly Changing Dimensions
+* SCD; Slowly Changing Dimensions.
 * Type 1,2,3,4 etc.
 
 ## Applicability
@@ -33,7 +37,7 @@ The following history types are defined, some distinction is made where there ar
 An example of the first instance of a type 1-A change:
 Old situation; a record exists for the logical key CHS (Cheese). The attribute Name is defined as a type 1(A) attribute.
 
-DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
+DWH Key	| Logical Key | Name | Color | Start date | End date | Update date
 --- | --- | --- | --- | --- | --- | ---
 3 | CHS | Cheese | Golden | 05-01-2000 | 31-12-9999 | 05-01-2000
 2 | CHS | Cheese | Yellow | 11-01-1996 | 04-01-2000 | 11-01-1996
@@ -41,7 +45,7 @@ DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
 
 When at some point (at 24-06-2006) the name is changed to *Old Cheese* and the Name attribute is defined as type 1(A) the name is overwritten, resulting in the following: 
 
-DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
+DWH Key	| Logical Key | Name | Color | Start date | End date | Update date
 --- | --- | --- | --- | --- | --- | ---
 3 | CHS | Old Cheese | Golden | 05-01-2000 | 31-12-9999 | 24-06-2006
 2 | CHS | Cheese | Yellow | 11-01-1996 | 04-01-2000 | 11-01-1996
@@ -50,7 +54,7 @@ DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
 **Type 1 - B**. Update the entire history based on the latest situation. The previous example for the second version of type 1 is as follows:
 Old situation; a record exists for the logical key CHS (Cheese). The attribute Name is defined as a type 1(B) attribute.
 
-DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
+DWH Key	| Logical Key | Name | Color | Start date | End date | Update date
 --- | --- | --- | --- | --- | --- | ---
 3| CHS | Cheese | Golden | 05-01-2000 | 31-12-9999 | 05-01-2000
 2 | CHS	| Cheese | Yellow | 11-01-1996 | 04-01-2000 | 11-01-1996
@@ -58,7 +62,7 @@ DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
 
 When at some point (at 24-06-2006) the name is changed to Old Cheese and the Name attribute is defined as type 1(B) the name is overwritten, resulting in the following:
 
-DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
+DWH Key	| Logical Key | Name | Color | Start date | End date | Update date
 --- | --- | --- | --- | --- | --- | ---
 3| CHS | Old Cheese | Golden | 05-01-2000 | 31-12-9999 | 24-06-2006
 2 | CHS | Old Cheese | Yellow | 11-01-1996 | 04-01-2000 | 24-06-2006
@@ -67,27 +71,27 @@ DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
 **Type 2** / also known as SCD-type2. The slowly changing dimension type 2 concept tracks history by inserting a new record and closing the most recent corresponding record whenever a change occurs.
 A new record is inserted in the Data Warehouse table.
 
-DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
+DWH Key	| Logical Key | Name | Color | Start date | End date | Update date
 --- | --- | --- | --- | --- | --- | ---
 1 | CHS | Cheese | Golden | 05-01-2000 | 31-12-9999 | 05-01-2000
 
 In this case you have basic information of a product; the name is the attribute that can change over time. This record has been inserted on the 1st of January 2000 and is still active. But now, on the 20th July 2008 the name changes to Old Cheese. This will lead to a new record and an updated previous record for the same DWH key.
 
-DWH Key	| Logical Key | Name | Colour | Start date | End date | Update date
+DWH Key	| Logical Key | Name | Color | Start date | End date | Update date
 --- | --- | --- | --- | --- | --- | ---
-2 | CHS | Cheese | Golden | 20-07-2008 | 31-12-9999 | 20-07-2000
+2 | CHS | Old Cheese | Golden | 20-07-2008 | 31-12-9999 | 20-07-2008
 1 | CHS | Cheese | Golden | 05-01-2000 | 19-07-2008 | 05-01-2000
 
 **Type 3** history stores history in a separate attribute. As many attributes can be added to a record as the previous states that need to be captured. Typically only the previous state is recorded in the separate attribute. An example would be:
 A new record is inserted in the Data Warehouse table on 12-10-2009:
 
-DWH Key	| Logical Key | Name | Previous Name | Colour | Update date
+DWH Key	| Logical Key | Name | Previous Name | Color | Update date
 --- | --- | --- | --- | --- | --- 
 1 | CHS | Cheese | NULL | Golden | 12-10-2009
 
 When the name is changed to Old Cheese on February 2010 it leads to the following results:
 
-DWH Key	| Logical Key | Name | Previous Name | Colour | Update date
+DWH Key	| Logical Key | Name | Previous Name | Color | Update date
 --- | --- | --- | --- | --- | --- 
 1 | CHS | Old Cheese | Cheese | Golden | 02-02-2010
 
@@ -98,20 +102,20 @@ DWH Key	| Logical Key | Name | Previous Name | Colour | Update date
 **Type 6 / hybrid**. Also known as twin time stamping, the type 6 approach combines the concepts of type 1-B, type 2 and type 3 mechanisms (1+2+3=6!). In the following example the attribute combination is the name. It consists of two attributes.
 A new record is inserted in the Data Warehouse table.
 
-DWH Key	| Logical Key | Name | Current Name | Colour | Start date | End date
+DWH Key	| Logical Key | Name | Current Name | Color | Start date | End date
 --- | --- | --- | --- | --- | --- | ---
 1 | CHS | Cheese | Cheese | Golden | 05-01-2000 | 31-12-9999
 
 After some time the name is changed to Old Cheese. This leads to a SCD2 event where a new record is inserted and an old one is closed off. At the same time, the history of the existing type 3 attribute is overwritten by a type 1-B event.
 
-DWH Key	| Logical Key | Name | Current Name | Colour | Start date | End date
+DWH Key	| Logical Key | Name | Current Name | Color | Start date | End date
 --- | --- | --- | --- | --- | --- | ---
 2 | CHS | Old Cheese | Old Cheese | Golden | 20-07-2008 | 31-12-9999
 1 | CHS | Cheese | Old Cheese | Golden | 05-01-2000 | 19-07-2008
 
 Now you can see the previous record and all related facts against both the current and historical name. When a new change occurs, the following happens:
 
-DWH Key	| Logical Key | Name | Current Name | Colour | Start date | End date
+DWH Key	| Logical Key | Name | Current Name | Color | Start date | End date
 --- | --- | --- | --- | --- | --- | ---
 3 | CHS | A+ Cheese | A+ Cheese | Golden | 13-03-2010 | 31-12-9999
 2 | CHS | Old Cheese | A+ Cheese | Golden | 20-07-2008 | 12-03-2010
@@ -130,6 +134,8 @@ Not applicable.
 
 ## Related patterns
 
-* Design Pattern 011 - Kimball - Multiple SCD2 time periods.
-* Design Pattern 005 - Generic - Current view on historical data.
-* Design Pattern 007 - Kimball - Receiving order of information and late and early arrivals.
+* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
+* Design Pattern - Data Vault - Simple Date Math.
+* Design Pattern - Dimensional Model - Time Dimension.
+
+

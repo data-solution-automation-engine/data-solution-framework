@@ -26,11 +26,11 @@ Basically the Core Business Concepts are the words (verbs and nouns) used by the
 
 Core Business Concepts can be categorized into:
 
-* Events (including transactions)
-* Person (people and organizations)
-* Place
-* Thing (physical or Virtual)
-* Other Concepts (everything that is important, but does not fit the other categories)
+* Events (including transactions).
+* Person (people and organizations).
+* Place.
+* Thing (physical or Virtual).
+* Other Concepts (everything that is important, but does not fit the other categories).
 
 ## Implementation guidelines
 
@@ -42,4 +42,4 @@ N/A
 
 ## Related patterns
 
-* [Design Pattern - Data Vault - Hub](xref:design-pattern-data-vault-hub)
+* [Design Pattern - Data Vault - Hub](xref:design-pattern-data-vault-hub).

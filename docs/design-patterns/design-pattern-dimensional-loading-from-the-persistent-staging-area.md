@@ -1,4 +1,8 @@
-# Design Pattern — Dimensional Modelling - Loading a Dimension from the Persistent Staging Area
+---
+uid: design-pattern-dimensional-loading-from-the-persistent-staging-area
+---
+
+# Design Pattern — Dimensional Modeling - Loading a Dimension from the Persistent Staging Area
 
 ## Purpose
 
@@ -10,19 +14,19 @@ The Persistent Staging Area acts as a "safety catch" recording all transactions 
 
 Using the Persistent Staging Area as the source table for Presentation Layer updates in a 2-tiered approach offers several advantages:
 
-* **Decouples delta gathering from Data Mart ETL processes**  
-  Delta processes can run at different frequencies from Presentation Layer ETL processes because the Persistent Staging Area always holds the most recent data. This enables more frequent and independent staging.
+* **Decouples delta gathering from Data Mart data logistics processes**.
+  Delta processes can run at different frequencies from Presentation Layer data logistics processes because the Persistent Staging Area always holds the most recent data. This enables more frequent and independent staging.
 
-* **Single source for all loading types** (initial load, re-initialization, regular runs)  
-  ETL can merge historical changes with the target Dimension, allowing a single template for all load types. Load windows limit the Data Mart updates to changed records only.
+* **Single source for all loading types** (initial load, re-initialization, regular runs).
+  data logistics can merge historical changes with the target Dimension, allowing a single template for all load types. Load windows limit the Data Mart updates to changed records only.
 
-* **Enables full Presentation Layer reloads**  
+* **Enables full Presentation Layer reloads**.
   For example, when changing an attribute from Type 1 to Type 2 with history backload, changing Fact table grain, or adding a new Dimension level.
 
 **Also known as:**
 
-* Data Staging  
-* Dimensional Loading
+* Data Staging.
+* Dimensional Loading.
 
 
 ## Applicability
@@ -35,9 +39,9 @@ While not directly applicable to 3-tiered architectures, much of the logic and S
 
 The logic to populate a Dimension from two or more historical sources is similar to loading from the Integration Layer (see Design Pattern 019). However, the Persistent Staging Area lacks certain Integration Layer features such as:
 
-* Dummy record handling  
-* Placeholder / unknown value taxonomy  
-* Expiry dates
+* Dummy record handling.
+* Placeholder / unknown value taxonomy.
+* Expiry dates.
 
 Therefore, the logic is slightly more complex. Joining Persistent Staging Area tables results in overlapping timelines being split into multiple smaller interval records.
 
@@ -72,9 +76,10 @@ Therefore, the logic is slightly more complex. Joining Persistent Staging Area t
 - Record 3: Second record from Table 1 changes the `Amount`.  
 - Record 4: Second record from Table 2 changes the `Short Name`.
 
----
 
-## Sample SQL (ANSI SQL)
+## Implementation guidelines
+
+### Sample SQL (ANSI SQL)
 
 ```sql
 -- Select all variations of the available time intervals
@@ -140,7 +145,16 @@ LEFT JOIN Table1 ON NOT (Table1.EFFECTIVE_DATETIME >= R.EXPIRY_DATETIME OR Table
 LEFT JOIN Table2 ON NOT (Table2.EFFECTIVE_DATETIME >= R.EXPIRY_DATETIME OR Table2.EXPIRY_DATETIME <= R.EFFECTIVE_DATETIME)
 ```
 
+## Considerations and consequences
+
+* Persistent Staging Areas typically lack placeholder logic and expiry handling, so downstream layers must manage defaults and unknowns explicitly.
+* Range-based joins can be resource-intensive; ensure appropriate indexing and partitioning on effective/expiry timestamps.
+* When reloading historical data, confirm that overlapping intervals are handled deterministically to avoid duplicate slices.
+
 ## Related patterns
 
 * Design Pattern 019 - Data Vault - Creating Dimensions from Hub tables.
 * Design Pattern 006 - Generic - Managing temporality by using Start, Process and End dates.
+
+
+

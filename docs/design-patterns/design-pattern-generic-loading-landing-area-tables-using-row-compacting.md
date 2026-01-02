@@ -1,78 +1,68 @@
-# Design Pattern - Generic - Loading Landing Area tables using Record Condensing
+---
+uid: design-pattern-generic-loading-landing-area-tables-using-row-compacting
+---
+
+# Design Pattern - Generic - Loading Landing Area Tables Using Record Condensing
 
 > [!WARNING]
 > This design pattern requires a major update to refresh the content.
 
 ## Purpose
 
-This Design Pattern specifies how a data source that contains multiple changes for the same business key is processed. For instance when using �net changes� within a Change Data Capture interval or when the source application supplies redundant records.
+This Design Pattern specifies how a data source that contains multiple changes for the same business key is processed. For instance when using 'net changes' within a Change Data Capture interval or when the source application supplies redundant records.
 
-Motivation
+## Motivation
 
-This process is optional for the Staging Area; its application depends on the specific (nature of the) data source itself. The reason to implement a 'condense' process in the Staging Area ETL is to prevent implementing this logic in multiple locations when loading data out of the Staging Area (to the History and Integration Areas). During this process no information is lost, only redundant records are removed. These are records that are, in reality, no changes at all in the Data Warehouse context.
+This process is optional for the Landing Area; its application depends on the nature of the data source itself. The reason to implement a 'condense' process in the Landing Area data logistics is to prevent implementing this logic in multiple locations when loading data out of the Landing Area (to the History and Integration Areas). During this process no information is lost; only redundant records are removed. These are records that are, in reality, no changes at all in the Data Warehouse context.
 
-Also known as
-Condensing Records
-Net changes
+Also known as:
+
+* Condensing Records.
+* Net changes.
 
 ## Applicability
 
-This pattern is only applicable for loading processes from source systems or files to the Staging Area (of the Staging Layer) only. Also, this process should only be added to the Staging Area ETL when the data source shows this particular behaviour or when a history of changes is loaded in one run (catch-up for instance).
-Structure
+This pattern is only applicable for loading processes from source systems or files to the Landing Area. Only add this process when the data source shows this particular behavior or when a history of changes is loaded in one run (for example, catch-up loads).
+
+## Structure
+
 Depending on the nature of the source data, the following situation may occur. In this example these are the original records as they appear in the source system:
-Key
-Value
-Event Date Time
-CHS
-Cheese
-28-10-2011 15:00
-CHS
-Cheese � Yellow
-29-11-2011 11:00
-CHS
-Cheese � Gold
-29-11-2011 13:00
-CHS
-Cheese � Yellow
-29-11-2011 17:00
-CHS
-Cheese
-29-11-2011 23:00
 
-In this example a user has changed the name of the particular product with the key CHS multiple times in a single day and afterwards the value has been reset to the original value.
-If the ETL interval is daily only these two values are selected from the source (with the Load Date / Time stamp being the �Event Date Time�).
-Key
-Value
-Event Date Time
-CHS
-Cheese
-28-10-2011 15:00
-CHS
-Cheese
-29-11-2011 23:00
+| Key | Value            | Event Date Time   |
+|-----|------------------|-------------------|
+| CHS | Cheese           | 2011-10-28 15:00  |
+| CHS | Cheese - Yellow  | 2011-11-29 11:00  |
+| CHS | Cheese - Gold    | 2011-11-29 13:00  |
+| CHS | Cheese - Yellow  | 2011-11-29 17:00  |
+| CHS | Cheese           | 2011-11-29 23:00  |
 
-This is a situation where the condensing process can be implemented so that the record will not be inserted into the Data Warehouse as a new record (without there being a change).
-The process to do this is as follows:
+In this example a user changes the name of the product with key `CHS` multiple times in a single day and afterwards resets the value to the original value. If the data logistics interval is daily, only these two values are selected from the source (with the load timestamp stamp being the event timestamp):
+
+| Key | Value  | Event Date Time   |
+|-----|--------|-------------------|
+| CHS | Cheese | 2011-10-28 15:00  |
+| CHS | Cheese | 2011-11-29 23:00  |
+
+This is a situation where the condensing process can be implemented so that the record will not be inserted into the Data Warehouse as a new record when no real change occurred.
 
 ## Implementation guidelines
 
-The condensation process should be part of the Staging Area ETL process.
-Depending on the available ETL software this process can be defined as a reusable or generic object.
-This Design Pattern attempts to avoid ETL design where you have to run a source which contains multiple intervals (typically days) of data multiple times to correctly record the history. With this concept the entire history can be loaded in one run.
-If all changes from a CDC source are captured this process is not required.
-There is a performance overhead when processing larger deltas or when running an initial load.
-Typically CDC sources where not all changes are processed but only the net changes for an interval. For instance when only the last change per day should be processed.
-Message sources can have the same issue when treated the same way (only last record state per interval).
+* Implement the condensation step in the Landing Area data logistics to remove redundant records before they flow further downstream.
+* Where possible, define the process as a reusable or generic data logistics component.
+* Use this approach to process a source containing multiple intervals of data in a single run instead of replaying each interval.
+* Skip condensation when all changes from a CDC source are already captured (i.e., no 'net change' compression upstream).
+* Expect a performance overhead when processing larger deltas or when running an initial load.
 
-## Consequences and considerations
+## Considerations and consequences
 
-There is a performance overhead when processing larger deltas or when running an initial load.
-
-Typically CDC sources where not all changes are processed but only the net changes for an interval. For instance when only the last change per day should be processed.
-Message sources can have the same issue when treated the same way (only last record state per interval).
+* Condensing adds processing time; ensure load windows account for the extra step, especially on large deltas.
+* When only net changes are available (for example, last change per day), condensation prevents false deltas from being propagated.
+* Message-based sources treated as daily snapshots can show the same behavior and may benefit from the same approach.
 
 ## Related patterns
 
-* Design Pattern - Generic - Loading Staging Area tables
-* Design Pattern - Generic - Loading Staging Area Tables
+* Design Pattern - Generic - Loading Landing Area tables.
 * Design Pattern - Generic - Using CDC.
+
+
+

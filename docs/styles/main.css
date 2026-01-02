@@ -1,0 +1,56 @@
+/* Custom DocFX overrides for smaller headings and a slimmer side nav */
+
+/* Headings: reduce size to match a lighter style */
+.article h1 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.article h2 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.article h3 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.article h4 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Side navigation: slimmer and less bulky */
+.sidetoc,
+.sidefilter {
+  font-size: 12px;
+}
+
+.sidetoc .toc a,
+.sidefilter .filter a {
+  font-size: 12px;
+  font-weight: 400;
+  color: #3a3a3a;
+}
+
+/* Override default bold labels in the TOC */
+.sidetoc .toc strong,
+.sidetoc .toc .toc-label {
+  font-weight: 400;
+}
+
+@media (min-width: 992px) {
+  .sidetoc,
+  .sidefilter {
+    width: 240px;
+  }
+
+  .body-content {
+    margin-left: 260px;
+  }
+}

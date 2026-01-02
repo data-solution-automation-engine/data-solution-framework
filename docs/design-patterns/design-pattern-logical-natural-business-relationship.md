@@ -36,4 +36,4 @@ N/A
 
 ## Related patterns
 
-* [Design Pattern - Data Vault - Link](xref:design-pattern-data-vault-link)
+* [Design Pattern - Data Vault - Link](xref:design-pattern-data-vault-link).

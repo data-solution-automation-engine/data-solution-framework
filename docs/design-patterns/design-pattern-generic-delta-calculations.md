@@ -1,3 +1,7 @@
+---
+uid: design-pattern-generic-delta-calculations
+---
+
 # Design Pattern - Generic - Delta Calculations
 
 > [!WARNING]
@@ -5,16 +9,17 @@
 
 ## Purpose
 
-This design pattern describes how to load data into Hub or Surrogate Key style tables.
+This design pattern describes how to calculate and process deltas efficiently when loading Hub or Surrogate Key style tables.
 
 ## Motivation
 
 Loading data into Hub tables is a relatively straightforward process with a fixed location in the process of loading from the Staging Layer to the Integration Layer. It is a vital component of the Data Warehouse architecture, making sure that Data Warehouse keys are distributed properly and at the right point in time. This pattern specifies how this process works and why it is important to follow.
 
-Also known as
-Hub (Data Vault modelling concept)
-Surrogate Key (SK) distribution.
-Data Warehouse key distribution.
+Also known as:
+
+* Hub (Data Vault modeling concept).
+* Surrogate Key (SK) distribution.
+* Data Warehouse key distribution.
 
 ## Applicability
 
@@ -22,22 +27,26 @@ This pattern is only applicable for loading processes from the Staging Layer int
 
 ## Structure
 
-The ETL process can be described as an 'insert only' set of the unique business keys. The process performs a SELECT DISTINCT on the staging area table and performs a key lookup (outer join) to verify if that specific business key already exists in the target Hub table. If it exists, the row can be discarded, if not it can be inserted. This is explained in the following diagram.
+The data logistics process can be described as an 'insert only' set of the unique business keys. The process performs a SELECT DISTINCT on the Landing Area table and performs a key lookup (outer join) to verify if that specific business key already exists in the target Hub table. If it exists, the row can be discarded, if not it can be inserted. Avoid repeated scans by isolating true deltas (new business keys) using change markers or high-water marks when available.
 
 ## Implementation guidelines
 
-Use a single ETL process, module or mapping to load the Hub table, thus improving flexibility in processing. This means that no Hub keys will be distributed as part of another ETL process.
-Multiple passes of the same source table or file are usually required. The first pass will insert new keys in the Hub table; the other passes are needed to populate the Satellite and Link tables.
-The designated business key (usually the source natural key, but not always!) is the ONLY non-process or Data Warehouse related attribute in the Hub table.
-Do not tag every record with the system date/time (sysdate), but copy this from the Staging Area. This improves ETL flexibility. The Staging Area ETL is designed to label every record which is processed by the same module with the same date/time: the date/time the record has been loaded into the Data Warehouse environment.
-The Hub table only contains the business key as the non-Data Warehouse attribute, details are specified in the Integration Layer specification document.
+* Use a single data logistics process to load the Hub table to keep key distribution centralized.
+* Identify deltas up front (distinct business keys not yet in Hub) to minimize scans; use staging high-water marks if available.
+* Run Hub loads before dependent Satellite/Link loads; additional passes can then rely on the newly inserted keys.
+* The designated business key (usually the source natural key) is the only non-process attribute in the Hub.
+* Carry the staging Load timestamp into the Hub for consistent timing; avoid stamping with data logistics execution time.
 
 ## Considerations and consequences
 
-Multiple passes on source data are likely to be required. This type of ETL process is to be used in all Hub or SK tables in the Integration Area. The Cleansing Area Hub tables, if used, have similar characteristics but the ETL process contains business logic.
+* Multiple passes on source data may be required (Hub first, then Satellites/Links).
+* Misidentifying deltas leads to duplicate keys or missed inserts; ensure business key uniqueness and reliable high-water marks.
+* Hub loads are foundational; failure to load keys blocks downstream processing.
 
 ## Related patterns
 
 * Design Pattern 006 - Using Start, Process and End Dates.
 * Design Pattern 009 - Loading Satellite tables.
 * Design Pattern 010 - Loading Link tables.
+
+

@@ -21,17 +21,18 @@
     "output": "_site",
     "globalMetadata": {
       "_appLogoPath": "images/logo.png",
-      "_appTitle": "Data Solution Framework",
-      "_enableSearch": true,
+      "_appTitle": "Design and Solution Patterns",
+      "_enableSearch": false,
       "_disableTocFilter": true,
       "_disableBreadcrumb": true,
-      "_appFooter": "<span>Data Solution Framework</span>",
+      "_appFooter": "<span>Design and Solution Patterns</span>",
       "_disableContribution": true
     },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default"
+      "default",
+      "templates/custom"
     ],
     "postProcessors": [],
     "keepFileLink": false,

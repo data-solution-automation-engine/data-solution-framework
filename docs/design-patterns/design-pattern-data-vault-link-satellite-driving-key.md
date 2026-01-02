@@ -42,6 +42,6 @@ To avoid data redundancy, it is recommended to manage this process into the targ
 
 ## Related patterns
 
-* Design Pattern - Using Start, Process and End Dates
-* Design Pattern - Satellite
-* Design Pattern - Link
+* Design Pattern - Using Start, Process and End Dates.
+* Design Pattern - Satellite.
+* Design Pattern - Link.

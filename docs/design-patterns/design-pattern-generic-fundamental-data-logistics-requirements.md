@@ -38,11 +38,11 @@ It is recommended to follow a 'sortable' folder structure to visibly order conta
 
 An example is as follows:
 
-* 000_\<source systems\>, one for every source
-* 100_Staging_Area
-* 150_Persistent_Staging_Area
-* 200_Integration_Layer
-* 300_Presentation_Layer
+* 000_\<source systems\>, one for every source.
+* 100_Staging_Area.
+* 150_Persistent_Staging_Area.
+* 200_Integration_Layer.
+* 300_Presentation_Layer.
 
 Data logistics processes are recommended to be placed in the directory/folder where they pull data _to_. For instance the data integration logic for ‘Staging to History’ exists in the '150_Persistent_Staging_Area' folder and loads data from the '100_Staging_Area'.
 
@@ -54,4 +54,5 @@ But in the context of maintaining a generic design (e.g. to support code gener
 
 ## Related patterns
 
-All  patterns related to data integration, logistics, ETL/ELT/LETS, and other kinds of automated data movement and interpretation.
+All  patterns related to data integration, logistics, data logistics/ELT/LETS, and other kinds of automated data movement and interpretation.
+

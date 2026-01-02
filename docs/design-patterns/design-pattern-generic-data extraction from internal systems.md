@@ -1,3 +1,7 @@
+---
+uid: design-pattern-generic-data-extraction-from-internal-systems
+---
+
 # Design Pattern - Generic - Data extraction from internal systems
 
 > [!WARNING]
@@ -9,19 +13,43 @@ This Design Pattern describes the overarching concepts related to extracting dat
 
 ## Motivation
 
+Consistent, well-governed extracts reduce risk to operational systems, avoid hidden transformation logic outside the warehouse, and ensure repeatable, auditable data movement. Poorly designed extracts can overload source systems, hide business logic, or undermine reconciliation and lineage.
+
 ## Applicability
+
+Applicable to all interfaces that pull data from internal/operational systems into the data platform (Staging, PSA, Integration).
 
 ## Structure
 
-- Data must be extracted from the sources that created the data (as opposed to using copied data as a source). This is a broader Data Governance principle
-- Impacts on operational systems must be assessed and documented as part of the interface specification
-- Source system extract processes should not include the Data Warehouse transformation, aggregation and consolidation rules, this is applied later (separation of concerns)
-- Source system extracts should include control data to enable audit and reconciliation, e.g. record count, hash totals, etc. This is by default supported by the ETL process control model
-- The standard data integration tool must be used to extract data from the source systems, unless another efficient data extract utility is provided as part of the application package (this may include using SQL for ETL)
-- Implement incremental extracts where possible, as this is more scalable.
+Key principles:
+
+* Extract from the system of record, not downstream copies, to preserve lineage and correctness.
+* Assess and document source-system impact (windows, locks, latency, bandwidth) in the interface spec.
+* Keep extracts free of warehouse transformation/aggregation logic (separation of concerns).
+* Include control totals (row counts, hashes, high-water marks) for audit and reconciliation.
+* Prefer incremental/CDC-based extracts where supported; fall back to scoped full extracts only when justified.
+* Use the standard integration tooling unless the packaged application provides a safe, supported utility.
 
 ## Implementation guidelines
 
+* Define extraction windows that respect business SLAs and source maintenance schedules; avoid long locks.
+* Use change markers (timestamps, version numbers, log-based CDC) to minimize data movement; keep a high-water mark per feed.
+* Secure transport: encrypt in transit, restrict network paths, and avoid staging sensitive data in transient locations.
+* Emit and store control totals alongside each extract; validate them on landing before downstream processing.
+* Version and document extract queries or APIs; changes to source schemas must be reflected in the extract contract.
+* For bulk loads, throttle or batch to protect source performance; coordinate with source owners for peak/blackout periods.
+
 ## Considerations and consequences
 
+* Deep coupling to source internals (e.g., undocumented tables) increases maintenance risk; prefer stable interfaces or APIs.
+* Incremental extracts reduce load but require robust watermark management and replay/reconciliation procedures.
+* Pushing heavy logic into source extracts can obscure lineage and complicate troubleshooting; keep business logic downstream.
+
 ## Related patterns
+
+* Design Pattern - Staging Layer - Landing Area.
+* Design Pattern - Staging Layer - Persistent Staging Area.
+* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
+* Design Pattern - Generic - Loading Landing Area Tables Using Record Condensing.
+
+

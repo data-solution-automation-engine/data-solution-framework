@@ -13,45 +13,46 @@ This Design Pattern describes how to represent, or load data into, Satellite tab
 
 ## Motivation
 
-The Design Pattern for Satellite tables contain context, descriptive properties that describe a Data Vault 'Hub' table. They 
+Satellite tables contain the descriptive, time-variant context for a Hub or Link. They carry the changing attributes and record the full history needed for auditability and point-in-time reconstruction.
 
 ## Applicability
 
-This pattern is only applicable for loading data to Satellite tables from:
-The Staging Area into the Integration Area.
-The Integration Area into the Interpretation Area.
-The only difference to the specified ETL template is any business logic required in the mappings towards the Interpretation Area Satellite tables.
+This pattern is applicable for loading data to Satellite tables from:
+
+* The Landing Area into the Integration Area.
+* The Integration Area into the Interpretation Area.
+
+Interpretation Area Satellites may add business logic, but follow the same structural approach.
 
 ## Structure
 
-The ETL process can be described as a slowly changing dimension / history update of all attributes except the business key (which is stored in the Hub table). This is explained in the following diagram. Most attribute values, including some of the ETL process control values are copied from the Staging Area table. This includes:
+The data logistics process can be described as a slowly changing dimension / history update of all attributes except the business key (which is stored in the Hub table). Most attribute values, including some of the data logistics process control values are copied from the Landing Area table. This includes:
 Load Date / Time Stamp (used for the target Effective Date / Time and potentially the Update Date / TimeE attributes).
 Source Row Id.
 
 ## Implementation guidelines
 
-Multiple passes of the same source table or file are usually required. The first pass will insert new keys in the Hub table; the other passes are needed to populate the Satellite and Link tables.
+* Multiple passes of the same source table or file are usually required: first to insert new keys in the Hub/Link, then to populate Satellites.
+* Satellites are typically loaded with an insert-only SCD2 pattern: close the current record (set expiry), insert the new record with the new hash/checksum.
+* Keep Satellite data logistics modular; separate insert and update branches if tool performance requires.
+* Consider using checksums to detect attribute changes; avoid field-by-field comparisons where hashing is reliable.
+* Maintain a dummy record per driving key to ensure complete timelines where required by downstream queries.
 
-The process in Figure 1 shows the entire ETL in one single process. For specific tools this way of developing ETL might be relatively inefficient. Therefore, the process can also be broken up into two separate mappings; one for inserts and one for updates. Logically the same actions will be executed, but physically two separate mappings can be used. This can be done in two ways:
+## Considerations and consequences
 
-Follow the same logic, with the same selects, but place filters for the update and insert branches. This leads to an extra pass on the source table, at the possible benefit of running the processes in parallel.
+* Missing or duplicate effective/expiry dates lead to gaps/overlaps and incorrect time slicing; enforce timeline completeness.
+* Excessive Satellite proliferation (too many small Satellites) can increase join complexity; balance attribute grouping with change frequency.
+* Business logic in Interpretation Area Satellites should not alter raw history; keep transformations transparent and auditable.
 
-Only run the insert branch and automatically update the end dates based on the existing information in the Satellite. This process selects all records in the Satellite which have more than one open EXPIRY_DATE (this is the case after running the insert branch separately), sorts the records in order and uses the EFFECTIVE_DATE from the previous record to close the next one. This introduces a dependency between the insert and update branch, but will run faster. An extra benefit is that this also closes off any previous records that were left open.
+## Related patterns
 
-A sample query for this selection is:
+* Design Pattern - Data Vault - Hub.
+* Design Pattern - Data Vault - Link.
+* Design Pattern - Generic - Using checksums for row comparison.
 
-SELECT satellite.DWH_ID, satellite.<Expiry Date/Time>
-FROM  satellite
-WHERE  (            satellite.<Expiry Date/Time> IS NULL AND
-                            2 <= (SELECT COUNT(DWH_ID)
-                                     FROM satellite A WHERE a.DWH_ID = satellite.DWH_ID
-                                  AND a.FIRM_LEDTS IS NULL) 
-                 )
-ORDER BY 1,2 DESC
+If you have a Change Data Capture based source, the attribute comparison is not required because the source system supplies the information whether the record in the Landing Area is new, updated or deleted.
 
-If you have a Change Data Capture based source, the attribute comparison is not required because the source system supplies the information whether the record in the Staging Area is new, updated or deleted.
-
-Use hash values to detect changes, instead of comparing attributes separately. The hash value is created from all attributes except the business key and ETL process control values.
+Use hash values to detect changes, instead of comparing attributes separately. The hash value is created from all attributes except the business key and data logistics process control values.
 
 ## Considerations and consequences
 
