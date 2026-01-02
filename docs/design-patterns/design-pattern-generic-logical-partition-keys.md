@@ -76,7 +76,7 @@ The exercise of finding the optimal data logistics load is a trial and error pro
 
 ## Related patterns
 
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
-* Design Pattern - Generic - Using checksums for row comparison.
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern - Generic - Using checksums for row comparison](xref:design-pattern-generic-using-checksums).
 
 

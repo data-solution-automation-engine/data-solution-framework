@@ -60,7 +60,7 @@ Some examples are:
 
 ## Related patterns
 
-* Design Pattern 015 - Generic - Loading Landing Area Tables.
+* [Design Pattern 015 - Generic - Loading Landing Area Tables](xref:design-pattern-staging-layer-landing-area).
 
 
 

@@ -153,8 +153,8 @@ LEFT JOIN Table2 ON NOT (Table2.EFFECTIVE_DATETIME >= R.EXPIRY_DATETIME OR Table
 
 ## Related patterns
 
-* Design Pattern 019 - Data Vault - Creating Dimensions from Hub tables.
-* Design Pattern 006 - Generic - Managing temporality by using Start, Process and End dates.
+* [Design Pattern 019 - Data Vault - Creating Dimensions from Hub tables](xref:design-pattern-dimensional-loading-from-the-persistent-staging-area).
+* [Design Pattern 006 - Generic - Managing temporality by using Start, Process and End dates](xref:design-pattern-generic-managing-multi-temporality).
 
 
 

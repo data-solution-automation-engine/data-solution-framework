@@ -46,9 +46,9 @@ Source Row Id.
 
 ## Related patterns
 
-* Design Pattern - Data Vault - Hub.
-* Design Pattern - Data Vault - Link.
-* Design Pattern - Generic - Using checksums for row comparison.
+* [Design Pattern - Data Vault - Hub](xref:design-pattern-data-vault-hub).
+* [Design Pattern - Data Vault - Link](xref:design-pattern-data-vault-link).
+* [Design Pattern - Generic - Using checksums for row comparison](xref:design-pattern-generic-using-checksums).
 
 If you have a Change Data Capture based source, the attribute comparison is not required because the source system supplies the information whether the record in the Landing Area is new, updated or deleted.
 

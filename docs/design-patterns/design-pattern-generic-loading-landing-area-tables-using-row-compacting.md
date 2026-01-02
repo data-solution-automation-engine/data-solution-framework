@@ -61,8 +61,8 @@ This is a situation where the condensing process can be implemented so that the 
 
 ## Related patterns
 
-* Design Pattern - Generic - Loading Landing Area tables.
-* Design Pattern - Generic - Using CDC.
+* [Design Pattern - Generic - Loading Landing Area tables](xref:design-pattern-staging-layer-landing-area).
+* [Design Pattern - Generic - Using CDC](xref:design-pattern-generic-loading-landing-from-transactional-cdc).
 
 
 

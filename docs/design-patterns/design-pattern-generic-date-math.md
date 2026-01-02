@@ -164,9 +164,9 @@ This type of data logistics process is to be used to join historical tables toge
 
 ## Related patterns
 
-- Design Pattern 002 – Generic – Types of history.
-- Design Pattern 006 – Generic – Using Start, Process and End dates.
-- Design Pattern 008 – Data Vault – Loading Hub tables.
-- Design Pattern 009 – Data Vault – Loading Satellite tables.
-- Design Pattern 010 – Data Vault – Loading Link tables.
+* [Design Pattern 002 - Generic - Types of history](xref:design-pattern-generic-types-of-history).
+* [Design Pattern 006 - Generic - Using Start, Process and End dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern 008 - Data Vault - Loading Hub tables](xref:design-pattern-data-vault-hub).
+* [Design Pattern 009 - Data Vault - Loading Satellite tables](xref:design-pattern-data-vault-satellite).
+* [Design Pattern 010 - Data Vault - Loading Link tables](xref:design-pattern-data-vault-link).
 

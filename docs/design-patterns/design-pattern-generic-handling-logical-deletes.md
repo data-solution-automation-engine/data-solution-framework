@@ -55,7 +55,7 @@ The Deleted Row Indicator ('Deleted' in this example) keeps the design straightf
 * This approach stores the last state of the record when it was deleted. This is a design decision. As an alternative the values can also be set to NULL although this may cause some problems when re-opening records..
 
 ## Related patterns
-* Design Pattern 006 - Generic - Managing temporality by using Load, Event and Change dates.
+* [Design Pattern 006 - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
 
 
 

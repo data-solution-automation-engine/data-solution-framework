@@ -102,8 +102,8 @@ The 'prevent reprocessing' functionality can also be implemented using the Event
 
 ## Related patterns
 
-* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates]().
-* Implementation Pattern for SSIS - Loading Persistent Staging Area tables.
-* Implementation Pattern - Generic - Re-initialization process.
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Implementation Pattern for SSIS - Loading Persistent Staging Area tables](xref:design-pattern-staging-layer-persistent-staging-area).
+* [Implementation Pattern - Generic - Re-initialization process](xref:design-pattern-generic-initial-load-and-reinitialization).
 
 

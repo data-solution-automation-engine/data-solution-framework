@@ -37,6 +37,6 @@ The key design decision is to define whether the reference data is tracked for c
 
 ## Related patterns
 
-* Design Pattern 015 - Generic - Loading Landing Area tables.
+* [Design Pattern 015 - Generic - Loading Landing Area tables](xref:design-pattern-staging-layer-landing-area).
 
 

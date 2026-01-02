@@ -87,9 +87,9 @@ The structure of the Landing Area therefore is the same as the source table, but
 
 ## Related patterns
 
-* Design Pattern 003 - Mapping requirements.
-* Design Pattern 006 - Using Start, Process and End dates.
-* Design Pattern 016 - Delta calculation.
-* Design Pattern 021 - Using CDC.
+* [Design Pattern 003 - Mapping requirements](xref:design-pattern-generic-data-integration-into-a-data-warehouse).
+* [Design Pattern 006 - Using Start, Process and End dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern 016 - Delta calculation](xref:design-pattern-generic-delta-calculations).
+* [Design Pattern 021 - Using CDC](xref:design-pattern-generic-loading-landing-from-transactional-cdc).
 
 

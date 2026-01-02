@@ -54,6 +54,6 @@ By its nature, the Full Outer Join can only provide a single snapshot / historic
 
 ## Related patterns
 
-* Design Pattern 015  Generic  Loading Landing Area tables.
+* [Design Pattern 015  Generic  Loading Landing Area tables](xref:design-pattern-staging-layer-landing-area).
 
 

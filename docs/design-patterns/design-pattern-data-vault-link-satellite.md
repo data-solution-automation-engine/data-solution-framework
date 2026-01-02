@@ -47,6 +47,6 @@ Standard Link-Satellites use the Driving Key concept to manage the ending of old
 
 ## Related patterns
 
-* Design Pattern - Using Start, Process and End Dates.
-* Design Pattern - Satellite.
-* Design Pattern - Link.
+* [Design Pattern - Using Start, Process and End Dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern - Satellite](xref:design-pattern-data-vault-satellite).
+* [Design Pattern - Link](xref:design-pattern-data-vault-link).

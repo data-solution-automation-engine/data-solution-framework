@@ -55,7 +55,7 @@ Another use case for views is virtualizing the Presentation Layer. As all granul
 
 ## Related patterns
 
-* Solution Pattern - Data Modeling - Presentation Layer.
-* Design Pattern - Generic - Types of History.
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
+* [Solution Pattern - Data Modeling - Presentation Layer](xref:solution-pattern-data-modeling-presentation-layer).
+* [Design Pattern - Generic - Types of History](xref:design-pattern-generic-types-of-history).
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
 

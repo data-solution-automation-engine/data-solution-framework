@@ -52,9 +52,9 @@ Applies to all data logistics/ELT processes moving data from staging/PSA into hi
 
 ## Related patterns
 
-* Design Pattern - Generic - Exception handling.
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
-* Design Pattern - Generic - Using checksums for row comparison.
-* Design Pattern - Generic - Referential Integrity.
+* [Design Pattern - Generic - Exception handling](xref:design-pattern-generic-exception-handling).
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern - Generic - Using checksums for row comparison](xref:design-pattern-generic-using-checksums).
+* [Design Pattern - Generic - Referential Integrity](xref:design-pattern-generic-referential-integrity).
 
 

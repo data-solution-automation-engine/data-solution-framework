@@ -45,8 +45,8 @@ The data logistics process can be described as an 'insert only' set of the uniqu
 
 ## Related patterns
 
-* Design Pattern 006 - Using Start, Process and End Dates.
-* Design Pattern 009 - Loading Satellite tables.
-* Design Pattern 010 - Loading Link tables.
+* [Design Pattern 006 - Using Start, Process and End Dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern 009 - Loading Satellite tables](xref:design-pattern-data-vault-satellite).
+* [Design Pattern 010 - Loading Link tables](xref:design-pattern-data-vault-link).
 
 

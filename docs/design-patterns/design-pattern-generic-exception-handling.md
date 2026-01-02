@@ -59,7 +59,7 @@ Use an exception bitmap to capture multiple issues on a row with a single value.
 
 ## Related patterns
 
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
-* Design Pattern - Generic - Referential Integrity.
-* Design Pattern - Generic - Control Framework.
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern - Generic - Referential Integrity](xref:design-pattern-generic-referential-integrity).
+* [Design Pattern - Generic - Control Framework](xref:design-pattern-generic-control-framework).
 

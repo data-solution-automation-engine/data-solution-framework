@@ -47,9 +47,9 @@ Key principles:
 
 ## Related patterns
 
-* Design Pattern - Staging Layer - Landing Area.
-* Design Pattern - Staging Layer - Persistent Staging Area.
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
-* Design Pattern - Generic - Loading Landing Area Tables Using Record Condensing.
+* [Design Pattern - Staging Layer - Landing Area](xref:design-pattern-staging-layer-landing-area).
+* [Design Pattern - Staging Layer - Persistent Staging Area](xref:design-pattern-staging-layer-persistent-staging-area).
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern - Generic - Loading Landing Area Tables Using Record Condensing](xref:design-pattern-generic-loading-landing-area-tables-using-row-compacting).
 
 

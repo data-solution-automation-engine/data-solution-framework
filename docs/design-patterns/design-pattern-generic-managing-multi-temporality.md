@@ -59,10 +59,10 @@ After the Staging Layer has been loaded the subsequent Integration Area data log
 
 ## Related patterns
 
-* Design Pattern – Data Vault – Loading Hub tables.
-* Design Pattern – Data Vault – Loading Satellite tables.
-* Design Pattern – Data Vault – Loading Link tables.
-* Design Pattern – Generic – Loading Landing Area tables.
-* Design Pattern – Generic – Loading Persistent Staging Area tables.
+* [Design Pattern - Data Vault - Loading Hub tables](xref:design-pattern-data-vault-hub).
+* [Design Pattern - Data Vault - Loading Satellite tables](xref:design-pattern-data-vault-satellite).
+* [Design Pattern - Data Vault - Loading Link tables](xref:design-pattern-data-vault-link).
+* [Design Pattern - Generic - Loading Landing Area tables](xref:design-pattern-staging-layer-landing-area).
+* [Design Pattern - Generic - Loading Persistent Staging Area tables](xref:design-pattern-staging-layer-persistent-staging-area).
 
 

@@ -134,8 +134,8 @@ Not applicable.
 
 ## Related patterns
 
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
-* Design Pattern - Data Vault - Simple Date Math.
-* Design Pattern - Dimensional Model - Time Dimension.
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern - Data Vault - Simple Date Math](xref:design-pattern-generic-date-math).
+* [Design Pattern - Dimensional Model - Time Dimension](xref:design-pattern-dimensional-time-dimension).
 
 

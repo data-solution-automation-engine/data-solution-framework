@@ -49,6 +49,6 @@ Not applicable.
 
 ## Related patterns
 
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
 
 

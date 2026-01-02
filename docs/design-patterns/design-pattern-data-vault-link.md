@@ -70,6 +70,6 @@ Parallel loads from multiple sources require duplicate prevention (hash keys, un
 
 ## Related patterns
 
-* Design Pattern - Generic - Using Start, Process and End Dates.
+* [Design Pattern - Generic - Using Start, Process and End Dates](xref:design-pattern-generic-managing-multi-temporality).
 * [Design Pattern - Data Vault - Hub tables](xref:design-pattern-data-vault-hub).
 

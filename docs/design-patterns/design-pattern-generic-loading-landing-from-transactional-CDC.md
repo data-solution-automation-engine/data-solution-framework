@@ -87,8 +87,8 @@ Although it is possible in theory to make dumps of the most granular level of CD
 
 ## Related patterns
 
-* Design Pattern 006  Generic  Using Start, Process and End dates.
-* Design Pattern 015  Generic  Loading LND tables.
-* Design Pattern 021  Generic  Initial Load and Re-initialization.
+* [Design Pattern 006  Generic  Using Start, Process and End dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern 015  Generic  Loading LND tables](xref:design-pattern-staging-layer-landing-area).
+* [Design Pattern 021  Generic  Initial Load and Re-initialization](xref:design-pattern-generic-initial-load-and-reinitialization).
 
 

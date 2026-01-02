@@ -51,7 +51,7 @@ Every Data Warehouse table contains a predefined set of metadata attributes, whi
 
 ## Related patterns
 
-* Design Pattern - Data Vault - Missing Keys and Placeholders.
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
+* [Design Pattern - Data Vault - Missing Keys and Placeholders](xref:design-pattern-data-vault-missing-keys-and-placeholders).
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
 
 

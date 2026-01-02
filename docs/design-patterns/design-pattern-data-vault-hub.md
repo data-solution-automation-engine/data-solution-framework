@@ -71,8 +71,8 @@ Hash-key generation must be deterministic and collision-resistant; standardize h
 ## Related patterns
 
 - [Design Pattern - Logical - Core Business Concept](xref:design-pattern-logical-core-business-concept).
-- Design Pattern 006 - Generic - Using Start, Process and End Dates.
-- Design Pattern 009 - Data Vault - Loading Satellite tables.
-- Design Pattern 010 - Data Vault - Loading Link tables.
-- Design Pattern 023 - Data Vault - Missing keys and placeholders.
+* [Design Pattern 006 - Generic - Using Start, Process and End Dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern 009 - Data Vault - Loading Satellite tables](xref:design-pattern-data-vault-satellite).
+* [Design Pattern 010 - Data Vault - Loading Link tables](xref:design-pattern-data-vault-link).
+* [Design Pattern 023 - Data Vault - Missing keys and placeholders](xref:design-pattern-data-vault-missing-keys-and-placeholders).
 

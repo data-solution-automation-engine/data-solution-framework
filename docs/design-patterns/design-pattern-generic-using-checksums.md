@@ -64,10 +64,10 @@ The comparison is executed based on the new checksum and the existing Integratio
 
 ## Related patterns
 
-* Design Pattern - Data Vault - Loading Satellite tables.
-* Design Pattern - Generic - Handling Logical Deletes.
-* Design Pattern - Generic - Loading Landing Area tables.
-* Design Pattern - Staging Layer - Persistent Staging Area.
-* Design Pattern - Generic - Full Outer Join interfaces.
+* [Design Pattern - Data Vault - Loading Satellite tables](xref:design-pattern-data-vault-satellite).
+* [Design Pattern - Generic - Handling Logical Deletes](xref:design-pattern-generic-handling-logical-deletes).
+* [Design Pattern - Generic - Loading Landing Area tables](xref:design-pattern-staging-layer-landing-area).
+* [Design Pattern - Staging Layer - Persistent Staging Area](xref:design-pattern-staging-layer-persistent-staging-area).
+* [Design Pattern - Generic - Full Outer Join interfaces](xref:design-pattern-generic-full-outer-join-interfaces).
 
 

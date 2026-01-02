@@ -63,4 +63,4 @@ Known uses:
 
 ## Related patterns
 
-* Design Pattern 008 - Data Vault - Loading Hub tables.
+* [Design Pattern 008 - Data Vault - Loading Hub tables](xref:design-pattern-data-vault-hub).

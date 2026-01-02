@@ -46,7 +46,7 @@ The control framework typically provides:
 
 ## Related patterns
 
-* Design Pattern - Generic - Exception handling.
-* Design Pattern - Generic - Managing temporality by using Load, Event and Change dates.
-* Design Pattern - Generic - Using checksums.
-* Design Pattern - Generic - Referential Integrity.
+* [Design Pattern - Generic - Exception handling](xref:design-pattern-generic-exception-handling).
+* [Design Pattern - Generic - Managing temporality by using Load, Event and Change dates](xref:design-pattern-generic-managing-multi-temporality).
+* [Design Pattern - Generic - Using checksums](xref:design-pattern-generic-using-checksums).
+* [Design Pattern - Generic - Referential Integrity](xref:design-pattern-generic-referential-integrity).
